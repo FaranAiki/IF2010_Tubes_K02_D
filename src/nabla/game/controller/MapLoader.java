@@ -4,9 +4,9 @@ import nabla.model.entity.Game;
 import nabla.model.entity.Map;
 
 /**
- * Map Loader -- memuat map dari layout string.
+ * Map Loader  memuat map dari layout string.
  * <p>
- * <b>Prinsip:</b> Single Responsibility dengan memisahkan loading map dari controller.
+ * <b>Prinsip Single Responsibility</b> dengan memisahkan loading map dari controller.
  * Bisa di-extend untuk load dari file, resource, dll.
  */
 public class MapLoader {

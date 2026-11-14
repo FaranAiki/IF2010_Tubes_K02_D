@@ -5,7 +5,7 @@ import nabla.type.GameState;
 /**
  * Interface untuk game controller.
  * <p>
- * <b>Prinsip:</b> Interface Segregation, yaitu hanya method yang dibutuhkan
+ * <b>Prinsip Interface Segregation</b> yaitu hanya method yang dibutuhkan
  * untuk mengontrol game loop dan menangani input pemain.
  * Implementasi berbeda untuk CLI, JavaFX, dan Swing sehingga ini sangat modular.
  */

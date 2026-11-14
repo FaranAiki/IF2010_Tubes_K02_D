@@ -3,7 +3,7 @@ package nabla.util;
 /**
  * Arah gerak pada grid map (atas, bawah, kiri, kanan).
  * <p>
- * Prinsip: Value Object / Enum. Arah hanya bisa berjarak 1 dan tidak boleh diagonal.
+ * <b>Prinsip Value Object / Enum</b>. Arah hanya bisa berjarak 1 dan tidak boleh diagonal.
  * Setiap arah menyimpan delta baris dan kolom untuk perhitungan posisi baru.
  */
 public enum Direction {

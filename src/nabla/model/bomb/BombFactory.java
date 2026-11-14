@@ -7,11 +7,21 @@ import nabla.util.Position;
 /**
  * Factory Method Pattern -- factory untuk membuat bom.
  * <p>
- * <b>Prinsip:</b> Open/Closed. Jika kita ingin tambah bom baru (mis. Ice Bomb),
+ * <b>Prinsip Open/Closed</b>. Jika kita ingin tambah bom baru (misalkan Ice Bomb),
  * kita hanya buat class baru + tambah case di factory. Code yang memanggil
  * factory tidak perlu diubah.
  */
 public class BombFactory {
+    /**
+     * Buat bom sesuai tipe.
+     *
+     * @param type tipe bom yang ingin dibuat
+     * @param owner pemilik bom (player)
+     * @param position posisi bom pada grid
+     * @param blastRange jangkauan ledakan
+     * @return instance Bom sesuai tipe
+     * @throws IllegalArgumentException jika tipe bom tidak dikenal
+     */
     public static Bomb create(BombType type, Player owner, Position position, int blastRange) {
         switch (type) {
             case NORMAL:

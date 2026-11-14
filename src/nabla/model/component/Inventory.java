@@ -3,14 +3,20 @@ package nabla.model.component;
 /**
  * Base class untuk inventory generik.
  * <p>
- * <b>Prinsip:</b> Template Method Pattern.
- * Subclass hanya perlu implementasikan logika spesifik (mis. kapasitas, item type).
+ * <b>Prinsip Template Method Pattern</b>.
+ * Subclass hanya perlu implementasikan logika spesifik (misalkan kapasitas, item type).
  */
 public abstract class Inventory<T> {
     protected int capacity;
     protected int active;
     protected T selectedType;
 
+    /**
+     * Konstruktor Inventory.
+     *
+     * @param capacity kapasitas maksimum inventory
+     * @param selectedType tipe item yang dipilih saat ini
+     */
     public Inventory(int capacity, T selectedType) {
         this.capacity = capacity;
         this.active = 0;
@@ -19,6 +25,7 @@ public abstract class Inventory<T> {
 
     /**
      * Coba gunakan satu slot inventory.
+     *
      * @return true jika berhasil, false jika penuh
      */
     public boolean tryUse() {
@@ -28,7 +35,7 @@ public abstract class Inventory<T> {
     }
 
     /**
-     * Kembalikan satu slot inventory (mis. setelah item digunakan/selesai).
+     * Kembalikan satu slot inventory (misalkan setelah item digunakan/selesai).
      */
     public void release() {
         if (active > 0) active--;
@@ -36,6 +43,7 @@ public abstract class Inventory<T> {
 
     /**
      * Tambah kapasitas maksimum.
+     *
      * @param amount jumlah yang ditambah
      * @param max kapasitas maksimum
      */
@@ -45,6 +53,7 @@ public abstract class Inventory<T> {
 
     /**
      * Reset ke nilai awal.
+     *
      * @param initialCapacity kapasitas awal
      * @param initialType type awal
      */
@@ -54,9 +63,38 @@ public abstract class Inventory<T> {
         selectedType = initialType;
     }
 
+    /**
+     * Mendapatkan kapasitas maksimum.
+     *
+     * @return kapasitas maksimum
+     */
     public int getCapacity() { return capacity; }
+
+    /**
+     * Mendapatkan jumlah item yang sedang aktif.
+     *
+     * @return jumlah item aktif
+     */
     public int getActive() { return active; }
+
+    /**
+     * Mendapatkan tipe item yang dipilih.
+     *
+     * @return tipe item terpilih
+     */
     public T getSelectedType() { return selectedType; }
+
+    /**
+     * Mengatur tipe item yang dipilih.
+     *
+     * @param type tipe item baru
+     */
     public void setSelectedType(T type) { this.selectedType = type; }
+
+    /**
+     * Cek apakah inventory penuh.
+     *
+     * @return true jika penuh
+     */
     public boolean isFull() { return active >= capacity; }
 }

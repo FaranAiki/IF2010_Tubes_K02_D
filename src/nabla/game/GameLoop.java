@@ -7,13 +7,12 @@ import java.util.List;
 /**
  * Game Loop -- proses utama yang berjalan selama permainan berlangsung (F09.3).
  * <p>
- * <b>Prinsip</b>
  * <ul>
- *   <li><b>Concurrency</b>
+ *   <li><b>Prinsip Concurrency</b>
  *       Berjalan di thread terpisah, update state secara
  *       periodik (fixed timestep). Thread ini adalah "game thread".
  *  </li>
- *   <li><b>Single Responsibility</b>
+ *   <li><b>Prinsip Single Responsibility</b>
  *       Hanya urus update state, bukan input
  *       atau rendering.
  *   </li>

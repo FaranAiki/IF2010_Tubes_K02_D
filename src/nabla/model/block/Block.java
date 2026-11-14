@@ -9,46 +9,85 @@ import nabla.util.Position;
 /**
  * Block -- objek map yang menghalangi pergerakan dan penyebaran Explosion (F04).
  * <p>
- * <b>Prinsip:</b> <ul>
- *   <li><b>Factory Method:</b> Buat block melalui {@link BlockFactory},
- *       bukan langsung `new`.</li>
- *   <li><b>Strategy Pattern:</b> Perilaku "dihancurkan" dan
- *       "menghentikan ledakan" diatur oleh strategy, bukan if-else.</li>
+ * <ul>
+ *   <li><b>Prinsip Factory Method</b> Buat block melalui {@link BlockFactory}, bukan langsung {@code new}.</li>
+ *   <li><b>Prinsip Strategy Pattern</b> Perilaku "dihancurkan" dan "menghentikan ledakan" diatur oleh
+ *       strategy, bukan if-else.</li>
  * </ul>
  */
 public abstract class Block extends Entity {
     protected final BlockType type;
     protected PowerUp containedPowerUp;
 
+    /**
+     * Konstruktor Block.
+     *
+     * @param type tipe block
+     * @param position posisi block pada grid
+     */
     protected Block(BlockType type, Position position) {
         super(position);
         this.type = type;
     }
 
-    /** Apakah block ini bisa dihancurkan oleh ledakan? */
+    /**
+     * Cek apakah block ini bisa dihancurkan oleh ledakan.
+     *
+     * @return true jika dapat dihancurkan oleh ledakan
+     */
     public abstract boolean isDestructibleByExplosion();
 
-    /** Apakah block ini bisa dihancurkan oleh bom tertentu? */
+    /**
+     * Cek apakah block ini bisa dihancurkan oleh bom tertentu.
+     *
+     * @param bombType tipe bom yang digunakan
+     * @return true jika dapat dihancurkan oleh bombType
+     */
     public abstract boolean isDestructibleByBombType(BombType bombType);
 
-    /** Hancurkan block. */
+    /**
+     * Hancurkan block.
+     */
     public abstract void destroy();
 
-    /** Apakah block menghentikan penyebaran Explosion? */
+    /**
+     * Cek apakah block menghentikan penyebaran Explosion.
+     *
+     * @return true jika menghentikan ledakan
+     */
     public abstract boolean stopsExplosion();
 
-    /** Apakah block menghalangi pergerakan? */
+    /**
+     * Cek apakah block menghalangi pergerakan.
+     *
+     * @return true jika block aktif dan menghalangi gerakan
+     */
     @Override
     public boolean blocksMovement() {
         return isActive();
     }
 
-    /** Simpan Power-Up di dalam block (F04.2.2.3). */
+    /**
+     * Simpan Power-Up di dalam block (F04.2.2.3).
+     *
+     * @param powerUp power-up yang disimpan
+     */
     public void setContainedPowerUp(PowerUp powerUp) {
         this.containedPowerUp = powerUp;
     }
 
+    /**
+     * Mendapatkan Power-Up yang tersimpan di dalam block.
+     *
+     * @return power-up yang tersimpan, atau null jika kosong
+     */
     public PowerUp getContainedPowerUp() { return containedPowerUp; }
+
+    /**
+     * Mendapatkan tipe block.
+     *
+     * @return tipe block
+     */
     public BlockType getType() { return type; }
 
     @Override

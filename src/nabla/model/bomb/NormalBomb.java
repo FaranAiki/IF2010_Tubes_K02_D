@@ -10,6 +10,13 @@ import nabla.util.Position;
  * Meledak 3 detik setelah dipasang. Jangkauan mengikuti blastRange player.
  */
 public class NormalBomb extends Bomb {
+    /**
+     * Konstruktor NormalBomb.
+     *
+     * @param owner pemilik bom (player)
+     * @param position posisi bom pada grid
+     * @param blastRange jangkauan ledakan
+     */
     public NormalBomb(Player owner, Position position, int blastRange) {
         super(BombType.NORMAL, owner, position, 3.0, blastRange);
     }

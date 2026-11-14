@@ -12,12 +12,11 @@ import java.util.Scanner;
 /**
  * Main entry point Nangor Blast (F09.1).
  * <p>
- * <b>Prinsip</b>
  * <ul>
- *   <li><b>Facade Pattern</b>
+ *   <li><b>Prinsip Facade Pattern</b>
  *   Kelas ini hanya menjadi orchestrator sehingga tidak punya logika game.
  *   </li>
- *   <li><b>Dependency Injection</b>
+ *   <li><b>Prinsip Dependency Injection</b>
  *   Game, GameLoop, Renderer, Scanner (kalau pakai CLI), MapLoader di-inject ke CLIController.
  *   </li>
  * </ul>

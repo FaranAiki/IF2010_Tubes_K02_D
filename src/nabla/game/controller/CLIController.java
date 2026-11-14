@@ -11,7 +11,7 @@ import java.util.Scanner;
 /**
  * CLI Controller -- menangani input dari terminal.
  * <p>
- * <b>Prinsip</b> Single Responsibility. Ini hanya mengurus CLI input handling.
+ * <b>Prinsip Single Responsibility</b> Ini hanya mengurus CLI input handling.
  * Map loading didelegasikan ke MapLoader.
  */
 public class CLIController extends AbstractController {

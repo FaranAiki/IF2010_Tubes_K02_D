@@ -12,11 +12,22 @@ import nabla.util.Position;
 public class PowerUp extends Entity {
     private final PowerUpType type;
 
+    /**
+     * Konstruktor PowerUp.
+     *
+     * @param type tipe power-up
+     * @param position posisi power-up pada grid
+     */
     public PowerUp(PowerUpType type, Position position) {
         super(position);
         this.type = type;
     }
 
+    /**
+     * Mendapatkan tipe power-up.
+     *
+     * @return tipe power-up
+     */
     public PowerUpType getType() { return type; }
 
     @Override

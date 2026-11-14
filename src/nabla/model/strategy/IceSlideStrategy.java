@@ -5,7 +5,7 @@ import nabla.util.Direction;
 import nabla.util.Position;
 
 /**
- * Pergerakan pada Ice Tile: player terus bergerak mengikuti arah terakhirnya
+ * Pergerakan pada Ice Tile. Player terus bergerak mengikuti arah terakhirnya
  * dan tidak dapat mengubah arah menghadap (F07.3.4 White Glacier).
  * <p>
  * Player berhenti pada tile biasa yang dapat dilalui atau tile sebelum penghalang.

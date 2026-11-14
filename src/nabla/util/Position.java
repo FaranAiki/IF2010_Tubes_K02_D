@@ -5,7 +5,7 @@ import java.util.Objects;
 /**
  * Posisi pada grid map (baris, kolom).
  * <p>
- * Prinsip: Value Object / Immutable-ish. Digunakan oleh Entity, Bomb, PowerUp,
+ * <b>Prinsip Value Object / Immutable-ish</b>. Digunakan oleh Entity, Bomb, PowerUp,
  * dan kelas lain untuk menyimpan lokasi di map tanpa memaksa hierarki inheritance.
  */
 public final class Position {

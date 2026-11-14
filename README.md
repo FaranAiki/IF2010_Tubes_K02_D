@@ -1,11 +1,17 @@
-Ini tugas besar bom bom
+# Nangor Blast (BOOM!)
+
+## Anggota Kelompok
+18225122 Muhammad Faran Aiki
+[lanjutkan]
+
+## Packaging
 
 Untuk *package*, digunakan `nabla` yang merupakan singkatan dari Nangor Blast (nabla lebih keren dan singkat).
 
 ## Anotasi dan Komentar pada Kode Sumber
 
-Setiap kode pada kode sumber ini harus mematuhi komentar Javadocs,
-[lanjutkan]
+Setiap kode pada kode sumber ini harus mematuhi komentar Javadocs sehingga formatnya seragam
+dan untuk mempermudah komunikasi antaranggota.
 
 ## Hierarki
 - `config/` - konfigurasi
@@ -32,7 +38,7 @@ make clean  # hapus bin/
 > `java Main` tidak bisa karena kelas ada di package `nabla`; gunakan `java -cp bin nabla.Main` atau `make run`.
 
 ## GUI (JavaFX) - setup
-Karena kode sumber ini sangat modular, kita bisa mengganti menjadi CLI (konsol), JavaFX, Swing, atau bahkan library lainnya. Jika ingin memakai JavaFX (Untuk JDK 17 ke atas, JavaFX dipisah dari JDK), gunakan
+Karena kode sumber ini sangat modular, kita bisa mengganti menjadi CLI (konsol), JavaFX, Swing, atau bahkan library gui lainnya. Jika ingin memakai JavaFX (Untuk JDK 17 ke atas, JavaFX dipisah dari JDK), gunakan (untuk Arch Linux, untuk Windows nanti)
 
 1. **Install (Arch Linux)**
    ```bash
@@ -49,5 +55,5 @@ Karena kode sumber ini sangat modular, kita bisa mengganti menjadi CLI (konsol),
    javac --module-path "$JAVAFX_LIB" --add-modules javafx.controls,javafx.fxml -d bin $(find src -name "*.java")
    java  --module-path "$JAVAFX_LIB" --add-modules javafx.controls,javafx.fxml -cp bin nabla.Main
    ```
-   (Sesuaikan `--add-modules` jika butuh modul lain, misalnya `javafx.graphics`.
+   (Sesuaikan `--add-modules` jika butuh modul lain, misalnya `javafx.graphics`).
 

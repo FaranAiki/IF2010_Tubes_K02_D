@@ -11,11 +11,10 @@ import nabla.util.Position;
  * Setiap map memiliki tepat 5 Normal Enemy. Masing-masing punya satu perilaku:
  * PATROL (selalu mengikuti jalur patrol) atau CHASE (player dalam 3 tile -> menyerang).
  * <p>
- * <b>Prinsip:</b>
  * <ul>
- *   <li><b>Strategy Pattern:</b> Perilaku (patrol/ chase) diatur oleh
+ *   <li><b>Prinsip Strategy Pattern</b> Perilaku (patrol/ chase) diatur oleh
  *       {@link IEnemyBehavior} yang bisa diganti tanpa ubah class Enemy.</li>
- *   <li><b>Composition over Inheritance:</b> Menggunakan komponen
+ *   <li><b>Prinsip Composition over Inheritance</b> Menggunakan komponen
  *       {@link HealthStats} untuk nyawa, bukan field privat.</li>
  * </ul>
  */
@@ -27,6 +26,14 @@ public class NormalEnemy extends Entity {
     private double speed;
     private int scoreValue = 100;
 
+    /**
+     * Konstruktor NormalEnemy.
+     *
+     * @param position posisi enemy pada grid
+     * @param behavior perilaku enemy (PATROL atau CHASE)
+     * @param patrolPath jalur patrol enemy
+     * @param speed kecepatan gerak enemy
+     */
     public NormalEnemy(Position position, EnemyBehavior behavior,
                         java.util.List<Position> patrolPath, double speed) {
         super(position);
@@ -59,22 +66,73 @@ public class NormalEnemy extends Entity {
         }
     }
 
+    /**
+     * Terima damage.
+     *
+     * @param amount jumlah damage yang diterima
+     */
     public void takeDamage(int amount) {
         if (health.takeDamage(amount)) {
             deactivate();
         }
     }
 
+    /**
+     * Cek apakah enemy sudah mati.
+     *
+     * @return true jika enemy sudah mati
+     */
     public boolean isDead() {
         return health.isDead();
     }
 
+    /**
+     * Mendapatkan perilaku enemy.
+     *
+     * @return EnemyBehavior
+     */
     public EnemyBehavior getBehavior() { return behavior; }
+
+    /**
+     * Mendapatkan komponen health enemy.
+     *
+     * @return HealthStats enemy
+     */
     public HealthStats getHealth() { return health; }
+
+    /**
+     * Mendapatkan jalur patrol.
+     *
+     * @return daftar posisi patrol
+     */
     public java.util.List<Position> getPatrolPath() { return patrolPath; }
+
+    /**
+     * Mendapatkan indeks patrol saat ini.
+     *
+     * @return indeks patrol
+     */
     public int getPatrolIndex() { return patrolIndex; }
+
+    /**
+     * Mengatur indeks patrol.
+     *
+     * @param i indeks patrol baru
+     */
     public void setPatrolIndex(int i) { patrolIndex = i; }
+
+    /**
+     * Mendapatkan kecepatan enemy.
+     *
+     * @return kecepatan
+     */
     public double getSpeed() { return speed; }
+
+    /**
+     * Mendapatkan nilai score jika enemy dikalahkan.
+     *
+     * @return nilai score
+     */
     public int getScoreValue() { return scoreValue; }
 
     @Override

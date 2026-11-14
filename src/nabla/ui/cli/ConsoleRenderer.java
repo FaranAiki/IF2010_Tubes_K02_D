@@ -12,12 +12,11 @@ import nabla.util.Position;
 /**
  * Console Renderer -- tampilan terminal (CLI).
  * <p>
- * <b>Prinsip</b>
  * <ul>
- *   <li><b>Single Responsibility</b>
+ *   <li><b>Prinsip Single Responsibility</b>
  *   Hanya urus rendering, bukan logika game.
  *   </li>
- *   <li><b>Open/Closed</b>
+ *   <li><b>Prinsip Open/Closed</b>
  *   Bisa di-extend untuk JavaFX (View layer).
  *   </li>
  * </ul>

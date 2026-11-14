@@ -3,7 +3,7 @@ package nabla.util;
 /**
  * Ukuran map (lebar dan tinggi).
  * <p>
- * Prinsip: Value Object. Digunakan oleh Map untuk menyimpan dimensi
+ * <b>Prinsip Value Object</b>. Digunakan oleh Map untuk menyimpan dimensi
  * tanpa menggunakan static final fields.
  */
 public class Size {

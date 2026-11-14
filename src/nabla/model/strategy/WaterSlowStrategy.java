@@ -5,7 +5,7 @@ import nabla.util.Direction;
 import nabla.util.Position;
 
 /**
- * Pergerakan pada Water Tile: kecepatan player diperlambat 50% (F07.3.2 Blue Resort).
+ * Pergerakan pada Water Tile. Kecepatan player diperlambat 50% (F07.3.2 Blue Resort).
  * Strategy ini hanya mengembalikan posisi tujuan (gerakan 1 tile),
  * penanganan kecepatan dilakukan oleh GameLoop berdasarkan flag dari strategy.
  */

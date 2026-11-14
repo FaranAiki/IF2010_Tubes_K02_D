@@ -11,6 +11,11 @@ import nabla.util.Position;
  * tidak bisa ditempati bomb.
  */
 public class IndestructibleBlock extends Block {
+    /**
+     * Konstruktor IndestructibleBlock.
+     *
+     * @param position posisi block pada grid
+     */
     public IndestructibleBlock(Position position) {
         super(BlockType.INDESTRUCTIBLE, position);
     }

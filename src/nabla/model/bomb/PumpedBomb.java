@@ -16,6 +16,13 @@ public class PumpedBomb extends Bomb {
     public static final int MAX_RANGE = 7;
     public static final int BOSS_VULNERABLE_DMG = 2;
 
+    /**
+     * Konstruktor PumpedBomb.
+     *
+     * @param owner pemilik bom (player)
+     * @param position posisi bom pada grid
+     * @param blastRange jangkauan ledakan dasar player
+     */
     public PumpedBomb(Player owner, Position position, int blastRange) {
         super(BombType.PUMPED, owner, position, FUSE_TIME, Math.min(blastRange + RANGE_BONUS, MAX_RANGE));
     }

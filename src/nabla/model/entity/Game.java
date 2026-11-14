@@ -11,11 +11,10 @@ import java.util.List;
 /**
  * Game -- state manager utama (F00).
  * <p>
- * <b>Prinsip:</b>
  * <ul>
- *   <li><b>Facade Pattern:</b> Game menyediakan satu interface untuk
+ *   <li><b>Prinsip Facade Pattern</b> Game menyediakan satu interface untuk
  *       mengakses semua state permainan (player, enemies, bombs, blocks).</li>
- *   <li><b>Single Responsibility:</b> Game hanya urus state, bukan update loop.</li>
+ *   <li><b>Prinsip Single Responsibility</b> Game hanya urus state, bukan update loop.</li>
  * </ul>
  */
 public class Game {
@@ -32,6 +31,11 @@ public class Game {
     public Game() {
     }
 
+    /**
+     * Inisialisasi game dengan map yang diberikan.
+     *
+     * @param map map yang akan digunakan
+     */
     public void initialize(Map map) {
         this.currentMap = map;
         this.player = map.getPlayer();
@@ -44,25 +48,104 @@ public class Game {
         this.gameState = GameState.PLAYING;
     }
 
+    /**
+     * Restart permainan dengan map saat ini.
+     */
     public void restart() {
         if (currentMap != null) {
             initialize(currentMap);
         }
     }
 
+    /**
+     * Mendapatkan objek player.
+     *
+     * @return player
+     */
     public Player getPlayer() { return player; }
+
+    /**
+     * Mendapatkan map saat ini.
+     *
+     * @return map saat ini
+     */
     public Map getCurrentMap() { return currentMap; }
+
+    /**
+     * Mendapatkan daftar enemy biasa.
+     *
+     * @return daftar NormalEnemy
+     */
     public List<NormalEnemy> getEnemies() { return enemies; }
+
+    /**
+     * Mendapatkan daftar bom aktif.
+     *
+     * @return daftar Bomb
+     */
     public List<Bomb> getBombs() { return bombs; }
+
+    /**
+     * Mendapatkan daftar ledakan aktif.
+     *
+     * @return daftar Explosion
+     */
     public List<Explosion> getExplosions() { return explosions; }
+
+    /**
+     * Mendapatkan daftar power-up aktif.
+     *
+     * @return daftar PowerUp
+     */
     public List<PowerUp> getPowerUps() { return powerUps; }
+
+    /**
+     * Mendapatkan skor saat ini.
+     *
+     * @return skor
+     */
     public int getScore() { return score; }
+
+    /**
+     * Mengatur skor.
+     *
+     * @param s skor baru
+     */
     public void setScore(int s) { this.score = s; }
+
+    /**
+     * Mendapatkan sisa waktu (detik).
+     *
+     * @return waktu tersisa
+     */
     public int getTimer() { return timer; }
+
+    /**
+     * Mengatur sisa waktu.
+     *
+     * @param t waktu baru dalam detik
+     */
     public void setTimer(int t) { this.timer = t; }
+
+    /**
+     * Mendapatkan state game saat ini.
+     *
+     * @return GameState
+     */
     public GameState getGameState() { return gameState; }
+
+    /**
+     * Mengatur state game.
+     *
+     * @param s state baru
+     */
     public void setGameState(GameState s) { this.gameState = s; }
 
+    /**
+     * Cek apakah permainan sedang berjalan.
+     *
+     * @return true jika state PLAYING
+     */
     public boolean isPlaying() {
         return gameState == GameState.PLAYING;
     }

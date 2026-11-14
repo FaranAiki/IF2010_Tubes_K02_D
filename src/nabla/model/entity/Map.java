@@ -19,13 +19,12 @@ import java.util.List;
 /**
  * Map -- area permainan berbentuk grid (F07).
  * <p>
- * <b>Prinsip:</b>
  * <ul>
- *   <li><b>Composition over Inheritance:</b> Map <i>memiliki</i> {@link Size}
+ *   <li><b>Prinsip Composition over Inheritance</b> Map <i>memiliki</i> {@link Size}
  *       untuk dimensi, bukan static final fields.</li>
- *   <li><b>Factory Method:</b> Buat map dari string layout melalui
+ *   <li><b>Prinsip Factory Method</b> Buat map dari string layout melalui
  *       {@link #fromLayout(String, String)}.</li>
- *   <li><b>Template Method:</b> {@link #validate()} adalah template yang
+ *   <li><b>Prinsip Template Method</b> {@link #validate()} adalah template yang
  *       diimplementasikan oleh subclass (map type).</li>
  * </ul>
  */
@@ -41,12 +40,23 @@ public class Map {
     private final List<NormalEnemy> enemies = new ArrayList<>();
     private BossEnemy boss;
 
+    /**
+     * Konstruktor Map dengan lebar dan tinggi.
+     *
+     * @param width lebar map
+     * @param height tinggi map
+     */
     public Map(int width, int height) {
         this.size = new Size(width, height);
         this.tiles = new TileType[height][width];
         this.blocks = new Block[height][width];
     }
 
+    /**
+     * Konstruktor Map dengan objek Size.
+     *
+     * @param size ukuran map
+     */
     public Map(Size size) {
         this.size = size;
         this.tiles = new TileType[size.getHeight()][size.getWidth()];
@@ -64,6 +74,10 @@ public class Map {
      *  ...
      *  # # # # # # # # # # # # # #
      * </pre>
+     *
+     * @param name nama map
+     * @param layout string layout peta
+     * @return instance Map yang sudah dibangun
      */
     public static Map fromLayout(String name, String layout) {
         String[] lines = layout.trim().split("\n");
@@ -125,7 +139,9 @@ public class Map {
         }
     }
 
-    /** Validasi map (F00.3). Override oleh subclass. */
+    /**
+     * Validasi map (F00.3). Override oleh subclass.
+     */
     public void validate() {
         if (playerSpawn == null) throw new InvalidMapException("Tidak ada spawn player");
         if (enemySpawns.size() != 5) throw new InvalidMapException("Harus ada 5 spawn enemy, dapat " + enemySpawns.size());
@@ -133,17 +149,94 @@ public class Map {
         if (exit == null) throw new InvalidMapException("Tidak ada pintu keluar");
     }
 
+    /**
+     * Mendapatkan ukuran map.
+     *
+     * @return ukuran map
+     */
     public Size getSize() { return size; }
+
+    /**
+     * Mendapatkan lebar map.
+     *
+     * @return lebar map
+     */
     public int getWidth() { return size.getWidth(); }
+
+    /**
+     * Mendapatkan tinggi map.
+     *
+     * @return tinggi map
+     */
     public int getHeight() { return size.getHeight(); }
+
+    /**
+     * Mendapatkan tipe tile semua sel.
+     *
+     * @return array 2D TileType
+     */
     public TileType[][] getTiles() { return tiles; }
+
+    /**
+     * Mendapatkan block semua sel.
+     *
+     * @return array 2D Block
+     */
     public Block[][] getBlocks() { return blocks; }
+
+    /**
+     * Mendapatkan posisi spawn player.
+     *
+     * @return posisi spawn player
+     */
     public Position getPlayerSpawn() { return playerSpawn; }
+
+    /**
+     * Mendapatkan daftar posisi spawn enemy.
+     *
+     * @return daftar posisi spawn enemy
+     */
     public List<Position> getEnemySpawns() { return enemySpawns; }
+
+    /**
+     * Mendapatkan posisi spawn boss.
+     *
+     * @return posisi spawn boss
+     */
     public Position getBossSpawn() { return bossSpawn; }
+
+    /**
+     * Mendapatkan posisi pintu keluar.
+     *
+     * @return posisi pintu keluar
+     */
     public Position getExit() { return exit; }
+
+    /**
+     * Mendapatkan objek player.
+     *
+     * @return player
+     */
     public Player getPlayer() { return player; }
+
+    /**
+     * Mendapatkan daftar enemy biasa.
+     *
+     * @return daftar NormalEnemy
+     */
     public List<NormalEnemy> getEnemies() { return enemies; }
+
+    /**
+     * Mendapatkan objek boss.
+     *
+     * @return BossEnemy, atau null jika belum ada
+     */
     public BossEnemy getBoss() { return boss; }
+
+    /**
+     * Mengatur objek boss.
+     *
+     * @param boss objek boss
+     */
     public void setBoss(BossEnemy boss) { this.boss = boss; }
 }

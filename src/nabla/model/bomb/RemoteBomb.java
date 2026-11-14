@@ -14,6 +14,13 @@ import nabla.util.Position;
 public class RemoteBomb extends Bomb {
     public static final int BOSS_VULNERABLE_DMG = 1;
 
+    /**
+     * Konstruktor RemoteBomb.
+     *
+     * @param owner pemilik bom (player)
+     * @param position posisi bom pada grid
+     * @param blastRange jangkauan ledakan
+     */
     public RemoteBomb(Player owner, Position position, int blastRange) {
         super(BombType.REMOTE, owner, position, Double.MAX_VALUE, blastRange);
     }

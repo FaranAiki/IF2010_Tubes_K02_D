@@ -8,7 +8,7 @@ import nabla.ui.IRenderer;
 /**
  * Base class untuk controller implementations.
  * <p>
- * <b>Prinsip</b> Template Method dengan menyediakan common logic,
+ * <b>Prinsip Template Method</b> dengan menyediakan common logic,
  * subclass implementasikan handleInput spesifik platform.
  */
 public abstract class AbstractController implements IController {

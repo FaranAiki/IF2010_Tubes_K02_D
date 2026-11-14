@@ -10,6 +10,11 @@ import nabla.util.Position;
  * Bisa menyimpan Power-Up yang muncul setelah block dihancurkan (30% peluang).
  */
 public class DestructibleBlock extends Block {
+    /**
+     * Konstruktor DestructibleBlock.
+     *
+     * @param position posisi block pada grid
+     */
     public DestructibleBlock(Position position) {
         super(BlockType.DESTRUCTIBLE, position);
     }

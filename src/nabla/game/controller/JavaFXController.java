@@ -12,6 +12,13 @@ import nabla.ui.IRenderer;
  * Controller ini akan di-inject dengan JavaFX-specific components.
  */
 public class JavaFXController extends AbstractController {
+    /**
+     * Konstruktor JavaFXController.
+     *
+     * @param game objek Game
+     * @param gameLoop objek GameLoop
+     * @param renderer objek IRenderer
+     */
     public JavaFXController(Game game, GameLoop gameLoop, IRenderer renderer) {
         super(game, gameLoop, renderer);
         /* TODO: Setup JavaFX event handlers, AnimationTimer, dll. */

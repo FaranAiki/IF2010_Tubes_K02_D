@@ -10,6 +10,11 @@ import nabla.util.Position;
  * Digunakan pada Green Garden. Normal Bomb dan Remote Bomb tidak bisa menghancurkannya.
  */
 public class ReinforcedBlock extends Block {
+    /**
+     * Konstruktor ReinforcedBlock.
+     *
+     * @param position posisi block pada grid
+     */
     public ReinforcedBlock(Position position) {
         super(BlockType.REINFORCED, position);
     }
