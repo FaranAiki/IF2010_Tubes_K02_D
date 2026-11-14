@@ -9,7 +9,7 @@ import nabla.util.Direction;
 import java.util.Scanner;
 
 /**
- * CLI Controller -- menangani input dari terminal.
+ * CLI Controller menangani input dari terminal.
  * <p>
  * <b>Prinsip Single Responsibility</b> Ini hanya mengurus CLI input handling.
  * Map loading didelegasikan ke MapLoader.

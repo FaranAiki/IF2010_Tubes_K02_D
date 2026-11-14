@@ -4,7 +4,7 @@ MAIN_CLASS := nabla.Main
 
 SOURCES := $(shell find $(SRC_DIR) -name "*.java")
 
-.PHONY: all build run clean test
+.PHONY: all build run run-cli run-swing run-javafx clean test
 
 all: build
 
@@ -13,9 +13,17 @@ build:
 	@mkdir -p $(BIN_DIR)
 	javac -d $(BIN_DIR) $(SOURCES)
 
-# Karena MAIN_CLASS := nabla.Main, kita harus run menggunakan java -cp ...
-run: build
-	java -cp $(BIN_DIR) $(MAIN_CLASS)
+# Default: jalankan dengan UI JavaFX
+run: run-javafx
+
+run-cli: build
+	java -cp $(BIN_DIR) nabla.Main cli
+
+run-swing: build
+	java -cp $(BIN_DIR) nabla.Main swing
+
+run-javafx: build
+	java -cp $(BIN_DIR) nabla.Main javafx
 
 # TODO
 test: build
@@ -29,7 +37,7 @@ test: build
 			continue; \
 		fi; \
 		tmp=$$(mktemp); \
-		if java -cp $(BIN_DIR) $(MAIN_CLASS) < "$$in" > "$$tmp"; then \
+		if java -cp $(BIN_DIR) nabla.Main cli < "$$in" > "$$tmp"; then \
 			if diff -u "$$out" "$$tmp" > /dev/null; then \
 				echo "BERHASIL $$base"; pass=$$((pass+1)); \
 			else \

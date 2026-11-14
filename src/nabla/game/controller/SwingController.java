@@ -6,7 +6,7 @@ import nabla.type.GameState;
 import nabla.ui.IRenderer;
 
 /**
- * Swing Controller -- placeholder untuk Swing implementation.
+ * Swing Controller placeholder untuk Swing implementation.
  * <p>
  * TODO: Implementasikan menggunakan Swing KeyListener, Timer, dll.
  * Controller ini akan di-inject dengan Swing-specific components.

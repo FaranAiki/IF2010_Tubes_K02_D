@@ -1,5 +1,9 @@
 # Nangor Blast (BOOM!)
 
+## TODO
+1. Implementasi CLI kemudian GUI menggunakan JavaFX (program utama) dan menggunakan Swing (bukti modularitas)
+2. Masih ada yang belom pakai standar JavaDoc
+
 ## Anggota Kelompok
 18225122 Muhammad Faran Aiki
 [lanjutkan]
@@ -42,7 +46,8 @@ Karena kode sumber ini sangat modular, kita bisa mengganti menjadi CLI (konsol),
 
 1. **Install (Arch Linux)**
    ```bash
-   sudo pacman -S java-openjfx
+   # Tidak ada di repo Arch yang community, jadi pakai yay
+   sudo yay -S java-openjfx
    ```
 2. **Cari path library JavaFX**
    ```bash
