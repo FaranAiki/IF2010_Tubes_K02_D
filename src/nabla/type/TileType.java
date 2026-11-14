@@ -2,23 +2,40 @@ package nabla.type;
 
 /**
  * Jenis tile/lingkungan pada map.
+ * <p>
  * Mengikuti F07.2 - Legenda simbol.
  */
 public enum TileType {
-    WALKABLE,      /* . */
-    WATER,         /* W — memperlambat player 50% */
-    LAVA,          /* H — siklus DORMANT/WARNING/ERUPTING */
-    ICE,           /* I — player slide sesuai arah terakhir */
-    LASER,         /* L — aktif/nonaktif, damage 1 nyawa */
-    SWITCH,        /* S — toggle Gate/Laser */
-    GATE_CLOSED,   /* G — hentikan gerakan & ledakan */
-    GATE_OPEN,     /* g — dilewati */
-    INDESTRUCTIBLE, /* # — block */
-    DESTRUCTIBLE,   /* D — block */
-    REINFORCED,     /* R — block (hanya Pumped Bomb) */
-    SPAWN_PLAYER,  /* P */
-    SPAWN_ENEMY,   /* E */
-    SPAWN_BOSS,    /* B */
-    EXIT,          /* X */
-    EMPTY          /* tempat setelah block hancur */
+    /** Tile yang dapat dilalui ('.'). */
+    WALKABLE,
+    /** Air - memperlambat player 50% ('W'). */
+    WATER,
+    /** Lava - siklus DORMANT/WARNING/ERUPTING ('H'). */
+    LAVA,
+    /** Es - player slide sesuai arah terakhir ('I'). */
+    ICE,
+    /** Laser - aktif/nonaktif, damage 1 nyawa ('L'). */
+    LASER,
+    /** Saklar - toggle Gate/Laser ('S'). */
+    SWITCH,
+    /** Gerak tertutup - hentikan gerakan & ledakan ('G'). */
+    GATE_CLOSED,
+    /** Gerak terbuka - dapat dilalui ('g'). */
+    GATE_OPEN,
+    /** Block tidak bisa dihancurkan ('#'). */
+    INDESTRUCTIBLE,
+    /** Block bisa dihancurkan ('D'). */
+    DESTRUCTIBLE,
+    /** Block terkuat (hanya Pumped Bomb) ('R'). */
+    REINFORCED,
+    /** Spawn player ('P'). */
+    SPAWN_PLAYER,
+    /** Spawn enemy ('E'). */
+    SPAWN_ENEMY,
+    /** Spawn boss ('B'). */
+    SPAWN_BOSS,
+    /** Pintu keluar ('X'). */
+    EXIT,
+    /** Tempat setelah block hancur. */
+    EMPTY
 }

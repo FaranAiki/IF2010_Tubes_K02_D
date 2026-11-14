@@ -2,10 +2,14 @@ package nabla.type;
 
 /**
  * Jenis bom yang dapat dipilih pemain.
+ * <p>
  * Mengikuti F02.2 - Jenis Bomb.
  */
 public enum BombType {
-    NORMAL,   /* F02.2.1 — ledak 3s, range mengikuti blastRange player */
-    PUMPED,   /* F02.2.2 — ledak 4.5s, range +2, max 7, hancurkan Reinforced */
-    REMOTE    /* F02.2.3 — ledak manual, perlu Remote Detonator */
+    /** Ledak 3 detik, jangkauan mengikuti blastRange player (F02.2.1). */
+    NORMAL,
+    /** Ledak 4,5 detik, jangkauan +2 (max 7), hancurkan Reinforced Block (F02.2.2). */
+    PUMPED,
+    /** Ledak manual, perlu Remote Detonator (F02.2.3). */
+    REMOTE
 }

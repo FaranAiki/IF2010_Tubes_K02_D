@@ -2,10 +2,14 @@ package nabla.type;
 
 /**
  * Jenis block pada map.
+ * <p>
  * Mengikuti F04.2 - Jenis Block.
  */
 public enum BlockType {
-    INDESTRUCTIBLE,  /* F04.2.1 — tidak bisa dihancurkan, hentikan ledakan */
-    DESTRUCTIBLE,    /* F04.2.2 — bisa dihancurkan oleh ledakan, bisa simpan Power-Up */
-    REINFORCED       /* F04.2.3 — hanya bisa dihancurkan oleh Pumped Bomb */
+    /** Tidak bisa dihancurkan, menghentikan ledakan (F04.2.1). */
+    INDESTRUCTIBLE,
+    /** Bisa dihancurkan oleh ledakan, bisa menyimpan Power-Up (F04.2.2). */
+    DESTRUCTIBLE,
+    /** Hanya bisa dihancurkan oleh Pumped Bomb (F04.2.3). */
+    REINFORCED
 }
