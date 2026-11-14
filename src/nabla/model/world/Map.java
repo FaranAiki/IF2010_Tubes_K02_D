@@ -1,10 +1,11 @@
-package nabla.model.entity;
+package nabla.model.world;
 
 import nabla.exception.InvalidMapException;
 import nabla.model.block.Block;
 import nabla.model.block.DestructibleBlock;
 import nabla.model.block.IndestructibleBlock;
 import nabla.model.block.ReinforcedBlock;
+import nabla.model.entity.Player;
 import nabla.model.enemy.BossEnemy;
 import nabla.model.enemy.NormalEnemy;
 import nabla.type.BombType;
@@ -17,11 +18,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Map -- area permainan berbentuk grid (F07).
+ * Map representasi area permainan berbentuk grid (F07).
  * <p>
  * <ul>
  *   <li><b>Prinsip Composition over Inheritance</b> Map <i>memiliki</i> {@link Size}
- *       untuk dimensi, bukan static final fields.</li>
+ *       untuk dimensi, bukan static final agar bisa mudah diubah meskipun tidak harus.</li>
  *   <li><b>Prinsip Factory Method</b> Buat map dari string layout melalui
  *       {@link #fromLayout(String, String)}.</li>
  *   <li><b>Prinsip Template Method</b> {@link #validate()} adalah template yang
@@ -59,6 +60,7 @@ public class Map {
 
     /**
      * Buat Map dari string layout (F07.2 Legenda).
+     * Design Pattern Factory Method
      * Digunakan untuk mengubah suatu String menjadi objek Map
      * TODO: make sure ini digunakan untuk mengubah config
      */

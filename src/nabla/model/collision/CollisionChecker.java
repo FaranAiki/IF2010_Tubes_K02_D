@@ -50,12 +50,6 @@ public class CollisionChecker {
         return true;
     }
 
-    /**
-     * Dapatkan tipe tile pada posisi tertentu.
-     *
-     * @param pos posisi yang ingin dicek
-     * @return TileType di posisi tersebut, atau null jika di luar map
-     */
     public nabla.type.TileType getTileAt(Position pos) {
         if (pos.getRow() < 0 || pos.getRow() >= map.getHeight()
                 || pos.getCol() < 0 || pos.getCol() >= map.getWidth()) {

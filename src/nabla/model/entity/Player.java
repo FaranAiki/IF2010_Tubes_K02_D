@@ -51,11 +51,7 @@ public class Player extends Entity {
      * Gerak player ke arah tertentu.
      * <p>
      * Collision detection didelegasikan ke CollisionChecker yang diberikan oleh Game.
-     * Player tidak perlu tahu tentang aturan collision — strategy dan checker yang memutuskan.
-     *
-     * @param dir     arah gerakan
-     * @param checker collision checker untuk validasi
-     * @return true jika player Successfully bergerak, false jika terhalang
+     * Player tidak perlu tahu tentang aturan collision karena strategy dan checker yang memutuskan.
      */
     public boolean move(Direction dir, CollisionChecker checker) {
         this.direction = dir;
