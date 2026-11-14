@@ -1,6 +1,7 @@
 package nabla.model.strategy;
 
 import nabla.model.collision.CollisionChecker;
+import nabla.type.TileType;
 import nabla.util.Direction;
 import nabla.util.Position;
 
@@ -16,13 +17,13 @@ public class IceSlideStrategy implements IMovementStrategy {
         Position next = current;
         Direction dir = direction;
         /* Slide terus hingga keluar dari Ice atau terhalang */
-        while (checker.isIceTile(next)) {
+        while (checker.getTileAt(next) == TileType.ICE) {
             Position candidate = dir.deltaPosition().add(next);
             if (!checker.canMove(next, dir)) {
                 break; /* terhalang, berhenti di posisi sebelumnya */
             }
             next = candidate;
-            if (!checker.isIceTile(next)) {
+            if (checker.getTileAt(next) != TileType.ICE) {
                 break; /* sudah keluar dari Ice, berhenti */
             }
         }

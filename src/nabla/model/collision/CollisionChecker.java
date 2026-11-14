@@ -50,27 +50,17 @@ public class CollisionChecker {
         return true;
     }
 
-    /* TODO coba abstraksi agar kode di bawah ini bisa dihapus */
-
     /**
-     * Cek apakah suatu posisi adalah tile Ice.
+     * Dapatkan tipe tile pada posisi tertentu.
+     *
+     * @param pos posisi yang ingin dicek
+     * @return TileType di posisi tersebut, atau null jika di luar map
      */
-    public boolean isIceTile(Position pos) {
+    public nabla.type.TileType getTileAt(Position pos) {
         if (pos.getRow() < 0 || pos.getRow() >= map.getHeight()
                 || pos.getCol() < 0 || pos.getCol() >= map.getWidth()) {
-            return false;
+            return null;
         }
-        return map.getTiles()[pos.getRow()][pos.getCol()] == nabla.type.TileType.ICE;
-    }
-
-    /**
-     * Cek apakah suatu posisi adalah tile Water.
-     */
-    public boolean isWaterTile(Position pos) {
-        if (pos.getRow() < 0 || pos.getRow() >= map.getHeight()
-                || pos.getCol() < 0 || pos.getCol() >= map.getWidth()) {
-            return false;
-        }
-        return map.getTiles()[pos.getRow()][pos.getCol()] == nabla.type.TileType.WATER;
+        return map.getTiles()[pos.getRow()][pos.getCol()];
     }
 }
