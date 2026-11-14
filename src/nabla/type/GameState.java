@@ -3,7 +3,7 @@ package nabla.type;
 /**
  * State keseluruhan permainan.
  * <p>
- * Mengikuti F09.2 - Game State.
+ * Sesuai dengan F09.2
  */
 public enum GameState {
     /** Menu utama. */

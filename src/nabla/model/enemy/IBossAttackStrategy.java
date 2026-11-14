@@ -3,7 +3,8 @@ package nabla.model.enemy;
 import nabla.type.AttackPattern;
 
 /**
- * Strategy Pattern -- kontrak untuk pola serangan boss.
+ * Strategy Pattern kontrak untuk pola serangan boss.
+ * (Belum diimplementasikan)
  * <p>
  * Setiap Boss (Draco, Leviathan, ...) mengimplementasikan strategy ini.
  * Jadi GameLoop hanya memanggil `selectAttack()` tanpa tahu detail boss.

@@ -2,6 +2,7 @@ package nabla.model.entity;
 
 import nabla.model.component.BombInventory;
 import nabla.model.component.HealthStats;
+import nabla.model.collision.CollisionChecker;
 import nabla.model.strategy.IMovementStrategy;
 import nabla.model.strategy.NormalMoveStrategy;
 import nabla.type.BombType;
@@ -9,7 +10,7 @@ import nabla.util.Direction;
 import nabla.util.Position;
 
 /**
- * Player (Deeper) -- entitas yang dikendalikan pemain.
+ * Player (Deeper) entitas yang dikendalikan pemain.
  * <p>
  * Menggunakan Composition: memiliki HealthStats, BombInventory, dan IMovementStrategy.
  * Pergerakan diatur oleh Strategy Pattern (Normal/IceSlide/WaterSlow) tanpa ubah move().
@@ -46,10 +47,19 @@ public class Player extends Entity {
         this.movementStrategy = strategy;
     }
 
-    public boolean move(Direction dir,
-                        java.util.function.BiPredicate<Position, Direction> canMove) {
+    /**
+     * Gerak player ke arah tertentu.
+     * <p>
+     * Collision detection didelegasikan ke CollisionChecker yang diberikan oleh Game.
+     * Player tidak perlu tahu tentang aturan collision — strategy dan checker yang memutuskan.
+     *
+     * @param dir     arah gerakan
+     * @param checker collision checker untuk validasi
+     * @return true jika player Successfully bergerak, false jika terhalang
+     */
+    public boolean move(Direction dir, CollisionChecker checker) {
         this.direction = dir;
-        Position newPos = movementStrategy.tryMove(position, dir, canMove);
+        Position newPos = movementStrategy.tryMove(position, dir, checker);
         if (!newPos.isSameTile(position)) {
             position = newPos;
             return true;

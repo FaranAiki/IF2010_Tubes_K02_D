@@ -2,6 +2,7 @@ package nabla.game.controller;
 
 import nabla.game.GameLoop;
 import nabla.game.MapLoader;
+import nabla.model.collision.CollisionChecker;
 import nabla.model.game.Game;
 import nabla.type.GameState;
 import nabla.ui.IRenderer;
@@ -82,11 +83,14 @@ public class CLIController extends AbstractController {
         if (input.isEmpty()) return;
 
         char c = input.charAt(0);
+        CollisionChecker checker = game.getCollisionChecker();
+        if (checker == null) return;
+
         switch (c) {
-            case 'w' -> game.getPlayer().move(Direction.UP, (pos, dir) -> true);
-            case 's' -> game.getPlayer().move(Direction.DOWN, (pos, dir) -> true);
-            case 'a' -> game.getPlayer().move(Direction.LEFT, (pos, dir) -> true);
-            case 'd' -> game.getPlayer().move(Direction.RIGHT, (pos, dir) -> true);
+            case 'w' -> game.getPlayer().move(Direction.UP, checker);
+            case 's' -> game.getPlayer().move(Direction.DOWN, checker);
+            case 'a' -> game.getPlayer().move(Direction.LEFT, checker);
+            case 'd' -> game.getPlayer().move(Direction.RIGHT, checker);
             case 'b' -> game.getPlayer().placeBomb();
             case 'e' -> cycleBombType();
             case 'q' -> { /* Detonasi Remote Bomb - handled by GameLoop */ }

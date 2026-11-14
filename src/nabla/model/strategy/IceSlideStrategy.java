@@ -1,6 +1,6 @@
 package nabla.model.strategy;
 
-import nabla.model.strategy.IMovementStrategy;
+import nabla.model.collision.CollisionChecker;
 import nabla.util.Direction;
 import nabla.util.Position;
 
@@ -9,28 +9,20 @@ import nabla.util.Position;
  * dan tidak dapat mengubah arah menghadap (F07.3.4 White Glacier).
  * <p>
  * Player berhenti pada tile biasa yang dapat dilalui atau tile sebelum penghalang.
- * Strategy ini memerlukan predicate untuk mengetahui apakah suatu tile adalah Ice.
  */
 public class IceSlideStrategy implements IMovementStrategy {
-    private final java.util.function.Predicate<Position> isIceTile;
-
-    public IceSlideStrategy(java.util.function.Predicate<Position> isIceTile) {
-        this.isIceTile = isIceTile;
-    }
-
     @Override
-    public Position tryMove(Position current, Direction direction,
-                            java.util.function.BiPredicate<Position, Direction> canMove) {
+    public Position tryMove(Position current, Direction direction, CollisionChecker checker) {
         Position next = current;
         Direction dir = direction;
         /* Slide terus hingga keluar dari Ice atau terhalang */
-        while (isIceTile.test(next)) {
+        while (checker.isIceTile(next)) {
             Position candidate = dir.deltaPosition().add(next);
-            if (!canMove.test(next, dir)) {
+            if (!checker.canMove(next, dir)) {
                 break; /* terhalang, berhenti di posisi sebelumnya */
             }
             next = candidate;
-            if (!isIceTile.test(next)) {
+            if (!checker.isIceTile(next)) {
                 break; /* sudah keluar dari Ice, berhenti */
             }
         }
