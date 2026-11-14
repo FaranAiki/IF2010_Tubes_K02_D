@@ -27,6 +27,14 @@ public final class Position {
         this.col += dir.deltaCol;
     }
 
+    public Position add(Position offset) {
+        return new Position(this.row + offset.row, this.col + offset.col);
+    }
+
+    public Position sub(Position offset) {
+        return new Position(this.row - offset.row, this.col - offset.col);
+    }
+
     public int distanceTo(Position other) {
         /* Jarak Taxicab karena jarak Euclidean does not make any sense */
         return Math.abs(this.row - other.row) + Math.abs(this.col - other.col);
