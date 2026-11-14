@@ -5,8 +5,9 @@ package nabla.ui;
  * <p>
  * Menggunakan registry pattern untuk mapping string mode ke factory.
  * <p>
- * <b>Prinsip Abstract Factory Pattern</b> Client hanya butuh nama mode,
- * tidak perlu tahu kelas factory konkret.
+ * <b>Design Pattern Abstract Factory Pattern</b> Client hanya butuh nama mode,
+ * tidak perlu tahu kelas factory konkret. Ini berguna karena kita bahkan
+ * bisa membuat mode UI untuk Android, bahkan web.
  */
 public final class UIModeFactory {
     private UIModeFactory() {
@@ -16,6 +17,7 @@ public final class UIModeFactory {
     /**
      * Mendapatkan factory untuk mode UI yang diminta.
      *
+     * Konversi dari String menjadi Factory yang diinginkan
      * @param mode nama mode UI ("cli", "swing", "javafx")
      * @return UIFactory yang sesuai, atau null jika mode tidak dikenal
      */

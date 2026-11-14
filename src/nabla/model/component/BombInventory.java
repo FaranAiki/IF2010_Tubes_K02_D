@@ -3,30 +3,37 @@ package nabla.model.component;
 import nabla.type.BombType;
 
 /**
- * Komponen inventory bom (kapasitas & active bombs).
+ * Inventory bom player.
  * <p>
- * <b>Prinsip Composition over Inheritance</b>.
- * Dipakai oleh Player (dan bisa oleh Enemy untuk bom yang ditembakkan).
- * Menangani kapasitas maksimum, bom aktif, dan pemilihan type.
+ * Mengelola kapasitas bom, tipe bom yang dipilih, dan jumlah bom aktif.
  */
 public class BombInventory extends Inventory<BombType> {
-
-    /**
-     * Konstruktor BombInventory.
-     *
-     * @param capacity kapasitas maksimum bom
-     * @param selectedType tipe bom yang dipilih saat ini
-     */
     public BombInventory(int capacity, BombType selectedType) {
         super(capacity, selectedType);
     }
 
-    /**
-     * Alias untuk tryUse() - coba pasang bom.
-     *
-     * @return true jika bom berhasil dipasang, false jika kapasitas penuh
-     */
     public boolean tryPlace() {
-        return tryUse();
+        if (active < capacity) {
+            active++;
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    public void release() {
+        if (active > 0) active--;
+    }
+
+    @Override
+    public void addCapacity(int amount, int maxCapacity) {
+        capacity = Math.min(capacity + amount, maxCapacity);
+    }
+
+    @Override
+    public void reset(int capacity, BombType type) {
+        this.capacity = capacity;
+        this.active = 0;
+        this.selectedType = type;
     }
 }

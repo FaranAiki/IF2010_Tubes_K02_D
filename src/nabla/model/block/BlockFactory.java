@@ -6,7 +6,7 @@ import nabla.util.Position;
 /**
  * Factory Method Pattern -- factory untuk membuat block.
  * <p>
- * <b>Prinsip Open/Closed</b>. Tambah block baru cukup di sini.
+ * <b>Design Pattern Open/Closed</b>. Tambah block baru cukup di sini.
  */
 public class BlockFactory {
     /**

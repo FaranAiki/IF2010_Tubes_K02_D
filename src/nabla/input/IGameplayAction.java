@@ -3,7 +3,7 @@ package nabla.input;
 /**
  * Kontrak untuk semua aksi gameplay yang bisa dilakukan pemain.
  * <p>
- * <b>Prinsip DIP</b> (Dependency Inversion)
+ * <b>Design Pattern DIP</b> (Dependency Inversion)
  * GameLoop hanya bergantung pada interface ini, bukan pada
  * implementasi khusus keyboard.
  * <p>

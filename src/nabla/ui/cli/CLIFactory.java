@@ -3,8 +3,8 @@ package nabla.ui.cli;
 import nabla.game.GameLoop;
 import nabla.game.controller.CLIController;
 import nabla.game.controller.IController;
-import nabla.game.controller.MapLoader;
-import nabla.model.entity.Game;
+import nabla.game.MapLoader;
+import nabla.model.game.Game;
 import nabla.ui.IRenderer;
 import nabla.ui.UIFactory;
 
@@ -13,7 +13,7 @@ import java.util.Scanner;
 /**
  * Concrete Factory untuk UI CLI (Console).
  * <p>
- * <b>Prinsip Abstract Factory Pattern</b> Membuat family produk CLI:
+ * <b>Design Pattern Abstract Factory Pattern</b> Membuat family produk CLI:
  * ConsoleRenderer dan CLIController.
  */
 public class CLIFactory implements UIFactory {

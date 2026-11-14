@@ -7,7 +7,7 @@ import nabla.util.Position;
 /**
  * Explosion — efek ledakan (F03).
  * <p>
- * <b>Prinsip Explosion adalah data holder</b> yang diatur oleh GameLoop.
+ * <b>Design Pattern Explosion adalah data holder</b> yang diatur oleh GameLoop.
  * Ledakan menyebar ke 4 arah dan berhenti ketika mengenai block (F03.2).
  */
 public class Explosion extends Entity {

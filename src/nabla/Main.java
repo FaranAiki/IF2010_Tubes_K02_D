@@ -1,9 +1,9 @@
 package nabla;
 
 import nabla.game.GameLoop;
+import nabla.game.MapLoader;
 import nabla.game.controller.IController;
-import nabla.game.controller.MapLoader;
-import nabla.model.entity.Game;
+import nabla.model.game.Game;
 import nabla.ui.IRenderer;
 import nabla.ui.UIFactory;
 import nabla.ui.UIModeFactory;
@@ -13,22 +13,11 @@ import java.util.Scanner;
 /**
  * Main entry point Nangor Blast (F09.1).
  * <p>
- * Dipilih UI melalui argumen baris perintah:
- * <ul>
- *   <li>{@code nabla.Main} atau {@code nabla.Main javafx} -> JavaFX (default)</li>
- *   <li>{@code nabla.Main cli} -> CLI (ConsoleRenderer)</li>
- *   <li>{@code nabla.Main swing} -> Swing</li>
- * </ul>
- * <p>
- * <b>Prinsip Facade Pattern</b> (orchestrator tanpa logika game) &
- * Dependency Injection (Game, GameLoop, Renderer, MapLoader di-inject ke controller).
- * <p>
- * <b>Menggunakan Abstract Factory Pattern</b> via UIModeFactory untuk
- * menciptakan family produk UI (Renderer + Controller) per platform.
+ * Dipilih UI melalui argumen baris perintah: nabla.Main (default JavaFX),
+ * nabla.Main cli (CLI), nabla.Main swing (Swing), nabla.Main javafx (JavaFX).
  */
 public class Main {
     public static void main(String[] args) {
-        /* Pengecekan args dan jika tidak ada argument, default ke javafx  */
         String ui = args.length > 0 ? args[0].trim().toLowerCase() : "javafx";
 
         Game game = new Game();

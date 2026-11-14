@@ -10,8 +10,8 @@ import nabla.util.Position;
  * Block -- objek map yang menghalangi pergerakan dan penyebaran Explosion (F04).
  * <p>
  * <ul>
- *   <li><b>Prinsip Factory Method</b> Buat block melalui {@link BlockFactory}, bukan langsung {@code new}.</li>
- *   <li><b>Prinsip Strategy Pattern</b> Perilaku "dihancurkan" dan "menghentikan ledakan" diatur oleh
+ *   <li><b>Design Pattern Factory Method</b> Buat block melalui {@link BlockFactory}, bukan langsung {@code new}.</li>
+ *   <li><b>Design Pattern Strategy Pattern</b> Perilaku "dihancurkan" dan "menghentikan ledakan" diatur oleh
  *       strategy, bukan if-else.</li>
  * </ul>
  */

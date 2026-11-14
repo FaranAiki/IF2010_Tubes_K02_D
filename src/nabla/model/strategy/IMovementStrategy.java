@@ -6,7 +6,7 @@ import nabla.util.Position;
 /**
  * Strategy Pattern. Interface untuk perilaku pergerakan entitas.
  * <p>
- * <b>Prinsip Open/Closed dan Composition over Inheritance</b>.
+ * <b>Design Pattern Open/Closed dan Composition over Inheritance</b>.
  * Daripada Player punya method `move()` yang if-else berdasarkan tile type
  * (buka untuk diubah, tutup untuk ekstensi), kita ekstrak menjadi strategy.
  * Dengan demikian, kita bisa tambahkan perilaku baru (IceSlide, WaterSlow, LavaEruption)

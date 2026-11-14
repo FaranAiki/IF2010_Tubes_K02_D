@@ -2,16 +2,16 @@ package nabla.ui.swing;
 
 import nabla.game.GameLoop;
 import nabla.game.controller.IController;
-import nabla.game.controller.MapLoader;
+import nabla.game.MapLoader;
 import nabla.game.controller.SwingController;
-import nabla.model.entity.Game;
+import nabla.model.game.Game;
 import nabla.ui.IRenderer;
 import nabla.ui.UIFactory;
 
 /**
  * Concrete Factory untuk UI Swing.
  * <p>
- * <b>Prinsip Abstract Factory Pattern</b> Membuat family produk Swing:
+ * <b>Design Pattern Abstract Factory Pattern</b> Membuat family produk Swing:
  * SwingRenderer dan SwingController.
  */
 public class SwingFactory implements UIFactory {

@@ -7,7 +7,7 @@ import nabla.util.Position;
 /**
  * Factory Method Pattern -- factory untuk membuat bom.
  * <p>
- * <b>Prinsip Open/Closed</b>. Jika kita ingin tambah bom baru (misalkan Ice Bomb),
+ * <b>Design Pattern Open/Closed</b>. Jika kita ingin tambah bom baru (misalnya Ice Bomb),
  * kita hanya buat class baru + tambah case di factory. Code yang memanggil
  * factory tidak perlu diubah.
  */

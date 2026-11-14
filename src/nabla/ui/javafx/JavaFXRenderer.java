@@ -1,6 +1,6 @@
 package nabla.ui.javafx;
 
-import nabla.model.entity.Game;
+import nabla.model.game.Game;
 import nabla.type.GameState;
 import nabla.ui.IRenderer;
 

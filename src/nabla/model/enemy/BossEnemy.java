@@ -13,9 +13,9 @@ import nabla.util.Position;
  * menyelesaikan serangan tertentu.
  * <p>
  * <ul>
- *   <li><b>Prinsip Strategy Pattern</b> Pola serangan diatur oleh
+ *   <li><b>Design Pattern Strategy Pattern</b> Pola serangan diatur oleh
  *       {@link IBossAttackStrategy}, bukan if-else di method update().</li>
- *   <li><b>Prinsip Composition over Inheritance</b> Menggunakan komponen
+ *   <li><b>Design Pattern Composition over Inheritance</b> Menggunakan komponen
  *       {@link HealthStats} untuk nyawa, bukan field privat.</li>
  * </ul>
  */

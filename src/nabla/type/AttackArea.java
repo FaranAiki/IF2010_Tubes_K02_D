@@ -31,6 +31,6 @@ public enum AttackArea {
     PROJECTILE,
     /** Tile target spesifik. */
     TARGET_TILE,
-    /** Beberapa tile target (misalkan Missile Barrage). */
+    /** Beberapa tile target (misalnya Missile Barrage). */
     MULTIPLE_TARGETS
 }

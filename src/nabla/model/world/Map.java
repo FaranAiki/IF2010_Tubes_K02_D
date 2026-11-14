@@ -1,0 +1,248 @@
+package nabla.model.world;
+
+import nabla.exception.InvalidMapException;
+import nabla.model.block.Block;
+import nabla.model.block.DestructibleBlock;
+import nabla.model.block.IndestructibleBlock;
+import nabla.model.block.ReinforcedBlock;
+import nabla.model.enemy.BossEnemy;
+import nabla.model.enemy.NormalEnemy;
+import nabla.model.entity.Player;
+import nabla.type.BombType;
+import nabla.type.EnemyBehavior;
+import nabla.type.PowerUpType;
+import nabla.type.TileType;
+import nabla.util.Position;
+import nabla.util.Size;
+import java.util.ArrayList;
+import java.util.List;
+
+/**
+ * Map -- area permainan berbentuk grid (F07).
+ * <p>
+ * <ul>
+ *   <li><b>Design Pattern Composition over Inheritance</b> Map <i>memiliki</i> {@link Size}
+ *       untuk dimensi, bukan static final fields.</li>
+ *   <li><b>Design Pattern Factory Method</b> Buat map dari string layout melalui
+ *       {@link #fromLayout(String, String)}.</li>
+ *   <li><b>Design Pattern Template Method</b> {@link #validate()} adalah template yang
+ *       diimplementasikan oleh subclass (map type).</li>
+ * </ul>
+ */
+public class Map {
+    /* Map tidak bisa berubah-ubah sehingga digunakan final */
+    private final Size size;
+    private TileType[][] tiles;
+    private Block[][] blocks;
+    private Position playerSpawn;
+    private final List<Position> enemySpawns = new ArrayList<>();
+    private Position bossSpawn;
+    private Position exit;
+    private Player player;
+    private final List<NormalEnemy> enemies = new ArrayList<>();
+    private BossEnemy boss;
+
+    /**
+     * Konstruktor Map dengan lebar dan tinggi.
+     *
+     * @param width lebar map
+     * @param height tinggi map
+     */
+    public Map(int width, int height) {
+        this.size = new Size(width, height);
+        this.tiles = new TileType[height][width];
+        this.blocks = new Block[height][width];
+    }
+
+    /**
+     * Konstruktor Map dengan objek Size.
+     *
+     * @param size ukuran map
+     */
+    public Map(Size size) {
+        this.size = size;
+        this.tiles = new TileType[size.getHeight()][size.getWidth()];
+        this.blocks = new Block[size.getHeight()][size.getWidth()];
+    }
+
+    /**
+     * Buat Map dari string layout (F07.2 Legenda).
+     * <p>
+     * Contoh layout (Green Garden):
+     * <pre>
+     *  # # # # # # # # # # # # # #
+     *  # P . . D . . . D . . . X #
+     *  # . # . # # # . # . D . . #
+     *  ...
+     *  # # # # # # # # # # # # # #
+     * </pre>
+     *
+     * Digunakan untuk mengubah suatu String menjadi objek Map
+     * TODO: make sure ini digunakan untuk mengubah config
+     *
+     * @param name nama map
+     * @param layout string layout peta
+     * @return instance Map yang sudah dibangun
+     */
+    public static Map fromLayout(String name, String layout) {
+        /* Konversi jadi array 1D dengan tiap entri string */
+        String[] lines = layout.trim().split("\n");
+        int height = lines.length;
+        /* Hitung lebar dari baris pertama dengan menghilangkan spacebar/space lainnya */
+        String firstLine = lines[0].replaceAll("\\s+", "");
+        int width = firstLine.length();
+
+        Map map = new Map(width, height);
+        map.tiles = new TileType[height][width];
+        map.blocks = new Block[height][width];
+
+        for (int row = 0; row < height; row++) {
+            String line = lines[row].replaceAll("\\s+", "");
+            if (line.length() != width) {
+                throw new InvalidMapException(name + ": baris " + (row + 1) + " harus " + width + " kolom");
+            }
+            for (int col = 0; col < width; col++) {
+                char c = line.charAt(col);
+                Position pos = new Position(row, col);
+                TileType tile = charToTile(c, pos, map);
+                map.tiles[row][col] = tile;
+            }
+        }
+
+        /* Buat player & enemy berdasarkan spawn */
+        if (map.playerSpawn != null) {
+            map.player = new Player(map.playerSpawn);
+        }
+        for (Position spawn : map.enemySpawns) {
+            /* Default: patrol behavior */
+            map.enemies.add(new NormalEnemy(spawn, EnemyBehavior.PATROL, new ArrayList<>(), 1.0));
+        }
+
+        return map;
+    }
+
+    private static TileType charToTile(char c, Position pos, Map map) {
+        switch (c) {
+            case '#': map.blocks[pos.getRow()][pos.getCol()] = new IndestructibleBlock(pos);
+                     return TileType.INDESTRUCTIBLE;
+            case 'D': map.blocks[pos.getRow()][pos.getCol()] = new DestructibleBlock(pos);
+                     return TileType.DESTRUCTIBLE;
+            case 'R': map.blocks[pos.getRow()][pos.getCol()] = new ReinforcedBlock(pos);
+                     return TileType.REINFORCED;
+            case '.': return TileType.WALKABLE;
+            case 'P': map.playerSpawn = pos; return TileType.SPAWN_PLAYER;
+            case 'E': map.enemySpawns.add(pos); return TileType.SPAWN_ENEMY;
+            case 'B': map.bossSpawn = pos; return TileType.SPAWN_BOSS;
+            case 'X': map.exit = pos; return TileType.EXIT;
+            case 'W': return TileType.WATER;
+            case 'S': return TileType.SWITCH;
+            case 'G': return TileType.GATE_CLOSED;
+            case 'g': return TileType.GATE_OPEN;
+            case 'H': return TileType.LAVA;
+            case 'I': return TileType.ICE;
+            case 'L': return TileType.LASER;
+            default: return TileType.WALKABLE;
+        }
+    }
+
+    /**
+     * Validasi map (F00.3). Override oleh subclass.
+     */
+    public void validate() {
+        if (playerSpawn == null) throw new InvalidMapException("Tidak ada spawn player");
+        if (enemySpawns.size() != 5) throw new InvalidMapException("Harus ada 5 spawn enemy, dapat " + enemySpawns.size());
+        if (bossSpawn == null) throw new InvalidMapException("Tidak ada spawn boss");
+        if (exit == null) throw new InvalidMapException("Tidak ada pintu keluar");
+    }
+
+    /**
+     * Mendapatkan ukuran map.
+     *
+     * @return ukuran map
+     */
+    public Size getSize() { return size; }
+
+    /**
+     * Mendapatkan lebar map.
+     *
+     * @return lebar map
+     */
+    public int getWidth() { return size.getWidth(); }
+
+    /**
+     * Mendapatkan tinggi map.
+     *
+     * @return tinggi map
+     */
+    public int getHeight() { return size.getHeight(); }
+
+    /**
+     * Mendapatkan tipe tile semua sel.
+     *
+     * @return array 2D TileType
+     */
+    public TileType[][] getTiles() { return tiles; }
+
+    /**
+     * Mendapatkan block semua sel.
+     *
+     * @return array 2D Block
+     */
+    public Block[][] getBlocks() { return blocks; }
+
+    /**
+     * Mendapatkan posisi spawn player.
+     *
+     * @return posisi spawn player
+     */
+    public Position getPlayerSpawn() { return playerSpawn; }
+
+    /**
+     * Mendapatkan daftar posisi spawn enemy.
+     *
+     * @return daftar posisi spawn enemy
+     */
+    public List<Position> getEnemySpawns() { return enemySpawns; }
+
+    /**
+     * Mendapatkan posisi spawn boss.
+     *
+     * @return posisi spawn boss
+     */
+    public Position getBossSpawn() { return bossSpawn; }
+
+    /**
+     * Mendapatkan posisi pintu keluar.
+     *
+     * @return posisi pintu keluar
+     */
+    public Position getExit() { return exit; }
+
+    /**
+     * Mendapatkan objek player.
+     *
+     * @return player
+     */
+    public Player getPlayer() { return player; }
+
+    /**
+     * Mendapatkan daftar enemy biasa.
+     *
+     * @return daftar NormalEnemy
+     */
+    public List<NormalEnemy> getEnemies() { return enemies; }
+
+    /**
+     * Mendapatkan objek boss.
+     *
+     * @return BossEnemy, atau null jika belum ada
+     */
+    public BossEnemy getBoss() { return boss; }
+
+    /**
+     * Mengatur objek boss.
+     *
+     * @param boss objek boss
+     */
+    public void setBoss(BossEnemy boss) { this.boss = boss; }
+}

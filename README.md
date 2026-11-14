@@ -12,12 +12,18 @@
 
 Untuk *package*, digunakan `nabla` yang merupakan singkatan dari Nangor Blast (nabla lebih keren dan singkat).
 
+## Prinsip
+
+Kode sumber ini sebisa mungkin sangat modular sehingga penambahan fitur, misal integrasi ke Android,
+Player bisa punya inventory lain, dan sebagainya, sangat mudah dilakukan.
+
 ## Anotasi dan Komentar pada Kode Sumber
 
 Setiap kode pada kode sumber ini harus mematuhi komentar Javadocs sehingga formatnya seragam
-dan untuk mempermudah komunikasi antaranggota.
+dan untuk mempermudah komunikasi antaranggota (apalagi bagi yang belum sama sekali menyentuh).
 
-Lebih baik anotasi sedini mungkin karena kalau sudah kelar, bisa jadi malas buat menulis komen.
+Lebih baik anotasi sedini mungkin karena kalau sudah kelar, bisa jadi malas buat menulis komen
+dan malah bisa kelupaan sedang menulis apa.
 
 ## Hierarki
 - `config/` - konfigurasi
@@ -25,12 +31,17 @@ Lebih baik anotasi sedini mungkin karena kalau sudah kelar, bisa jadi malas buat
 - `src/nabla/` - kode sumber (root package `nabla`)
   - `Main.java` - entry point (`nabla.Main`)
   - `exception/` - exception kustom
-  - `game/` - game loop & concurrency (GameLoop, InputManager)
-  - `gui/` - tampilan/GUI (ConsoleRenderer, JavaFX nanti)
-  - `input/` - input player (WASD, arrows, dsb.)
-  - `model/` - entitas (Entity, Player, Enemy, Bomb, Block, Map, Game)
-  - `type/` - enum/tipe (GameState, BombType, PowerUpType, BlockType, TileType, EnemyBehavior, AttackPattern)
-  - `util/` - kelas pembantu (`Position`, `Direction`, `Size`)
+- `game/` - game loop & concurrency (GameLoop, MapLoader)
+- `ui/` - tampilan/GUI (ConsoleRenderer, JavaFX nanti)
+- `input/` - input player (WASD, arrows, dsb.)
+- `model/`
+  - `entity/` - entitas dasar (Entity, Player, IEntity)
+  - `world/` - peta (Map)
+  - `game/` - state manager (Game)
+  - `block/`, `bomb/`, `component/`, `enemy/`, `powerup/`, `strategy/` - subsystem model
+- `singleton/` - konfigurasi global (Config)
+- `type/` - enum/tipe (GameState, BombType, PowerUpType, BlockType, TileType, EnemyBehavior, AttackPattern)
+- `util/` - kelas pembantu (`Position`, `Direction`, `Size`)
 - `test/in/`, `test/out/` - kasus uji (input/output)
 - `Makefile` - build/run/test (di root)
 

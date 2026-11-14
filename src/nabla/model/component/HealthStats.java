@@ -1,88 +1,34 @@
 package nabla.model.component;
 
 /**
- * Komponen nyawa (Health).
+ * Health system untuk entity (player, enemy).
  * <p>
- * <b>Prinsip Composition over Inheritance</b>.
- * Daripada Player & Enemy masing-masing punya field `lives`/`health`,
- * kita buat komponen terpisah yang bisa digunakan oleh keduanya.
- * Jadi kita bisa tambahi effect (misalkan invulnerability, regen) di satu tempat.
+ * Mengelola nyawa maksimal dan nyawa saat ini, dengan method takeDamage/heal/reset.
  */
 public class HealthStats {
-    private int current;
-    private final int max;
+    private final int maxLives;
+    private int lives;
 
-    /**
-     * Konstruktor HealthStats dengan current = max.
-     *
-     * @param max nyawa maksimum
-     */
-    public HealthStats(int max) {
-        this.max = max;
-        this.current = max;
+    public HealthStats(int initialLives, int maxLives) {
+        this.maxLives = maxLives;
+        this.lives = initialLives;
     }
 
-    /**
-     * Konstruktor HealthStats dengan nilai current dan max yang ditentukan.
-     *
-     * @param current nyawa saat ini
-     * @param max nyawa maksimum
-     */
-    public HealthStats(int current, int max) {
-        this.current = current;
-        this.max = max;
-    }
-
-    /**
-     * Kurangi nyawa sejumlah amount.
-     *
-     * @param amount jumlah damage yang diterima
-     * @return true jika nyawa habis (current <= 0)
-     */
     public boolean takeDamage(int amount) {
-        current = Math.max(0, current - amount);
-        return current <= 0;
+        lives -= amount;
+        return lives <= 0;
     }
 
-    /**
-     * Tambah nyawa (tidak melebihi max).
-     *
-     * @param amount jumlah yang ditambahkan
-     */
     public void heal(int amount) {
-        current = Math.min(max, current + amount);
+        lives = Math.min(lives + amount, maxLives);
     }
 
-    /**
-     * Set ulang ke nilai maksimum.
-     */
-    public void reset() {
-        current = max;
-    }
+    public boolean isDead() { return lives <= 0; }
 
-    /**
-     * Mendapatkan nyawa saat ini.
-     *
-     * @return nyawa saat ini
-     */
-    public int getCurrent() { return current; }
+    public void reset() { lives = maxLives; }
 
-    /**
-     * Mendapatkan nyawa maksimum.
-     *
-     * @return nyawa maksimum
-     */
-    public int getMax() { return max; }
-
-    /**
-     * Cek apakah nyawa habis.
-     *
-     * @return true jika nyawa <= 0
-     */
-    public boolean isDead() { return current <= 0; }
-
-    @Override
-    public String toString() {
-        return current + "/" + max;
-    }
+    public int getLives() { return lives; }
+    public int getMaxLives() { return maxLives; }
+    public int getCurrent() { return lives; }
+    public int getMax() { return maxLives; }
 }

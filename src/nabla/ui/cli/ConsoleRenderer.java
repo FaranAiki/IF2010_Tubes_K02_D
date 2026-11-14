@@ -1,10 +1,10 @@
 package nabla.ui.cli;
 
 import nabla.ui.IRenderer;
-import nabla.model.entity.Game;
+import nabla.model.game.Game;
 import nabla.model.entity.IEntity;
-import nabla.model.entity.Map;
 import nabla.model.entity.Player;
+import nabla.model.world.Map;
 import nabla.type.GameState;
 import nabla.type.TileType;
 import nabla.util.Position;
@@ -13,10 +13,10 @@ import nabla.util.Position;
  * Console Renderer -- tampilan terminal (CLI).
  * <p>
  * <ul>
- *   <li><b>Prinsip Single Responsibility</b>
+ *   <li><b>Design Pattern Single Responsibility</b>
  *   Hanya urus rendering, bukan logika game.
  *   </li>
- *   <li><b>Prinsip Open/Closed</b>
+ *   <li><b>Design Pattern Open/Closed</b>
  *   Bisa di-extend untuk JavaFX (View layer).
  *   </li>
  * </ul>

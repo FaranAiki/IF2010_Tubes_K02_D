@@ -1,7 +1,8 @@
 package nabla.game.controller;
 
 import nabla.game.GameLoop;
-import nabla.model.entity.Game;
+import nabla.game.MapLoader;
+import nabla.model.game.Game;
 import nabla.type.GameState;
 import nabla.ui.IRenderer;
 

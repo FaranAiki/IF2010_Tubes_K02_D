@@ -3,8 +3,8 @@ package nabla.model.component;
 /**
  * Base class untuk inventory generik.
  * <p>
- * <b>Prinsip Template Method Pattern</b>.
- * Subclass hanya perlu implementasikan logika spesifik (misalkan kapasitas, item type).
+ * <b>Design Pattern Template Method Pattern</b>.
+ * Subclass hanya perlu implementasikan logika spesifik (misalnya kapasitas, item type).
  */
 public abstract class Inventory<T> {
     protected int capacity;
@@ -35,7 +35,7 @@ public abstract class Inventory<T> {
     }
 
     /**
-     * Kembalikan satu slot inventory (misalkan setelah item digunakan/selesai).
+     * Kembalikan satu slot inventory (misalnya setelah item digunakan/selesai).
      */
     public void release() {
         if (active > 0) active--;

@@ -5,7 +5,7 @@ import nabla.type.PowerUpType;
 import nabla.util.Position;
 
 /**
- * Power-Up -- item yang memberikan peningkatan kemampuan (F06).
+ * Power-Up item yang memberikan peningkatan kemampuan (F06).
  * <p>
  * Muncul setelah Destructible Block dihancurkan (30% peluang) atau ditempatkan pada lokasi tertentu.
  */

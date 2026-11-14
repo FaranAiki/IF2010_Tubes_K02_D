@@ -12,9 +12,9 @@ import nabla.util.Position;
  * PATROL (selalu mengikuti jalur patrol) atau CHASE (player dalam 3 tile -> menyerang).
  * <p>
  * <ul>
- *   <li><b>Prinsip Strategy Pattern</b> Perilaku (patrol/ chase) diatur oleh
+ *   <li><b>Design Pattern Strategy Pattern</b> Perilaku (patrol/ chase) diatur oleh
  *       {@link IEnemyBehavior} yang bisa diganti tanpa ubah class Enemy.</li>
- *   <li><b>Prinsip Composition over Inheritance</b> Menggunakan komponen
+ *   <li><b>Design Pattern Composition over Inheritance</b> Menggunakan komponen
  *       {@link HealthStats} untuk nyawa, bukan field privat.</li>
  * </ul>
  */

@@ -1,6 +1,6 @@
 package nabla.game;
 
-import nabla.model.entity.Game;
+import nabla.model.game.Game;
 import nabla.model.entity.IEntity;
 import java.util.List;
 
@@ -8,11 +8,11 @@ import java.util.List;
  * Game Loop -- proses utama yang berjalan selama permainan berlangsung (F09.3).
  * <p>
  * <ul>
- *   <li><b>Prinsip Concurrency</b>
+ *   <li><b>Design Pattern Concurrency</b>
  *       Berjalan di thread terpisah, update state secara
  *       periodik (fixed timestep). Thread ini adalah "game thread".
  *  </li>
- *   <li><b>Prinsip Single Responsibility</b>
+ *   <li><b>Design Pattern Single Responsibility</b>
  *       Hanya urus update state, bukan input
  *       atau rendering.
  *   </li>
@@ -23,6 +23,7 @@ public class GameLoop implements Runnable {
     private volatile boolean running = false;
     private Thread thread;
     private double deltaTime = 0.0;
+    // TODO: ubah di config
     private static final double TARGET_DT = 1.0 / 60.0; /* 60 FPS */
 
     public GameLoop(Game game) {

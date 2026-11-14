@@ -9,10 +9,10 @@ import nabla.util.Position;
  * Bomb (abstract) — senjata utama player (F02).
  * <p>
  * <ul>
- *   <li><b>Prinsip Template Method</b> {@link #update(double)} adalah template yang diatur
+ *   <li><b>Design Pattern Template Method</b> {@link #update(double)} adalah template yang diatur
  *       oleh kelas induk. Subclass hanya override method yang diperlukan
- *       (misalkan fuse countdown).</li>
- *   <li><b>Prinsip Factory Method</b> Pembuatan bom dilakukan oleh {@link BombFactory},
+ *       (misalnya fuse countdown).</li>
+ *   <li><b>Design Pattern Factory Method</b> Pembuatan bom dilakukan oleh {@link BombFactory},
  *       bukan langsung {@code new NormalBomb(...)}. Jadi kita bisa tambahkan
  *       bom baru tanpa ubah code caller.</li>
  * </ul>

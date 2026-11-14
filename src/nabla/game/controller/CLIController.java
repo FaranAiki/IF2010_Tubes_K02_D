@@ -1,7 +1,8 @@
 package nabla.game.controller;
 
 import nabla.game.GameLoop;
-import nabla.model.entity.Game;
+import nabla.game.MapLoader;
+import nabla.model.game.Game;
 import nabla.type.GameState;
 import nabla.ui.IRenderer;
 import nabla.util.Direction;
@@ -11,13 +12,14 @@ import java.util.Scanner;
 /**
  * CLI Controller menangani input dari terminal.
  * <p>
- * <b>Prinsip Single Responsibility</b> Ini hanya mengurus CLI input handling.
+ * <b>Design Pattern Single Responsibility</b> Ini hanya mengurus CLI input handling.
  * Map loading didelegasikan ke MapLoader.
  */
 public class CLIController extends AbstractController {
     private final Scanner scanner;
     private final MapLoader mapLoader;
 
+    /* TODO gila ini scanner kenapa ada di sini */
     public CLIController(Game game, GameLoop gameLoop, IRenderer renderer, Scanner scanner, MapLoader mapLoader) {
         super(game, gameLoop, renderer);
         this.scanner = scanner;

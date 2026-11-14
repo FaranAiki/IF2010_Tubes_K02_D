@@ -2,8 +2,8 @@ package nabla.ui;
 
 import nabla.game.GameLoop;
 import nabla.game.controller.IController;
-import nabla.game.controller.MapLoader;
-import nabla.model.entity.Game;
+import nabla.game.MapLoader;
+import nabla.model.game.Game;
 
 import java.util.Scanner;
 
@@ -13,7 +13,7 @@ import java.util.Scanner;
  * Setiap concrete factory (CLI, Swing, JavaFX) menciptakan
  * Renderer dan Controller yang cocok untuk platform tersebut.
  * <p>
- * <b>Prinsip Abstract Factory Pattern</b> Memisahkan pembuatan
+ * <b>Design Pattern Abstract Factory Pattern</b> Memisahkan pembuatan
  * family objek terkait tanpa menspesifikasikan kelas konkret.
  */
 public interface UIFactory {

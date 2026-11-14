@@ -7,7 +7,7 @@ import nabla.util.Position;
 /**
  * Pergerakan normal: cek apakah tile tujuan dapat dilalui, jika ya pindah.
  * <p>
- * <b>Prinsip Strategy Pattern</b> concrete strategy yang paling sederhana.
+ * <b>Design Pattern Strategy Pattern</b> concrete strategy yang paling sederhana.
  * Bisa digunakan oleh Player (dan Enemy) pada tile biasa.
  */
 public class NormalMoveStrategy implements IMovementStrategy {

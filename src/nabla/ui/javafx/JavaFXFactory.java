@@ -3,15 +3,15 @@ package nabla.ui.javafx;
 import nabla.game.GameLoop;
 import nabla.game.controller.IController;
 import nabla.game.controller.JavaFXController;
-import nabla.game.controller.MapLoader;
-import nabla.model.entity.Game;
+import nabla.game.MapLoader;
+import nabla.model.game.Game;
 import nabla.ui.IRenderer;
 import nabla.ui.UIFactory;
 
 /**
  * Concrete Factory untuk UI JavaFX.
  * <p>
- * <b>Prinsip Abstract Factory Pattern</b> Membuat family produk JavaFX:
+ * <b>Design Pattern Abstract Factory Pattern</b> Membuat family produk JavaFX:
  * JavaFXRenderer dan JavaFXController.
  */
 public class JavaFXFactory implements UIFactory {

@@ -1,9 +1,11 @@
-package nabla.model.entity;
+package nabla.model.game;
 
 import nabla.model.bomb.Bomb;
 import nabla.model.bomb.Explosion;
+import nabla.model.entity.Player;
 import nabla.model.enemy.NormalEnemy;
 import nabla.model.powerup.PowerUp;
+import nabla.model.world.Map;
 import nabla.type.GameState;
 import java.util.ArrayList;
 import java.util.List;
@@ -12,9 +14,9 @@ import java.util.List;
  * Game -- state manager utama (F00).
  * <p>
  * <ul>
- *   <li><b>Prinsip Facade Pattern</b> Game menyediakan satu interface untuk
+ *   <li><b>Design Pattern Facade Pattern</b> Game menyediakan satu interface untuk
  *       mengakses semua state permainan (player, enemies, bombs, blocks).</li>
- *   <li><b>Prinsip Single Responsibility</b> Game hanya urus state sehingga tidak update loop.</li>
+ *   <li><b>Design Pattern Single Responsibility</b> Game hanya urus state sehingga tidak update loop.</li>
  * </ul>
  */
 public class Game {

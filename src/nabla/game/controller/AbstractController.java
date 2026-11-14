@@ -1,14 +1,14 @@
 package nabla.game.controller;
 
 import nabla.game.GameLoop;
-import nabla.model.entity.Game;
+import nabla.model.game.Game;
 import nabla.type.GameState;
 import nabla.ui.IRenderer;
 
 /**
  * Base class untuk controller implementations.
  * <p>
- * <b>Prinsip Template Method</b> dengan menyediakan common logic,
+ * <b>Design Pattern Template Method</b> dengan menyediakan common logic,
  * subclass implementasikan handleInput spesifik platform.
  */
 public abstract class AbstractController implements IController {

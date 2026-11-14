@@ -3,7 +3,7 @@ package nabla.model.component;
 /**
  * Komponen stat serangan (damage, range, cooldown).
  * <p>
- * <b>Prinsip Composition over Inheritance</b>.
+ * <b>Design Pattern Composition over Inheritance</b>.
  * Dipakai oleh Enemy (serangan fisik) dan Boss (serangan spesifik).
  * Jadi kita bisa atur damage dan cooldown di satu tempat.
  */
