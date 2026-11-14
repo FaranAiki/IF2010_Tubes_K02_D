@@ -21,6 +21,7 @@ public interface IBossAttackStrategy {
 
     /** Waktu cooldown setelah serangan (default 5 detik). */
     default double getCooldown() {
+        // TODO: jangan hardcode
         return 5.0;
     }
 }

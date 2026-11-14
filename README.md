@@ -1,8 +1,10 @@
 # Nangor Blast (BOOM!)
 
 ## TODO
-1. Implementasi CLI kemudian GUI menggunakan JavaFX (program utama) dan menggunakan Swing (bukti modularitas)
-2. Masih ada yang belom pakai standar JavaDoc
+1. Implementasi CLI kemudian GUI menggunakan JavaFX (program utama) dan menggunakan Swing.
+2. Pembagian tugas kelompok: (NIM 18225122 upload ke git cuman untuk eksplorasi)
+3. Implementasi real (2 minggu nanti setelah M1) karena kebanyakan masih abstrak
+4. Menyelesaikan UML Diagram
 
 ## Anggota Kelompok
 18225122 Muhammad Faran Aiki
@@ -12,7 +14,7 @@
 
 Untuk *package*, digunakan `nabla` yang merupakan singkatan dari Nangor Blast (nabla lebih keren dan singkat).
 
-## Prinsip
+## Design Pattern
 
 Kode sumber ini sebisa mungkin sangat modular sehingga penambahan fitur, misal integrasi ke Android,
 Player bisa punya inventory lain, dan sebagainya, sangat mudah dilakukan.

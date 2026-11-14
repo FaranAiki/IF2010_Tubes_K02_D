@@ -2,6 +2,7 @@ package nabla.model.collision;
 
 import nabla.model.world.Map;
 import nabla.model.entity.IEntity;
+import nabla.type.TileType;
 import nabla.util.Direction;
 import nabla.util.Position;
 
@@ -13,6 +14,7 @@ import java.util.List;
  * Menyediakan aturan umum untuk block penghalang, batas map, dan entity lain
  * yang menghalangi pergerakan. Strategy pattern menggunakan class ini
  * untuk memutuskan apakah gerakan diperbolehkan.
+ * TODO: belum diimplementasikan full
  */
 public class CollisionChecker {
     private final Map map;
@@ -23,9 +25,6 @@ public class CollisionChecker {
         this.blockers = blockers;
     }
 
-    /**
-     * Cek apakah pergerakan dari posisi saat ini ke arah yang diberikan diperbolehkan.
-     */
     public boolean canMove(Position current, Direction direction) {
         Position target = direction.deltaPosition().add(current);
 
@@ -50,7 +49,7 @@ public class CollisionChecker {
         return true;
     }
 
-    public nabla.type.TileType getTileAt(Position pos) {
+    public TileType getTileAt(Position pos) {
         if (pos.getRow() < 0 || pos.getRow() >= map.getHeight()
                 || pos.getCol() < 0 || pos.getCol() >= map.getWidth()) {
             return null;

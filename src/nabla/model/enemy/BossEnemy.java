@@ -6,15 +6,13 @@ import nabla.type.AttackPattern;
 import nabla.util.Position;
 
 /**
- * Boss Enemy -- musuh utama pada map (F05.3).
+ * Boss Enemy sebagai musuh utama pada map (F05.3).
  * <p>
  * Setiap Boss memiliki health 8 (kecuali Cerberus dan Altair yang punya 4),
  * dua fase, dan pola serangan spesifik. Boss menjadi rentan setelah
  * menyelesaikan serangan tertentu.
  * <p>
  * <ul>
- *   <li><b>Design Pattern Strategy Pattern</b> Pola serangan diatur oleh
- *       {@link IBossAttackStrategy}, bukan if-else di method update().</li>
  *   <li><b>Design Pattern Composition over Inheritance</b> Menggunakan komponen
  *       {@link HealthStats} untuk nyawa, bukan field privat.</li>
  * </ul>
