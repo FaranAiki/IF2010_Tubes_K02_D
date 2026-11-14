@@ -8,7 +8,7 @@ import nabla.util.Position;
 /**
  * Boss Enemy -- musuh utama pada map (F05.3).
  * <p>
- * Setiap Boss memiliki health 8 (kecuali Cerberus & Altair yang punya 4),
+ * Setiap Boss memiliki health 8 (kecuali Cerberus dan Altair yang punya 4),
  * dua fase, dan pola serangan spesifik. Boss menjadi rentan setelah
  * menyelesaikan serangan tertentu.
  * <p>

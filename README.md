@@ -17,6 +17,8 @@ Untuk *package*, digunakan `nabla` yang merupakan singkatan dari Nangor Blast (n
 Setiap kode pada kode sumber ini harus mematuhi komentar Javadocs sehingga formatnya seragam
 dan untuk mempermudah komunikasi antaranggota.
 
+Lebih baik anotasi sedini mungkin karena kalau sudah kelar, bisa jadi malas buat menulis komen.
+
 ## Hierarki
 - `config/` - konfigurasi
 - `doc/` - dokumentasi dan milestone

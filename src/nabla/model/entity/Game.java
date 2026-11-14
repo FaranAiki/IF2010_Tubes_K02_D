@@ -14,7 +14,7 @@ import java.util.List;
  * <ul>
  *   <li><b>Prinsip Facade Pattern</b> Game menyediakan satu interface untuk
  *       mengakses semua state permainan (player, enemies, bombs, blocks).</li>
- *   <li><b>Prinsip Single Responsibility</b> Game hanya urus state, bukan update loop.</li>
+ *   <li><b>Prinsip Single Responsibility</b> Game hanya urus state sehingga tidak update loop.</li>
  * </ul>
  */
 public class Game {
