@@ -27,14 +27,12 @@ public class MapLoader {
         "# E . . . . D . . . . . E #\n" +
         "# # # # # # # # # # # # # #";
 
-    /** Load default map (Kelompok D: Green Garden). */
     public void loadDefaultMap(Game game) {
         Map map = Map.fromLayout("Green Garden", DEFAULT_LAYOUT);
         map.validate();
         game.initialize(map);
     }
 
-    /** Load map dari layout string custom. */
     public void loadMap(Game game, String name, String layout) {
         Map map = Map.fromLayout(name, layout);
         map.validate();

@@ -13,14 +13,6 @@ import nabla.ui.IRenderer;
  * Controller ini akan di-inject dengan Swing-specific components.
  */
 public class SwingController extends AbstractController {
-    /**
-     * Konstruktor SwingController.
-     *
-     * @param game      objek Game
-     * @param gameLoop  objek GameLoop
-     * @param renderer  objek IRenderer
-     * @param mapLoader MapLoader untuk memuat peta
-     */
     public SwingController(Game game, GameLoop gameLoop, IRenderer renderer, MapLoader mapLoader) {
         super(game, gameLoop, renderer);
         /* TODO: Setup Swing KeyListener, javax.swing.Timer, dll. */

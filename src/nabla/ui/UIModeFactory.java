@@ -18,8 +18,6 @@ public final class UIModeFactory {
      * Mendapatkan factory untuk mode UI yang diminta.
      *
      * Konversi dari String menjadi Factory yang diinginkan
-     * @param mode nama mode UI ("cli", "swing", "javafx")
-     * @return UIFactory yang sesuai, atau null jika mode tidak dikenal
      */
     public static UIFactory getFactory(String mode) {
         return switch (mode.toLowerCase()) {
@@ -32,8 +30,6 @@ public final class UIModeFactory {
 
     /**
      * Mendapatkan factory default (JavaFX).
-     *
-     * @return UIFactory untuk JavaFX
      */
     public static UIFactory getDefaultFactory() {
         return new nabla.ui.javafx.JavaFXFactory();

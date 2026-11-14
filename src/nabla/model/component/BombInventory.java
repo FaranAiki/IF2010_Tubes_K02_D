@@ -6,6 +6,7 @@ import nabla.type.BombType;
  * Inventory bom player.
  * <p>
  * Mengelola kapasitas bom, tipe bom yang dipilih, dan jumlah bom aktif.
+ * Extends dari Inventory BombType
  */
 public class BombInventory extends Inventory<BombType> {
     public BombInventory(int capacity, BombType selectedType) {

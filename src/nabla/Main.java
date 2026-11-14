@@ -13,8 +13,11 @@ import java.util.Scanner;
 /**
  * Main entry point Nangor Blast (F09.1).
  * <p>
- * Dipilih UI melalui argumen baris perintah: nabla.Main (default JavaFX),
- * nabla.Main cli (CLI), nabla.Main swing (Swing), nabla.Main javafx (JavaFX).
+ * Dipilih UI melalui argumen baris perintah args pada command line
+ * nabla.Main (default JavaFX),
+ * atau nabla.Main cli (CLI),
+ *      nabla.Main swing (Swing),
+ *      nabla.Main javafx (JavaFX).
  */
 public class Main {
     public static void main(String[] args) {
@@ -24,6 +27,7 @@ public class Main {
         GameLoop gameLoop = new GameLoop(game);
         MapLoader mapLoader = new MapLoader();
 
+        /* Abstract factory di sini */
         UIFactory factory = UIModeFactory.getFactory(ui);
         if (factory == null) {
             System.err.println("Mode UI tidak dikenal: " + ui + ". Gunakan: cli, swing, javafx");

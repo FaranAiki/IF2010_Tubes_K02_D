@@ -13,11 +13,6 @@ import nabla.ui.IRenderer;
 public class JavaFXRenderer implements IRenderer {
     private final Game game;
 
-    /**
-     * Konstruktor JavaFXRenderer.
-     *
-     * @param game objek Game yang akan dirender
-     */
     public JavaFXRenderer(Game game) {
         this.game = game;
     }

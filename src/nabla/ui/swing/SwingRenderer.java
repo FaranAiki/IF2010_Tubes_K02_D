@@ -13,11 +13,6 @@ import nabla.ui.IRenderer;
 public class SwingRenderer implements IRenderer {
     private final Game game;
 
-    /**
-     * Konstruktor SwingRenderer.
-     *
-     * @param game objek Game yang akan dirender
-     */
     public SwingRenderer(Game game) {
         this.game = game;
     }

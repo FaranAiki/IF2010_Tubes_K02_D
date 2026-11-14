@@ -23,15 +23,11 @@ public interface IRenderer {
 
     /**
      * Render state permainan saat ini.
-     *
-     * @param game objek Game yang berisi state terkini
      */
     void renderGame(Game game);
 
     /**
      * Render layar game over (WIN/LOSE).
-     *
-     * @param state state permainan akhir (WIN atau LOSE)
      */
     void renderGameOver(GameState state);
 

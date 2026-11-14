@@ -4,6 +4,7 @@ package nabla.model.component;
  * Health system untuk entity (player, enemy).
  * <p>
  * Mengelola nyawa maksimal dan nyawa saat ini, dengan method takeDamage/heal/reset.
+ * Ini digunakan untuk mengganti lives karena bisa dire-use.
  */
 public class HealthStats {
     private final int maxLives;

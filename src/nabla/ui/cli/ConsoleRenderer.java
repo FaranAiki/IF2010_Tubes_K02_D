@@ -24,36 +24,20 @@ import nabla.util.Position;
 public class ConsoleRenderer implements IRenderer {
     private final Game game;
 
-    /**
-     * Konstruktor ConsoleRenderer.
-     *
-     * @param game objek Game yang akan dirender
-     */
     public ConsoleRenderer(Game game) {
         this.game = game;
     }
 
-    /**
-     * Render pilihan menu utama (F09.1.1).
-     */
     @Override
     public void renderMenu() {
 
     }
 
-    /**
-     * Render petunjuk permainan (F09.1.2).
-     */
     @Override
     public void renderHowToPlay() {
 
     }
 
-    /**
-     * Render state permainan (F09.3.5).
-     *
-     * @param game objek Game yang berisi state terkini
-     */
     @Override
     public void renderGame(Game game) {
 
@@ -63,43 +47,27 @@ public class ConsoleRenderer implements IRenderer {
         return ' ';
     }
 
-    /**
-     * Render state WIN/LOSE (F09.4).
-     *
-     * @param state state permainan akhir (WIN atau LOSE)
-     */
     @Override
     public void renderGameOver(GameState state) {
 
     }
 
-    /**
-     * Render pesan pilihan tidak valid.
-     */
     @Override
     public void renderInvalidChoice() {
 
     }
 
-    /**
-     * Render layar pause.
-     */
     @Override
     public void renderPaused() {
 
     }
 
-    /**
-     * Render opsi setelah game over.
-     */
+
     @Override
     public void renderGameOverOptions() {
 
     }
 
-    /**
-     * Render pesan keluar.
-     */
     @Override
     public void renderExitMessage() {
 
