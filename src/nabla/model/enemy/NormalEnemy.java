@@ -8,6 +8,7 @@ import nabla.model.Player;
 import nabla.type.EnemyBehavior;
 import nabla.util.Direction;
 import nabla.util.Position;
+import java.util.List;
 
 /**
  * Normal Enemy sebagai musuh dasar (F05.2).
@@ -104,9 +105,13 @@ public class NormalEnemy extends Entity {
     }
 
     @Override
-    public void applyExplosion(int damage, Position center, int range) {
-        if (position.distanceTo(center) <= range) {
-            takeDamage(damage);
+    public void applyExplosion(int damage, List<Position> affectedTiles) {
+        if (!isActive() || affectedTiles == null) return;
+        for (Position tile : affectedTiles) {
+            if (position.isSameTile(tile)) {
+                takeDamage(damage);
+                return;
+            }
         }
     }
 }

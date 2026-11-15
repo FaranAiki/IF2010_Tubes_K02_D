@@ -17,6 +17,18 @@ public final class Config {
     public static int TARGET_FPS = 60;
     public static double TARGET_DT = 1 / 60.0;
 
+    /* TODO make sure ini bisa diconfig sendiri */
+    public static int DEFAULT_LIVES = 3;
+    public static int MAX_LIVES = 5;
+    public static int DEFAULT_BOMB_CAPACITY = 1;
+    public static int MAX_BOMB_CAPACITY = 3;
+    public static int DEFAULT_BLAST_RANGE = 1;
+    public static int MAX_BLAST_RANGE = 5;
+    public static double DEFAULT_SPEED = 1.0;
+    public static double RESPAWN_INVULNERABLE_TIME = 1.5;
+    /** Durasi kebal setelah menerima damage, mencegah damage tiap tick (F03). */
+    public static final double HIT_INVULNERABLE_TIME = 1.0;
+
     private Config() {}
 
     static {

@@ -10,6 +10,10 @@ import nabla.model.enemy.NormalEnemy;
 import nabla.type.BombType;
 import nabla.util.Direction;
 import nabla.util.Position;
+import nabla.model.bomb.ICanUseBomb;
+import nabla.singleton.Config;
+
+import java.util.List;
 
 /**
  * Player (Deeper) entitas yang dikendalikan pemain.
@@ -17,21 +21,12 @@ import nabla.util.Position;
  * Menggunakan Composition: memiliki HealthStats, BombInventory, dan IMovementStrategy.
  * Pergerakan diatur oleh Strategy Pattern (Normal/IceSlide/WaterSlow) tanpa ubah move().
  */
-public class Player extends Entity {
-
-    public static final int DEFAULT_LIVES = 3;
-    public static final int MAX_LIVES = 5;
-    public static final int DEFAULT_BOMB_CAPACITY = 1;
-    public static final int MAX_BOMB_CAPACITY = 3;
-    public static final int DEFAULT_BLAST_RANGE = 1;
-    public static final int MAX_BLAST_RANGE = 5;
-    public static final double DEFAULT_SPEED = 1.0;
-    public static final double RESPAWN_INVULNERABLE_TIME = 1.5;
-
+public class Player extends Entity implements ICanUseBomb {
     private Direction direction = null;
-    private int blastRange = DEFAULT_BLAST_RANGE;
-    private double speed = DEFAULT_SPEED;
+    private int blastRange = Config.DEFAULT_BLAST_RANGE;
+    private double speed = Config.DEFAULT_SPEED;
     private boolean invulnerable = false;
+    private double invulnerableTime = 0;
     private boolean remoteUnlocked = false;
 
     private final HealthStats health;
@@ -39,8 +34,8 @@ public class Player extends Entity {
 
     public Player(Position position) {
         super(position);
-        this.health = new HealthStats(DEFAULT_LIVES, MAX_LIVES);
-        this.bombInventory = new BombInventory(DEFAULT_BOMB_CAPACITY, BombType.NORMAL);
+        this.health = new HealthStats(Config.DEFAULT_LIVES, Config.MAX_LIVES);
+        this.bombInventory = new BombInventory(Config.DEFAULT_BOMB_CAPACITY, BombType.NORMAL);
     }
 
     /**
@@ -71,6 +66,8 @@ public class Player extends Entity {
 
     public boolean takeDamage() {
         if (invulnerable) return false;
+        invulnerable = true;
+        invulnerableTime = Config.HIT_INVULNERABLE_TIME;
         return health.takeDamage(1);
     }
 
@@ -83,15 +80,15 @@ public class Player extends Entity {
     }
 
     public void addBombCapacity() {
-        bombInventory.addCapacity(1, MAX_BOMB_CAPACITY);
+        bombInventory.addCapacity(1, Config.MAX_BOMB_CAPACITY);
     }
 
     public void addBlastRange() {
-        if (blastRange < MAX_BLAST_RANGE) blastRange++;
+        if (blastRange < Config.MAX_BLAST_RANGE) blastRange++;
     }
 
     public void addSpeed() {
-        speed = Math.min(speed * 1.5, DEFAULT_SPEED * 2.0);
+        speed = Math.min(speed * 1.5, Config.DEFAULT_SPEED * 2.0);
     }
 
     public void unlockRemote() {
@@ -100,10 +97,11 @@ public class Player extends Entity {
 
     public void reset() {
         health.reset();
-        bombInventory.reset(DEFAULT_BOMB_CAPACITY, BombType.NORMAL);
-        blastRange = DEFAULT_BLAST_RANGE;
-        speed = DEFAULT_SPEED;
+        bombInventory.reset(Config.DEFAULT_BOMB_CAPACITY, BombType.NORMAL);
+        blastRange = Config.DEFAULT_BLAST_RANGE;
+        speed = Config.DEFAULT_SPEED;
         invulnerable = false;
+        invulnerableTime = 0;
         remoteUnlocked = false;
         direction = Direction.UP;
     }
@@ -135,19 +133,23 @@ public class Player extends Entity {
 
     @Override
     public void update(double deltaTime) {
-        /* Player tidak butuh update otomatis, gerakan dihandle oleh input */
-        /* TODO: kalau ada animasi idle, bisa dipakai di sini */
+        if (invulnerableTime > 0) {
+            invulnerableTime -= deltaTime;
+            if (invulnerableTime <= 0) {
+                invulnerable = false;
+            }
+        }
     }
 
     @Override
-    public void applyExplosion(int damage, Position center, int range) {
-        if (invulnerable) return;
-        /*
-         TODO ini kalau ngga ada balok, kalau ada balok bisa salah
-         fix this
-        if (position.distanceTo(center) <= range) {
-            health.takeDamage(damage);
-        }*/
+    public void applyExplosion(int damage, List<Position> affectedTiles) {
+        if (invulnerable || affectedTiles == null) return;
+        for (Position tile : affectedTiles) {
+            if (position.isSameTile(tile)) {
+                takeDamage();
+                return;
+            }
+        }
     }
 
     @Override

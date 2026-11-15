@@ -1,5 +1,6 @@
 package nabla.game;
 
+
 import nabla.game.Game;
 import nabla.model.bomb.Bomb;
 import nabla.model.bomb.Explosion;
@@ -10,6 +11,7 @@ import nabla.model.enemy.NormalEnemy;
 import nabla.singleton.Config;
 import nabla.util.Position;
 import nabla.model.collision.CollisionChecker;
+import nabla.model.world.Map;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -50,6 +52,7 @@ public class GameLoop implements Runnable {
             accumulator += dt;
 
             while (accumulator >= FIXED_DT) {
+                /* fiks kalau game lemot biar tetep sesuai sama ekspektasi */
                 if (game.isPlaying()) {
                     update(FIXED_DT);
                 }
@@ -74,6 +77,9 @@ public class GameLoop implements Runnable {
 
         CollisionChecker checker = game.getCollisionChecker();
         Player player = game.getPlayer();
+        if (player != null) {
+            player.update(dt);
+        }
         for (NormalEnemy enemy: game.getEnemies()) {
             enemy.updateEnemy(dt, player, checker);
         }
@@ -104,6 +110,11 @@ public class GameLoop implements Runnable {
             }
         }
         game.getExplosions().removeIf(e -> !e.isActive());
+        game.getEnemies().removeIf(e -> !e.isActive());
+
+        if (game.getBoss() != null && !game.getBoss().isActive()) {
+            game.getBoss().deactivate();
+        }
 
         if (checker != null && player != null && player.isActive()) {
             checker.resolveCollisions(player, player.getPosition());
@@ -120,17 +131,19 @@ public class GameLoop implements Runnable {
         Position center = explosion.getPosition();
         int range = explosion.getBlastRange();
         List<Position> affected = collectExplosionTiles(center, range);
+        int damage = explosion.getDamage();
 
-        if (game.getPlayer() != null) {
-            game.getPlayer().applyExplosion(1, center, range);
+        for (NormalEnemy enemy: game.getEnemies()) {
+            if (!enemy.isActive()) {
+                game.getEnemies().remove(enemy);
+            } else {
+                enemy.applyExplosion(damage, affected);
+            }
         }
-        for (NormalEnemy enemy : game.getEnemies()) {
-            enemy.applyExplosion(1, center, range);
+        if (game.getBoss() != null && game.getBoss().isActive()) {
+            game.getBoss().applyExplosion(damage, affected);
         }
-        if (game.getBoss() != null) {
-            game.getBoss().applyExplosion(1, center, range);
-        }
-        for (Bomb bomb : game.getBombs()) {
+        for (Bomb bomb: game.getBombs()) {
             for (Position p : affected) {
                 if (bomb.isActive() && bomb.getPosition().isSameTile(p)) {
                     bomb.trigger();
@@ -138,8 +151,8 @@ public class GameLoop implements Runnable {
             }
         }
 
-        nabla.model.world.Map map = game.getCurrentMap();
-        for (Position p : affected) {
+        Map map = game.getCurrentMap();
+        for (Position p: affected) {
             Block block = map.getBlockAt(p);
             if (block != null && block.isDestructibleByExplosion()) {
                 block.destroy();
@@ -152,7 +165,7 @@ public class GameLoop implements Runnable {
         List<Position> tiles = new ArrayList<>();
         tiles.add(center);
         nabla.util.Direction[] dirs = nabla.util.Direction.values();
-        nabla.model.world.Map map = game.getCurrentMap();
+        Map map = game.getCurrentMap();
         for (nabla.util.Direction dir : dirs) {
             for (int i = 1; i <= range; i++) {
                 Position p = dir.deltaPosition();

@@ -2,34 +2,38 @@ package nabla.model.bomb;
 
 import nabla.model.Entity;
 import nabla.model.Player;
+import nabla.model.bomb.ICanUseBomb;
+import nabla.type.BombType;
 import nabla.util.Position;
 
 /**
- * Explosion — efek ledakan (F03).
+ * Explosion sebagai efek ledakan (F03).
  * <p>
  * <b>Design Pattern Explosion adalah data holder</b> yang diatur oleh GameLoop.
  * Ledakan menyebar ke 4 arah dan berhenti ketika mengenai block (F03.2).
+ * <p>
+ * Reinforced Block hanya bisa dihancurkan oleh ledakan dari Pumped Bomb.
  */
 public class Explosion extends Entity {
     private final int blastRange;
-    private final Player owner;
-    private double duration;     /* detik, tersisa */
+    private final ICanUseBomb owner;
+    private final BombType bombType;
+    private double duration;     /* detik tersisa TODO: make sure di GUI ini tuh keliatan */
     private boolean applied;      /* true jika damage/block destruction sudah diproses */
+    private int damage;
 
-    /**
-     * Konstruktor Explosion.
-     *
-     * @param position posisi ledakan
-     * @param blastRange jangkauan ledakan
-     * @param owner pemilik bom yang meledak
-     * @param duration durasi ledakan (detik)
-     */
-    public Explosion(Position position, int blastRange, Player owner, double duration) {
+    public Explosion(Position position, int blastRange, ICanUseBomb owner, double duration, BombType bombType) {
         super(position);
         this.blastRange = blastRange;
         this.owner = owner;
+        this.bombType = bombType;
         this.duration = duration;
         this.applied = false;
+        this.damage = 0;
+    }
+
+    public Explosion(Position position, int blastRange, ICanUseBomb owner, double duration) {
+        this(position, blastRange, owner, duration, BombType.NORMAL);
     }
 
     @Override
@@ -41,38 +45,17 @@ public class Explosion extends Entity {
         }
     }
 
-    /**
-     * Mendapatkan jangkauan ledakan.
-     *
-     * @return jangkauan ledakan dalam tile
-     */
     public int getBlastRange() { return blastRange; }
 
-    /**
-     * Mendapatkan pemilik bom yang meledak.
-     *
-     * @return player pemilik
-     */
-    public Player getOwner() { return owner; }
+    public ICanUseBomb getOwner() { return owner; }
 
-    /**
-     * Mendapatkan durasi ledakan yang tersisa.
-     *
-     * @return durasi dalam detik
-     */
+    public BombType getBombType() { return bombType; }
+
     public double getDuration() { return duration; }
 
-    /**
-     * Cek apakah damage/block destruction sudah diproses.
-     *
-     * @return true jika sudah diproses
-     */
     public boolean isApplied() { return applied; }
 
-    /**
-     * Set status apakah damage sudah diproses.
-     *
-     * @param v status baru
-     */
     public void setApplied(boolean v) { this.applied = v; }
+
+    public int getDamage() { return damage; }
 }

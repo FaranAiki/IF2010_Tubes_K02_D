@@ -7,7 +7,8 @@ import nabla.type.BlockType;
 import nabla.util.Position;
 
 /**
- * Block -- objek map yang menghalangi pergerakan dan penyebaran Explosion (F04).
+ * Block objek map yang menghalangi pergerakan dan penyebaran Explosion (F04).
+ * Termasuk Entity karena menimpa Tile
  * <p>
  * <ul>
  *   <li><b>Design Pattern Factory Method</b> Buat block melalui {@link BlockFactory}, bukan langsung {@code new}.</li>

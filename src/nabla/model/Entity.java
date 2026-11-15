@@ -2,15 +2,19 @@ package nabla.model;
 
 import nabla.model.collision.Collidable;
 import nabla.util.Position;
-import nabla.util.Updatable;
+import nabla.util.IUpdatable;
+
+import java.util.List;
 
 /**
  * Kelas abstrak dasar untuk semua entitas di map.
  * <p>
  * Entity hanya urus posisi dan status aktif, bukan logika gerak/serang.
  * Kelas lain (Bomb, PowerUp) bisa menggunakan Position tanpa memaksa inheritance.
+ *
+ * Pada kode sumber ini, Entity didefinisikan sebagai sesuatu yg menimpa tile.
  */
-public abstract class Entity implements Collidable, Updatable {
+public abstract class Entity implements ICollidable, IUpdatable {
     protected Position position;
     protected boolean active;
 
@@ -27,7 +31,7 @@ public abstract class Entity implements Collidable, Updatable {
 
     public abstract void update(double deltaTime);
 
-    public void applyExplosion(int damage, Position center, int range) {
+    public void applyExplosion(int damage, List<Position> affectedTiles) {
         /* default: tidak ada reaksi terhadap ledakan */
     }
 

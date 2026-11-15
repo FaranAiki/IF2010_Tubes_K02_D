@@ -5,6 +5,7 @@ import nabla.model.component.HealthStats;
 import nabla.model.Entity;
 import nabla.type.AttackPattern;
 import nabla.util.Position;
+import java.util.List;
 
 /**
  * Boss Enemy sebagai musuh utama pada map (F05.3).
@@ -90,9 +91,13 @@ public abstract class BossEnemy extends Entity {
     }
 
     @Override
-    public void applyExplosion(int damage, Position center, int range) {
-        if (position.distanceTo(center) <= range) {
-            takeDamage(damage);
+    public void applyExplosion(int damage, List<Position> affectedTiles) {
+        if (!isActive() || affectedTiles == null) return;
+        for (Position tile : affectedTiles) {
+            if (position.isSameTile(tile)) {
+                takeDamage(damage);
+                return;
+            }
         }
     }
 }

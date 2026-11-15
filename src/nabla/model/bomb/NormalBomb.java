@@ -5,18 +5,11 @@ import nabla.type.BombType;
 import nabla.util.Position;
 
 /**
- * Normal Bomb — bom dasar (F02.2.1).
+ * Normal Bomb adalah bom dasar (F02.2.1).
  * <p>
  * Meledak 3 detik setelah dipasang. Jangkauan mengikuti blastRange player.
  */
 public class NormalBomb extends Bomb {
-    /**
-     * Konstruktor NormalBomb.
-     *
-     * @param owner pemilik bom (player)
-     * @param position posisi bom pada grid
-     * @param blastRange jangkauan ledakan
-     */
     public NormalBomb(Player owner, Position position, int blastRange) {
         super(BombType.NORMAL, owner, position, 3.0, blastRange);
     }
@@ -24,10 +17,5 @@ public class NormalBomb extends Bomb {
     @Override
     protected void onDetonate() {
         /* Explosion dibuat oleh GameLoop melalui createExplosion() */
-    }
-
-    @Override
-    public Explosion createExplosion() {
-        return new Explosion(position, blastRange, owner, 0.5);
     }
 }

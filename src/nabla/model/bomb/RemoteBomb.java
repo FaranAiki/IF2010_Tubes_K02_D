@@ -28,9 +28,4 @@ public class RemoteBomb extends Bomb {
         /* Explosion dibuat oleh GameLoop melalui createExplosion() */
         /* Terhubung dengan Controller */
     }
-
-    @Override
-    public Explosion createExplosion() {
-        return new Explosion(position, blastRange, owner, 0.5);
-    }
 }

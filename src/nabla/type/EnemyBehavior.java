@@ -8,6 +8,6 @@ package nabla.type;
 public enum EnemyBehavior {
     /** Selalu bergerak mengikuti jalur patrol. */
     PATROL,
-    /** PATROL ketika player jauh, CHASE ketika player dalam 3 tile. */
+    /** PATROL ketika player jauh, CHASE ketika player dalam 3 tile. (pakai distanceTo) */
     CHASE
 }

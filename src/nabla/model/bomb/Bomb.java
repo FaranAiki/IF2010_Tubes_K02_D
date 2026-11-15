@@ -1,6 +1,7 @@
 package nabla.model.bomb;
 
 import nabla.model.Entity;
+import nabla.model.bomb.ICanUseBomb;
 import nabla.model.Player;
 import nabla.type.BombType;
 import nabla.util.Position;
@@ -19,12 +20,14 @@ import nabla.util.Position;
  */
 public abstract class Bomb extends Entity {
     protected final BombType type;
-    protected final Player owner;
+    /* Entity bukan Player karena siapa tau mau diekstend ada enemy yg bisa punya bomb */
+    protected final ICanUseBomb owner;
     protected double fuseTime;     /* detik, tersisa sebelum ledak */
     protected boolean triggered;   /* true jika sudah dipicu (chain reaction) */
     protected int blastRange;
+    protected int damage;
 
-    protected Bomb(BombType type, Player owner, Position position, double fuseTime, int blastRange) {
+    protected Bomb(BombType type, ICanUseBomb owner, Position position, double fuseTime, int blastRange) {
         super(position);
         this.type = type;
         this.owner = owner;
@@ -61,11 +64,13 @@ public abstract class Bomb extends Entity {
 
     protected abstract void onDetonate();
 
-    public abstract Explosion createExplosion();
+    public Explosion createExplosion() {
+        return new Explosion(position, blastRange, owner, 0.5, type);
+    }
 
     public BombType getType() { return type; }
 
-    public Player getOwner() { return owner; }
+    public ICanUseBomb getOwner() { return owner; }
 
     public double getFuseTime() { return fuseTime; }
 
