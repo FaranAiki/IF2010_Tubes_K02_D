@@ -14,6 +14,8 @@ import java.nio.file.Path;
 public final class Config {
     public static String mapLayout = null;
     public static String mapName = null;
+    public static int TARGET_FPS = 60;
+    public static int TARGET_DT = 1 / 60.0;
 
     private Config() {}
 
@@ -25,14 +27,11 @@ public final class Config {
           String[] mapRaw = Files.readString(Path.of(configDir + "map.conf")).trim().split("\n");
           mapName = mapRaw[0];
           mapLayout = String.join(System.lineSeparator(), Arrays.copyOfRange(mapRaw, 1, mapRaw.length));
+
+          /* TODO pake JSON buat conf*/
         } catch (IOException e) {
           e.printStackTrace();
         }
-    }
-
-    public static int TARGET_FPS = 60;
-    public static double getTargetDt() {
-        return 1.0 / TARGET_FPS;
     }
 
     public static final int DEFAULT_TIMER_SECONDS = 300;

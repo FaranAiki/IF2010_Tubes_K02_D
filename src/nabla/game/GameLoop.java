@@ -23,11 +23,10 @@ public class GameLoop implements Runnable {
     private volatile boolean running = false;
     private Thread thread;
     private double deltaTime = 0.0;
-    // TODO: ubah di config
-    private static final double TARGET_DT = 1.0 / 60.0; /* 60 FPS */
 
     public GameLoop(Game game) {
         this.game = game;
+
     }
 
     @Override
@@ -42,7 +41,7 @@ public class GameLoop implements Runnable {
                 update(dt);
             }
             try {
-                Thread.sleep(1); /* Hemat CPU */
+                Thread.sleep(Config.getTargetDt); /* Hemat CPU */
             } catch (InterruptedException e) {
                 Thread.currentThread().interrupt();
                 break;
@@ -71,8 +70,8 @@ public class GameLoop implements Runnable {
         }
 
         /* 3. Update boss */
-        if (game.getCurrentMap() != null && game.getCurrentMap().getBoss() != null) {
-            game.getCurrentMap().getBoss().update(dt);
+        if (game.getBoss() != null) {
+            game.getBoss().update(dt);
         }
 
         /* 4. Hapus entity tidak aktif */
@@ -87,8 +86,7 @@ public class GameLoop implements Runnable {
     private void checkGameEnd() {
         /* Jika memang, semua enemy dan boss mati dan player di exit */
         boolean allEnemiesDead = game.getEnemies().isEmpty()
-                && (game.getCurrentMap() == null || game.getCurrentMap().getBoss() == null
-                    || !game.getCurrentMap().getBoss().isActive());
+                && (game.getBoss() == null || !game.getBoss().isActive());
         if (allEnemiesDead && game.getPlayer().getPosition().isSameTile(game.getCurrentMap().getExit())) {
             game.setGameState(nabla.type.GameState.WIN);
             return;

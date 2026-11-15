@@ -43,11 +43,7 @@ public class Player extends Entity {
      * Gerak player ke arah tertentu.
      * <p>
      * Alur: Controller -> Player -> CollisionChecker -> balik ke Player.
-     * Player menanyakan checker apakah bisa bergerak, jika bisa update posisi.
-     *
-     * @param dir arah gerak
-     * @param checker collision checker dari Game
-     * @return true jika player berhasil bergerak, false jika terhalang
+     * Player nanya checker apakah bisa bergerak, jika bisa update posisi.
      */
     public boolean move(Direction dir, CollisionChecker checker) {
         this.direction = dir;

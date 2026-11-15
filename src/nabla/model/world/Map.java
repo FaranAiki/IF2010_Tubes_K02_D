@@ -3,11 +3,7 @@ package nabla.model.world;
 import nabla.exception.InvalidMapException;
 import nabla.model.block.Block;
 import nabla.model.block.BlockFactory;
-import nabla.model.entity.Player;
-import nabla.model.enemy.BossEnemy;
-import nabla.model.enemy.NormalEnemy;
 import nabla.type.BlockType;
-import nabla.type.EnemyBehavior;
 import nabla.type.TileType;
 import nabla.util.Position;
 import nabla.util.Size;
@@ -39,9 +35,6 @@ public class Map {
     private final List<Position> enemySpawns = new ArrayList<>();
     private Position bossSpawn;
     private Position exit;
-    private Player player;
-    private final List<NormalEnemy> enemies = new ArrayList<>();
-    private BossEnemy boss;
 
     public Map(int width, int height) {
         this.size = new Size(width, height);
@@ -90,17 +83,7 @@ public class Map {
             }
         }
 
-        /* Buat player dan enemy berdasarkan spawn */
-        /* TODO make sure agar semua players bisa spawn */
-        if (map.playerSpawn != null) {
-            map.player = new Player(map.playerSpawn);
-        }
-
-        for (Position spawn: map.enemySpawns) {
-            /* Default: patrol behavior */
-            map.enemies.add(new NormalEnemy(spawn, EnemyBehavior.PATROL, new ArrayList<>(), 1.0));
-        }
-
+        /* Player dan enemy dibuat oleh Game, bukan Map */
         return map;
     }
 
@@ -156,8 +139,4 @@ public class Map {
 
     public Position getBossSpawn() { return bossSpawn; }
     public Position getExit() { return exit; }
-    public Player getPlayer() { return player; }
-    public List<NormalEnemy> getEnemies() { return enemies; }
-    public BossEnemy getBoss() { return boss; }
-    public void setBoss(BossEnemy boss) { this.boss = boss; }
 }
