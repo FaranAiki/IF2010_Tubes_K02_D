@@ -20,10 +20,9 @@ public class CLIController extends AbstractController {
     private final Scanner scanner;
     private final MapLoader mapLoader;
 
-    /* TODO gila ini scanner kenapa ada di sini */
-    public CLIController(Game game, GameLoop gameLoop, IRenderer renderer, Scanner scanner, MapLoader mapLoader) {
+    public CLIController(Game game, GameLoop gameLoop, IRenderer renderer, MapLoader mapLoader) {
         super(game, gameLoop, renderer);
-        this.scanner = scanner;
+        this.scanner = new Scanner(System.in);
         this.mapLoader = mapLoader;
     }
 

@@ -8,8 +8,6 @@ import nabla.game.Game;
 import nabla.ui.IRenderer;
 import nabla.ui.UIFactory;
 
-import java.util.Scanner;
-
 /**
  * Concrete Factory untuk UI CLI (Console).
  * <p>
@@ -23,8 +21,8 @@ public class CLIFactory implements UIFactory {
     }
 
     @Override
-    public IController createController(Game game, GameLoop gameLoop, IRenderer renderer, Scanner scanner, MapLoader mapLoader) {
-        return new CLIController(game, gameLoop, renderer, scanner, mapLoader);
+    public IController createController(Game game, GameLoop gameLoop, IRenderer renderer, MapLoader mapLoader) {
+        return new CLIController(game, gameLoop, renderer, mapLoader);
     }
 
     @Override

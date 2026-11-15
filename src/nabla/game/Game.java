@@ -36,7 +36,7 @@ public class Game {
     private List<PowerUp> powerUps = new ArrayList<>();
 
     private int score = 0;
-    private int timer;
+    private double timer;
     private GameState gameState = GameState.MENU;
     private CollisionChecker collisionChecker;
 
@@ -93,8 +93,8 @@ public class Game {
     public List<PowerUp> getPowerUps() { return powerUps; }
     public int getScore() { return score; }
     public void setScore(int s) { this.score = s; }
-    public int getTimer() { return timer; }
-    public void setTimer(int t) { this.timer = t; }
+    public double getTimer() { return timer; }
+    public void setTimer(double t) { this.timer = t; }
     public GameState getGameState() { return gameState; }
     public void setGameState(GameState s) { this.gameState = s; }
 
@@ -116,7 +116,7 @@ public class Game {
 
     public void detonateRemoteBombs() {
         if (player == null) return;
-        for (Bomb b : bombs) {
+        for (Bomb b: bombs) {
             if (b.isActive() && b.getOwner() == player && b.getType() == BombType.REMOTE) {
                 b.trigger();
             }

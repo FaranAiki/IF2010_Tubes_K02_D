@@ -2,6 +2,7 @@ package nabla.game;
 
 import nabla.game.Game;
 import nabla.model.world.Map;
+import nabla.singleton.Config;
 
 /**
  * Map Loader memuat map dari layout string.
@@ -12,23 +13,8 @@ import nabla.model.world.Map;
  * Bisa di-extend untuk load dari file, resource, dll.
  */
 public class MapLoader {
-    /** Layout default map (Kelompok D: Green Garden). */
-    /* TODO ganti pakai config/map.conf loader
-     * jadi nanti pakai file reader gitu */
-    private static final String DEFAULT_LAYOUT =
-        "# # # # # # # # # # # # # #\n" +
-        "# P . . D . . . D . . . X #\n" +
-        "# . # . # # # . # . D . . #\n" +
-        "# . # . . . # . . E # # . #\n" +
-        "# D . . R . . . R . . . . #\n" +
-        "# # # . # # # . # # # E . #\n" +
-        "# . E . D . . . # . . . . #\n" +
-        "# . # # # . # . . . B . . #\n" +
-        "# E . . . . D . . . . . E #\n" +
-        "# # # # # # # # # # # # # #";
-
     public void loadDefaultMap(Game game) {
-        Map map = Map.fromLayout("Green Garden", DEFAULT_LAYOUT);
+        Map map = Map.fromLayout(Config.defaultMapName, Config.defaultMapLayout);
         map.validate();
         game.initialize(map);
     }

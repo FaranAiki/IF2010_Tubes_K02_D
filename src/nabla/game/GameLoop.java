@@ -9,6 +9,7 @@ import nabla.model.entity.Player;
 import nabla.model.enemy.NormalEnemy;
 import nabla.singleton.Config;
 import nabla.util.Position;
+import nabla.model.collision.CollisionChecker;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -65,13 +66,13 @@ public class GameLoop implements Runnable {
     }
 
     private void update(double dt) {
-        game.setTimer(Math.max(0, game.getTimer() - 1));
+        game.setTimer(Math.max(0, game.getTimer() - dt));
         if (game.getTimer() <= 0) {
             game.setGameState(nabla.type.GameState.LOSE);
             return;
         }
 
-        nabla.model.collision.CollisionChecker checker = game.getCollisionChecker();
+        CollisionChecker checker = game.getCollisionChecker();
         Player player = game.getPlayer();
         for (NormalEnemy enemy : game.getEnemies()) {
             enemy.updateEnemy(dt, player, checker);
@@ -190,6 +191,7 @@ public class GameLoop implements Runnable {
         if (running) return;
         running = true;
         thread = new Thread(this, "GameLoop");
+        // TODO tambahin Thread input line dan Renderer
         thread.start();
     }
 

@@ -5,8 +5,6 @@ import nabla.game.controller.IController;
 import nabla.game.MapLoader;
 import nabla.game.Game;
 
-import java.util.Scanner;
-
 /**
  * Abstract Factory untuk menciptakan family produk UI yang terkait.
  * <p>
@@ -19,10 +17,7 @@ import java.util.Scanner;
 public interface UIFactory {
     IRenderer createRenderer(Game game);
 
-    IController createController(Game game, GameLoop gameLoop, IRenderer renderer, Scanner scanner, MapLoader mapLoader);
+    IController createController(Game game, GameLoop gameLoop, IRenderer renderer, MapLoader mapLoader);
 
-    /**
-     * Mendapatkan nama mode UI (untuk logging/debug).
-     */
     String getModeName();
 }

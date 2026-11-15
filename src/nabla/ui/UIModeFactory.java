@@ -14,11 +14,6 @@ public final class UIModeFactory {
         /* Prevent instantiation */
     }
 
-    /**
-     * Mendapatkan factory untuk mode UI yang diminta.
-     *
-     * Konversi dari String menjadi Factory yang diinginkan
-     */
     public static UIFactory getFactory(String mode) {
         return switch (mode.toLowerCase()) {
             case "cli" -> new nabla.ui.cli.CLIFactory();
@@ -27,9 +22,6 @@ public final class UIModeFactory {
         };
     }
 
-    /**
-     * Mendapatkan factory default (JavaFX).
-     */
     public static UIFactory getDefaultFactory() {
         return new nabla.ui.javafx.JavaFXFactory();
     }

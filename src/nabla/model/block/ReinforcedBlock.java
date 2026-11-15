@@ -7,7 +7,6 @@ import nabla.util.Position;
 /**
  * Reinforced Block hanya bisa dihancurkan oleh Pumped Bomb (F04.2.3).
  * <p>
- * Digunakan pada Green Garden. Normal Bomb dan Remote Bomb tidak bisa menghancurkannya.
  */
 public class ReinforcedBlock extends Block {
     public ReinforcedBlock(Position position) {

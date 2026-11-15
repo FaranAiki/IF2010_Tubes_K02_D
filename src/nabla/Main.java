@@ -8,8 +8,6 @@ import nabla.ui.IRenderer;
 import nabla.ui.UIFactory;
 import nabla.ui.UIModeFactory;
 
-import java.util.Scanner;
-
 /**
  * Main entry point Nangor Blast (F09.1).
  * <p>
@@ -34,9 +32,7 @@ public class Main {
         }
 
         IRenderer renderer = factory.createRenderer(game);
-        /* TODO keknya scanner kita pisahin aja */
-        Scanner scanner = "cli".equals(ui) ? new Scanner(System.in) : null;
-        IController controller = factory.createController(game, gameLoop, renderer, scanner, mapLoader);
+        IController controller = factory.createController(game, gameLoop, renderer, mapLoader);
         controller.run();
     }
 }

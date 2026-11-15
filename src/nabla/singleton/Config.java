@@ -12,8 +12,8 @@ import java.nio.file.Path;
  * TODO bagusnya pakai JSON or no ya
  */
 public final class Config {
-    public static String mapLayout = null;
-    public static String mapName = null;
+    public static String defaultMapLayout = null;
+    public static String defaultMapName = null;
     public static int TARGET_FPS = 60;
     public static double TARGET_DT = 1 / 60.0;
 
@@ -25,8 +25,9 @@ public final class Config {
 
         try {
           String[] mapRaw = Files.readString(Path.of(configDir + "map.conf")).trim().split("\n");
-          mapName = mapRaw[0];
-          mapLayout = String.join(System.lineSeparator(), Arrays.copyOfRange(mapRaw, 1, mapRaw.length));
+          defaultMapName = mapRaw[0];
+          /* unix: \n vs. windows: \r\n jadi pake lineSeparator() */
+          defaultMapLayout = String.join(System.lineSeparator(), Arrays.copyOfRange(mapRaw, 1, mapRaw.length));
 
           /* TODO pake JSON buat conf*/
         } catch (IOException e) {
@@ -34,5 +35,5 @@ public final class Config {
         }
     }
 
-    public static final int DEFAULT_TIMER_SECONDS = 300;
+    public static final double DEFAULT_TIMER_SECONDS = 300;
 }

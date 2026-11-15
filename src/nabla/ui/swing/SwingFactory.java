@@ -21,7 +21,7 @@ public class SwingFactory implements UIFactory {
     }
 
     @Override
-    public IController createController(Game game, GameLoop gameLoop, IRenderer renderer, java.util.Scanner scanner, MapLoader mapLoader) {
+    public IController createController(Game game, GameLoop gameLoop, IRenderer renderer, MapLoader mapLoader) {
         return new SwingController(game, gameLoop, renderer, mapLoader);
     }
 

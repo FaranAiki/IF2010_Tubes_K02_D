@@ -1,7 +1,7 @@
 # Nangor Blast (BOOM!)
 
 ## TODO
-1. Implementasi CLI kemudian GUI menggunakan JavaFX (program utama) dan menggunakan Swing.
+1. Implementasi CLI (pakai Lanterna) kemudian GUI menggunakan JavaFX (program utama) dan menggunakan Swing.
 2. Pembagian tugas kelompok: (NIM 18225122 upload ke git cuman untuk eksplorasi)
 3. Implementasi real (2 minggu nanti setelah M1) karena kebanyakan masih abstrak
 4. Menyelesaikan UML Diagram
