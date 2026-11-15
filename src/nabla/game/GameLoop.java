@@ -2,6 +2,8 @@ package nabla.game;
 
 import nabla.model.game.Game;
 import nabla.model.entity.IEntity;
+import nabla.singleton.Config;
+
 import java.util.List;
 
 /**
@@ -41,7 +43,7 @@ public class GameLoop implements Runnable {
                 update(dt);
             }
             try {
-                Thread.sleep(Config.getTargetDt); /* Hemat CPU */
+                Thread.sleep((long) (Config.TARGET_DT * 1000.0)); /* Hemat CPU */
             } catch (InterruptedException e) {
                 Thread.currentThread().interrupt();
                 break;

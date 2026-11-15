@@ -15,7 +15,7 @@ public final class Config {
     public static String mapLayout = null;
     public static String mapName = null;
     public static int TARGET_FPS = 60;
-    public static int TARGET_DT = 1 / 60.0;
+    public static double TARGET_DT = 1 / 60.0;
 
     private Config() {}
 
