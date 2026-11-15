@@ -7,40 +7,37 @@ import nabla.util.Direction;
 import nabla.util.Position;
 
 import java.util.List;
+import java.util.function.Supplier;
 
 /**
  * Collision checker untuk mengecek apakah suatu posisi dapat dilalui.
  * <p>
  * Menyediakan aturan umum untuk block penghalang, batas map, dan entity lain
- * yang menghalangi pergerakan. Strategy pattern menggunakan class ini
- * untuk memutuskan apakah gerakan diperbolehkan.
- * TODO: belum diimplementasikan full
+ * yang menghalangi pergerakan.
  */
 public class CollisionChecker {
     private final Map map;
-    private final List<IEntity> blockers;
+    private final Supplier<List<IEntity>> blockersSupplier;
 
-    public CollisionChecker(Map map, List<IEntity> blockers) {
+    public CollisionChecker(Map map, Supplier<List<IEntity>> blockersSupplier) {
         this.map = map;
-        this.blockers = blockers;
+        this.blockersSupplier = blockersSupplier;
     }
 
     public boolean canMove(Position current, Direction direction) {
         Position target = direction.deltaPosition().add(current);
 
-        /* Cek batas map */
         if (target.getRow() < 0 || target.getRow() >= map.getHeight()
                 || target.getCol() < 0 || target.getCol() >= map.getWidth()) {
             return false;
         }
 
-        /* Cek block penghalang */
         if (map.getBlocks()[target.getRow()][target.getCol()] != null) {
             return false;
         }
 
-        /* Cek entity lain yang menghalangi */
-        for (IEntity entity: blockers) {
+        List<IEntity> blockers = blockersSupplier.get();
+        for (IEntity entity : blockers) {
             if (entity.isActive() && entity.blocksMovement() && entity.getPosition().isSameTile(target)) {
                 return false;
             }

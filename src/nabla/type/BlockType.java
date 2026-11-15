@@ -3,7 +3,7 @@ package nabla.type;
 /**
  * Jenis block pada map.
  * <p>
- * Mengikuti F04.2 - Jenis Block.
+ * Mengikuti F04.2 sesuai dengan Jenis Block.
  */
 public enum BlockType {
     /** Tidak bisa dihancurkan, menghentikan ledakan (F04.2.1). */

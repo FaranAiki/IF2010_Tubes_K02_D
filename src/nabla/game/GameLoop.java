@@ -1,22 +1,22 @@
 package nabla.game;
 
-import nabla.model.game.Game;
+import nabla.game.Game;
 import nabla.model.entity.IEntity;
 import nabla.singleton.Config;
 
 import java.util.List;
 
 /**
- * Game Loop -- proses utama yang berjalan selama permainan berlangsung (F09.3).
+ * Game Loop sebagai proses utama yang berjalan selama permainan berlangsung (F09.3).
  * <p>
  * <ul>
  *   <li><b>Design Pattern Concurrency</b>
- *       Berjalan di thread terpisah, update state secara
+ *       Berjalan di thread terpisah dan update state secara
  *       periodik (fixed timestep). Thread ini adalah "game thread".
  *  </li>
  *   <li><b>Design Pattern Single Responsibility</b>
  *       Hanya urus update state, bukan input
- *       atau rendering.
+ *       atau rendering dan juga bukan Game itu sendiri.
  *   </li>
  * </ul>
  */
@@ -24,11 +24,11 @@ public class GameLoop implements Runnable {
     private final Game game;
     private volatile boolean running = false;
     private Thread thread;
-    private double deltaTime = 0.0;
+    private double accumulator = 0.0;
+    private static final double FIXED_DT = Config.TARGET_DT;
 
     public GameLoop(Game game) {
         this.game = game;
-
     }
 
     @Override
@@ -39,11 +39,17 @@ public class GameLoop implements Runnable {
             double dt = (now - lastTime) / 1_000_000_000.0;
             lastTime = now;
 
-            if (game.isPlaying()) {
-                update(dt);
+            accumulator += dt;
+
+            while (accumulator >= FIXED_DT) {
+                if (game.isPlaying()) {
+                    update(FIXED_DT);
+                }
+                accumulator -= FIXED_DT;
             }
+
             try {
-                Thread.sleep((long) (Config.TARGET_DT * 1000.0)); /* Hemat CPU */
+                Thread.sleep(1);
             } catch (InterruptedException e) {
                 Thread.currentThread().interrupt();
                 break;
@@ -51,42 +57,36 @@ public class GameLoop implements Runnable {
         }
     }
 
-    /* Game loop utama terjadi di sini per deltaTime untuk mengupdate semua kemungkinan entitas */
     private void update(double dt) {
-        /* 1. Update timer */
         game.setTimer(game.getTimer() - (int) dt);
         if (game.getTimer() <= 0) {
             game.setGameState(nabla.type.GameState.LOSE);
             return;
         }
 
-        /* 2. Update entities */
-        for (IEntity entity : game.getEnemies()) {
+        for (IEntity entity: game.getEnemies()) {
             entity.update(dt);
         }
-        for (IEntity entity : game.getBombs()) {
+        for (IEntity entity: game.getBombs()) {
             entity.update(dt);
         }
-        for (IEntity entity : game.getExplosions()) {
+        for (IEntity entity: game.getExplosions()) {
             entity.update(dt);
         }
 
-        /* 3. Update boss */
         if (game.getBoss() != null) {
             game.getBoss().update(dt);
         }
 
-        /* 4. Hapus entity tidak aktif */
+        /* Hapus semua yg sudah tidak aktif */
         game.getEnemies().removeIf(e -> !e.isActive());
         game.getBombs().removeIf(e -> !e.isActive());
         game.getExplosions().removeIf(e -> !e.isActive());
 
-        /* 5. Cek kondisi menang atau kalah */
         checkGameEnd();
     }
 
     private void checkGameEnd() {
-        /* Jika memang, semua enemy dan boss mati dan player di exit */
         boolean allEnemiesDead = game.getEnemies().isEmpty()
                 && (game.getBoss() == null || !game.getBoss().isActive());
         if (allEnemiesDead && game.getPlayer().getPosition().isSameTile(game.getCurrentMap().getExit())) {
@@ -94,7 +94,6 @@ public class GameLoop implements Runnable {
             return;
         }
 
-        /* Jika kalah, player mati */
         if (game.getPlayer().isDead()) {
             game.setGameState(nabla.type.GameState.LOSE);
         }
@@ -120,5 +119,5 @@ public class GameLoop implements Runnable {
     }
 
     public boolean isRunning() { return running; }
-    public double getDelta() { return deltaTime; }
+    public double getDelta() { return FIXED_DT; }
 }

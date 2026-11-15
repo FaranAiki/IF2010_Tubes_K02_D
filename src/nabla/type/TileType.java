@@ -7,56 +7,59 @@ package nabla.type;
  */
 public enum TileType {
     /** Tile yang dapat dilalui ('.'). */
-    WALKABLE,
+    WALKABLE('.'),
     /** Air - memperlambat player 50% ('W'). */
-    WATER,
+    WATER('W'),
     /** Lava - siklus DORMANT/WARNING/ERUPTING ('H'). */
-    LAVA,
+    LAVA('H'),
     /** Es - player slide sesuai arah terakhir ('I'). */
-    ICE,
+    ICE('I'),
     /** Laser - aktif/nonaktif, damage 1 nyawa ('L'). */
-    LASER,
+    LASER('L'),
     /** Saklar - toggle Gate/Laser ('S'). */
-    SWITCH,
+    SWITCH('S'),
     /** Gerak tertutup - hentikan gerakan & ledakan ('G'). */
-    GATE_CLOSED,
+    GATE_CLOSED('G'),
     /** Gerak terbuka - dapat dilalui ('g'). */
-    GATE_OPEN,
+    GATE_OPEN('g'),
     /** Block tidak bisa dihancurkan ('#'). */
-    INDESTRUCTIBLE,
+    INDESTRUCTIBLE('#'),
     /** Block bisa dihancurkan ('D'). */
-    DESTRUCTIBLE,
+    DESTRUCTIBLE('D'),
     /** Block terkuat (hanya Pumped Bomb) ('R'). */
-    REINFORCED,
+    REINFORCED('R'),
     /** Spawn player ('P'). */
-    SPAWN_PLAYER,
+    SPAWN_PLAYER('P'),
     /** Spawn enemy ('E'). */
-    SPAWN_ENEMY,
+    SPAWN_ENEMY('E'),
     /** Spawn boss ('B'). */
-    SPAWN_BOSS,
+    SPAWN_BOSS('B'),
     /** Pintu keluar ('X'). */
-    EXIT,
+    EXIT('X'),
     /** Tempat setelah block hancur. */
-    EMPTY;
+    EMPTY('.');
+
+    private final char symbol;
+
+    TileType(char symbol) {
+        this.symbol = symbol;
+    }
+
+    public char tileToChar() {
+        return symbol;
+    }
+
+    @Override
+    public String toString() {
+        return String.valueOf(symbol);
+    }
 
     public static TileType charToTile(char c) {
-        switch (c) {
-            case '#': return TileType.INDESTRUCTIBLE;
-            case 'D': return TileType.DESTRUCTIBLE;
-            case 'R': return TileType.REINFORCED;
-            case '.': return TileType.WALKABLE;
-            case 'P': return TileType.SPAWN_PLAYER;
-            case 'E': return TileType.SPAWN_ENEMY;
-            case 'B': return TileType.SPAWN_BOSS;
-            case 'X': return TileType.EXIT;
-            case 'W': return TileType.WATER;
-            case 'S': return TileType.SWITCH;
-            case 'G': return TileType.GATE_CLOSED;
-            case 'g': return TileType.GATE_OPEN;
-            case 'H': return TileType.LAVA;
-            case 'I': return TileType.ICE;
-            case 'L': return TileType.LASER;
-            default: return TileType.WALKABLE;
+        for (TileType type : values()) {
+            if (type.symbol == c) {
+                return type;
+            }
         }
+        return WALKABLE;
     }
 }

@@ -19,49 +19,19 @@ public abstract class Block extends Entity {
     protected final BlockType type;
     protected PowerUp containedPowerUp;
 
-    /**
-     * Konstruktor Block.
-     *
-     * @param type tipe block
-     * @param position posisi block pada grid
-     */
     protected Block(BlockType type, Position position) {
         super(position);
         this.type = type;
     }
 
-    /**
-     * Cek apakah block ini bisa dihancurkan oleh ledakan.
-     *
-     * @return true jika dapat dihancurkan oleh ledakan
-     */
     public abstract boolean isDestructibleByExplosion();
 
-    /**
-     * Cek apakah block ini bisa dihancurkan oleh bom tertentu.
-     *
-     * @param bombType tipe bom yang digunakan
-     * @return true jika dapat dihancurkan oleh bombType
-     */
     public abstract boolean isDestructibleByBombType(BombType bombType);
 
-    /**
-     * Hancurkan block.
-     */
     public abstract void destroy();
 
-    /**
-     * Cek apakah block menghentikan penyebaran Explosion.
-     *
-     * @return true jika menghentikan ledakan
-     */
     public abstract boolean stopsExplosion();
 
-    /**
-     * Cek apakah block menghalangi pergerakan.
-     *
-     * @return true jika block aktif dan menghalangi gerakan
-     */
     @Override
     public boolean blocksMovement() {
         return isActive();
@@ -69,25 +39,13 @@ public abstract class Block extends Entity {
 
     /**
      * Simpan Power-Up di dalam block (F04.2.2.3).
-     *
-     * @param powerUp power-up yang disimpan
      */
     public void setContainedPowerUp(PowerUp powerUp) {
         this.containedPowerUp = powerUp;
     }
 
-    /**
-     * Mendapatkan Power-Up yang tersimpan di dalam block.
-     *
-     * @return power-up yang tersimpan, atau null jika kosong
-     */
     public PowerUp getContainedPowerUp() { return containedPowerUp; }
 
-    /**
-     * Mendapatkan tipe block.
-     *
-     * @return tipe block
-     */
     public BlockType getType() { return type; }
 
     @Override

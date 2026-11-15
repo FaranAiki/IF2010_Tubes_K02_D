@@ -1,6 +1,6 @@
 package nabla.ui;
 
-import nabla.model.game.Game;
+import nabla.game.Game;
 import nabla.type.GameState;
 
 /**

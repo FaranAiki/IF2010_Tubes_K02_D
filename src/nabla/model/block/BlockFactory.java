@@ -9,14 +9,6 @@ import nabla.util.Position;
  * <b>Design Pattern Open/Closed</b>. Tambah block baru cukup di sini.
  */
 public class BlockFactory {
-    /**
-     * Buat block sesuai tipe.
-     *
-     * @param type tipe block yang ingin dibuat
-     * @param position posisi block pada grid
-     * @return instance Block sesuai tipe
-     * @throws IllegalArgumentException jika tipe block tidak dikenal
-     */
     public static Block create(BlockType type, Position position) {
         switch (type) {
             case INDESTRUCTIBLE:
@@ -26,7 +18,7 @@ public class BlockFactory {
             case REINFORCED:
                 return new ReinforcedBlock(position);
             default:
-                throw new IllegalArgumentException("Unknown BlockType: " + type);
+                throw new IllegalArgumentException("Tipe blok tidak dikenal: " + type);
         }
     }
 }

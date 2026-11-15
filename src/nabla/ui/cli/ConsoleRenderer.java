@@ -1,7 +1,7 @@
 package nabla.ui.cli;
 
 import nabla.ui.IRenderer;
-import nabla.model.game.Game;
+import nabla.game.Game;
 import nabla.model.entity.IEntity;
 import nabla.model.entity.Player;
 import nabla.model.world.Map;

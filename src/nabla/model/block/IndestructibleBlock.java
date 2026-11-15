@@ -5,17 +5,12 @@ import nabla.type.BlockType;
 import nabla.util.Position;
 
 /**
- * Indestructible Block -- tidak bisa dihancurkan (F04.2.1).
+ * Indestructible Block tidak bisa dihancurkan (F04.2.1).
  * <p>
- * Menghalangi pergerakan, menghentikan penyebaran Explosion,
- * tidak bisa ditempati bomb.
+ * Menghalangi pergerakan menghentikan penyebaran Explosion,
+ * dan tidak bisa ditempati bomb.
  */
 public class IndestructibleBlock extends Block {
-    /**
-     * Konstruktor IndestructibleBlock.
-     *
-     * @param position posisi block pada grid
-     */
     public IndestructibleBlock(Position position) {
         super(BlockType.INDESTRUCTIBLE, position);
     }

@@ -1,8 +1,9 @@
-package nabla.model.game;
+package nabla.game;
 
 import nabla.model.bomb.Bomb;
 import nabla.model.bomb.Explosion;
 import nabla.model.collision.CollisionChecker;
+import nabla.model.entity.IEntity;
 import nabla.model.entity.Player;
 import nabla.model.enemy.BossEnemy;
 import nabla.model.enemy.NormalEnemy;
@@ -13,21 +14,24 @@ import nabla.type.GameState;
 import nabla.util.Position;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Supplier;
 
 /**
  * Game state manager utama (F00).
  * <p>
  * Menyediakan satu interface untuk mengakses semua state permainan
- * (player, enemies, bombs, blocks). Hanya urus state, tidak update loop.
+ * (player, enemies, bombs, blocks). Hanya urus state dan tidak update loop (GameLoop yg ngurus).
  */
 public class Game {
     private Player player;
     private Map currentMap;
     private BossEnemy boss;
+
     private List<NormalEnemy> enemies = new ArrayList<>();
     private List<Bomb> bombs = new ArrayList<>();
     private List<Explosion> explosions = new ArrayList<>();
     private List<PowerUp> powerUps = new ArrayList<>();
+
     private int score = 0;
     private int timer = 300;
     private GameState gameState = GameState.MENU;
@@ -44,7 +48,7 @@ public class Game {
         this.currentMap = map;
         this.player = new Player(map.getPlayerSpawn());
         this.enemies.clear();
-        for (Position spawn : map.getEnemySpawns()) {
+        for (Position spawn: map.getEnemySpawns()) {
             this.enemies.add(new NormalEnemy(spawn, EnemyBehavior.PATROL, new ArrayList<>(), 1.0));
         }
         this.bombs.clear();
@@ -53,7 +57,15 @@ public class Game {
         this.score = 0;
         this.timer = 300;
         this.gameState = GameState.PLAYING;
-        this.collisionChecker = new CollisionChecker(map, new ArrayList<>(this.enemies));
+        this.collisionChecker = new CollisionChecker(map, this::getAllBlockers);
+    }
+
+    private List<IEntity> getAllBlockers() {
+        List<IEntity> all = new ArrayList<>(enemies);
+        if (boss != null && boss.isActive()) {
+            all.add(boss);
+        }
+        return all;
     }
 
     public void restart() {

@@ -4,7 +4,7 @@ import nabla.game.GameLoop;
 import nabla.game.controller.IController;
 import nabla.game.controller.JavaFXController;
 import nabla.game.MapLoader;
-import nabla.model.game.Game;
+import nabla.game.Game;
 import nabla.ui.IRenderer;
 import nabla.ui.UIFactory;
 

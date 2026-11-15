@@ -1,6 +1,6 @@
 package nabla.game;
 
-import nabla.model.game.Game;
+import nabla.game.Game;
 import nabla.model.world.Map;
 
 /**
