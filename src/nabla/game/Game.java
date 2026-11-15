@@ -4,8 +4,8 @@ import nabla.model.bomb.Bomb;
 import nabla.model.bomb.BombFactory;
 import nabla.model.bomb.Explosion;
 import nabla.model.collision.CollisionChecker;
-import nabla.model.entity.IEntity;
-import nabla.model.entity.Player;
+import nabla.model.Entity;
+import nabla.model.Player;
 import nabla.type.BombType;
 import nabla.model.enemy.BossEnemy;
 import nabla.model.enemy.NormalEnemy;
@@ -59,8 +59,8 @@ public class Game {
         this.collisionChecker = new CollisionChecker(map, this::getAllCollidables);
     }
 
-    private List<IEntity> getAllCollidables() {
-        List<IEntity> all = new ArrayList<>();
+    private List<Entity> getAllCollidables() {
+        List<Entity> all = new ArrayList<>();
         if (player != null) all.add(player);
         all.addAll(enemies);
         if (boss != null) all.add(boss);

@@ -2,8 +2,8 @@ package nabla.ui.cli;
 
 import nabla.ui.IRenderer;
 import nabla.game.Game;
-import nabla.model.entity.IEntity;
-import nabla.model.entity.Player;
+import nabla.model.Entity;
+import nabla.model.Player;
 import nabla.model.world.Map;
 import nabla.type.GameState;
 import nabla.type.TileType;

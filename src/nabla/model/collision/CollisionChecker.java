@@ -1,7 +1,7 @@
 package nabla.model.collision;
 
 import nabla.model.world.Map;
-import nabla.model.entity.IEntity;
+import nabla.model.Entity;
 import nabla.model.powerup.PowerUp;
 import nabla.type.TileType;
 import nabla.util.Direction;
@@ -21,9 +21,9 @@ public class CollisionChecker {
     private final Map map;
     /* Game yang menentukan siapa saja entitas collidable
      * sehingga CollisionChecker nurut aja sama game */
-    private final Supplier<List<IEntity>> collidablesSupplier;
+    private final Supplier<List<Entity>> collidablesSupplier;
 
-    public CollisionChecker(Map map, Supplier<List<IEntity>> collidablesSupplier) {
+    public CollisionChecker(Map map, Supplier<List<Entity>> collidablesSupplier) {
         this.map = map;
         this.collidablesSupplier = collidablesSupplier;
     }
@@ -32,7 +32,7 @@ public class CollisionChecker {
         return canMove(current, direction, null);
     }
 
-    public boolean canMove(Position current, Direction direction, IEntity mover) {
+    public boolean canMove(Position current, Direction direction, Entity mover) {
         Position target = direction.deltaPosition().add(current);
 
         if (target.getRow() < 0 || target.getRow() >= map.getHeight()
@@ -40,7 +40,7 @@ public class CollisionChecker {
             return false;
         }
 
-        for (IEntity entity : collidablesSupplier.get()) {
+        for (Entity entity: collidablesSupplier.get()) {
             if (entity == mover) continue;
             if (entity.isActive() && entity.blocksMovement() && entity.getPosition() != null
                     && entity.getPosition().isSameTile(target)) {
@@ -51,9 +51,9 @@ public class CollisionChecker {
         return true;
     }
 
-    public List<IEntity> getCollisionsAt(Position pos, IEntity mover) {
-        List<IEntity> collisions = new ArrayList<>();
-        for (IEntity entity : collidablesSupplier.get()) {
+    public List<Entity> getCollisionsAt(Position pos, Entity mover) {
+        List<Entity> collisions = new ArrayList<>();
+        for (Entity entity : collidablesSupplier.get()) {
             if (entity == null || entity == mover) continue;
             if (entity.isActive() && entity.getPosition() != null && entity.getPosition().isSameTile(pos)) {
                 collisions.add(entity);
@@ -62,9 +62,9 @@ public class CollisionChecker {
         return collisions;
     }
 
-    public void resolveCollisions(IEntity mover, Position pos) {
+    public void resolveCollisions(Entity mover, Position pos) {
         if (mover == null || pos == null) return;
-        for (IEntity other : getCollisionsAt(pos, mover)) {
+        for (Entity other : getCollisionsAt(pos, mover)) {
             if (other instanceof PowerUp) {
                 other.onCollide(mover);
             } else {

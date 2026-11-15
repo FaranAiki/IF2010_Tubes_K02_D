@@ -1,5 +1,6 @@
-package nabla.model.entity;
+package nabla.model;
 
+import nabla.model.collision.Collidable;
 import nabla.util.Position;
 
 /**
@@ -8,7 +9,7 @@ import nabla.util.Position;
  * Entity hanya urus posisi dan status aktif, bukan logika gerak/serang.
  * Kelas lain (Bomb, PowerUp) bisa menggunakan Position tanpa memaksa inheritance.
  */
-public abstract class Entity implements IEntity {
+public abstract class Entity implements Collidable {
     protected Position position;
     protected boolean active;
 
@@ -17,21 +18,18 @@ public abstract class Entity implements IEntity {
         this.active = true;
     }
 
-    @Override
     public Position getPosition() { return position; }
 
-    @Override
     public boolean isActive() { return active; }
 
-    @Override
     public void deactivate() { active = false; }
 
-    @Override
+    public abstract void update(double deltaTime);
+
     public void applyExplosion(int damage, Position center, int range) {
         /* default: tidak ada reaksi terhadap ledakan */
     }
 
-    @Override
     public boolean blocksMovement() { return false; }
 
     @Override
@@ -39,8 +37,7 @@ public abstract class Entity implements IEntity {
         /* default: no response */
     }
 
-    @Override
-    public boolean overlaps(IEntity other) {
+    public boolean overlaps(Entity other) {
         return getPosition() != null && other != null
                 && other.getPosition() != null
                 && getPosition().isSameTile(other.getPosition());

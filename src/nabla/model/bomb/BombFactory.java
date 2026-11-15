@@ -1,6 +1,6 @@
 package nabla.model.bomb;
 
-import nabla.model.entity.Player;
+import nabla.model.Player;
 import nabla.type.BombType;
 import nabla.util.Position;
 

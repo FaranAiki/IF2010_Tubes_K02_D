@@ -4,7 +4,8 @@ package nabla.type;
  * Area serangan musuh.
  * <p>
  * Mengikuti F05.3 - Mekanisme Serangan Boss.
- * Setiap konstanta menggambarkan bentuk area yang terpengaruh serangan.
+ * Setiap konstanta menggambarkan bentuk area yang terpengaruh serangan
+ * jadi tidak pakai nama kerennya hehe.
  */
 public enum AttackArea {
     /** Garis lurus ke depan/arah hadap. */

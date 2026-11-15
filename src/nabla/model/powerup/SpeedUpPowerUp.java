@@ -1,6 +1,6 @@
 package nabla.model.powerup;
 
-import nabla.model.entity.Player;
+import nabla.model.Player;
 import nabla.util.Position;
 
 /**

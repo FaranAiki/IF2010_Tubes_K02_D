@@ -2,7 +2,7 @@ package nabla.model.enemy;
 
 import nabla.model.component.AttackStats;
 import nabla.model.component.HealthStats;
-import nabla.model.entity.Entity;
+import nabla.model.Entity;
 import nabla.type.AttackPattern;
 import nabla.util.Position;
 

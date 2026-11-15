@@ -1,8 +1,8 @@
 package nabla.model.powerup;
 
-import nabla.model.entity.Collidable;
-import nabla.model.entity.Entity;
-import nabla.model.entity.Player;
+import nabla.model.collision.Collidable;
+import nabla.model.Entity;
+import nabla.model.Player;
 import nabla.util.Position;
 
 /**

@@ -6,6 +6,7 @@
 3. Implementasi real (2 minggu nanti setelah M1) karena kebanyakan masih abstrak
 4. Menyelesaikan UML Diagram
 5. Agregasi Player <-> Controller jadi setiap Player punya controller masing-masing dan controller harus bisa dimodifikasi inputnya
+6. Implementasi move masih salah karena seharusnya berbasiskan deltaTime (ada animasi gerak kalau di GUI)
 
 ## Anggota Kelompok
 18225122 Muhammad Faran Aiki

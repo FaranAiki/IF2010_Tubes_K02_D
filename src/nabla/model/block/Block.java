@@ -1,6 +1,6 @@
 package nabla.model.block;
 
-import nabla.model.entity.Entity;
+import nabla.model.Entity;
 import nabla.model.powerup.PowerUp;
 import nabla.type.BombType;
 import nabla.type.BlockType;
