@@ -84,16 +84,16 @@ public class CLIController extends AbstractController {
 
         char c = input.charAt(0);
         CollisionChecker checker = game.getCollisionChecker();
-        if (checker == null) return;
+        if (checker == null || game.getPlayer() == null) return;
 
         switch (c) {
             case 'w' -> game.getPlayer().move(Direction.UP, checker);
             case 's' -> game.getPlayer().move(Direction.DOWN, checker);
             case 'a' -> game.getPlayer().move(Direction.LEFT, checker);
             case 'd' -> game.getPlayer().move(Direction.RIGHT, checker);
-            case 'b' -> game.getPlayer().placeBomb();
+            case 'b' -> game.placeBomb();
             case 'e' -> cycleBombType();
-            case 'q' -> { /* Detonasi Remote Bomb - handled by GameLoop */ }
+            case 'q' -> game.detonateRemoteBombs();
             case 'p' -> setGameState(GameState.PAUSED);
             case 'r' -> game.restart();
             case '\u001b' -> setGameState(GameState.MENU);

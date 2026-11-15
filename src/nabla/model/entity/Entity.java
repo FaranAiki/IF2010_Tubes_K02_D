@@ -33,4 +33,16 @@ public abstract class Entity implements IEntity {
 
     @Override
     public boolean blocksMovement() { return false; }
+
+    @Override
+    public void onCollide(Collidable other) {
+        /* default: no response */
+    }
+
+    @Override
+    public boolean overlaps(IEntity other) {
+        return getPosition() != null && other != null
+                && other.getPosition() != null
+                && getPosition().isSameTile(other.getPosition());
+    }
 }

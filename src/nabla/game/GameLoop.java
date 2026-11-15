@@ -1,9 +1,16 @@
 package nabla.game;
 
 import nabla.game.Game;
+import nabla.model.bomb.Bomb;
+import nabla.model.bomb.Explosion;
+import nabla.model.block.Block;
 import nabla.model.entity.IEntity;
+import nabla.model.entity.Player;
+import nabla.model.enemy.NormalEnemy;
 import nabla.singleton.Config;
+import nabla.util.Position;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -58,32 +65,112 @@ public class GameLoop implements Runnable {
     }
 
     private void update(double dt) {
-        game.setTimer(game.getTimer() - (int) dt);
+        game.setTimer(Math.max(0, game.getTimer() - 1));
         if (game.getTimer() <= 0) {
             game.setGameState(nabla.type.GameState.LOSE);
             return;
         }
 
-        for (IEntity entity: game.getEnemies()) {
-            entity.update(dt);
+        nabla.model.collision.CollisionChecker checker = game.getCollisionChecker();
+        Player player = game.getPlayer();
+        for (NormalEnemy enemy : game.getEnemies()) {
+            enemy.updateEnemy(dt, player, checker);
         }
-        for (IEntity entity: game.getBombs()) {
-            entity.update(dt);
-        }
-        for (IEntity entity: game.getExplosions()) {
-            entity.update(dt);
-        }
-
         if (game.getBoss() != null) {
             game.getBoss().update(dt);
         }
 
-        /* Hapus semua yg sudah tidak aktif */
-        game.getEnemies().removeIf(e -> !e.isActive());
-        game.getBombs().removeIf(e -> !e.isActive());
+        List<Bomb> detonated = new ArrayList<>();
+        for (Bomb bomb : game.getBombs()) {
+            bomb.update(dt);
+            if (!bomb.isActive()) {
+                detonated.add(bomb);
+            }
+        }
+        for (Bomb bomb : detonated) {
+            spawnExplosion(bomb);
+            if (bomb.getOwner() != null) {
+                bomb.getOwner().releaseBombCapacity();
+            }
+        }
+        game.getBombs().removeIf(b -> !b.isActive());
+
+        for (Explosion explosion: game.getExplosions()) {
+            explosion.update(dt);
+            if (!explosion.isApplied()) {
+                applyExplosion(explosion);
+                explosion.setApplied(true);
+            }
+        }
         game.getExplosions().removeIf(e -> !e.isActive());
 
+        if (checker != null && player != null && player.isActive()) {
+            checker.resolveCollisions(player, player.getPosition());
+        }
+        game.getPowerUps().removeIf(p -> !p.isActive());
         checkGameEnd();
+    }
+
+    private void spawnExplosion(Bomb bomb) {
+        game.getExplosions().add(bomb.createExplosion());
+    }
+
+    private void applyExplosion(Explosion explosion) {
+        Position center = explosion.getPosition();
+        int range = explosion.getBlastRange();
+        List<Position> affected = collectExplosionTiles(center, range);
+
+        if (game.getPlayer() != null) {
+            game.getPlayer().applyExplosion(1, center, range);
+        }
+        for (NormalEnemy enemy : game.getEnemies()) {
+            enemy.applyExplosion(1, center, range);
+        }
+        if (game.getBoss() != null) {
+            game.getBoss().applyExplosion(1, center, range);
+        }
+        for (Bomb bomb : game.getBombs()) {
+            for (Position p : affected) {
+                if (bomb.isActive() && bomb.getPosition().isSameTile(p)) {
+                    bomb.trigger();
+                }
+            }
+        }
+
+        nabla.model.world.Map map = game.getCurrentMap();
+        for (Position p : affected) {
+            Block block = map.getBlockAt(p);
+            if (block != null && block.isDestructibleByExplosion()) {
+                block.destroy();
+                map.removeBlock(block);
+            }
+        }
+    }
+
+    private List<Position> collectExplosionTiles(Position center, int range) {
+        List<Position> tiles = new ArrayList<>();
+        tiles.add(center);
+        nabla.util.Direction[] dirs = nabla.util.Direction.values();
+        nabla.model.world.Map map = game.getCurrentMap();
+        for (nabla.util.Direction dir : dirs) {
+            for (int i = 1; i <= range; i++) {
+                Position p = dir.deltaPosition();
+                Position target = new Position(center.getRow() + p.getRow() * i, center.getCol() + p.getCol() * i);
+                if (target.getRow() < 0 || target.getRow() >= map.getHeight()
+                        || target.getCol() < 0 || target.getCol() >= map.getWidth()) {
+                    break;
+                }
+                Block block = map.getBlockAt(target);
+                if (block != null) {
+                    if (block.stopsExplosion()) {
+                        tiles.add(target);
+                    }
+                    break;
+                }
+                tiles.add(target);
+            }
+        }
+        return tiles;
     }
 
     private void checkGameEnd() {

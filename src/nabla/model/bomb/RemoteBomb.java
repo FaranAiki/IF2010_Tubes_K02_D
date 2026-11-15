@@ -5,7 +5,7 @@ import nabla.type.BombType;
 import nabla.util.Position;
 
 /**
- * Remote Bomb -- bom yang diledakkan secara manual (F02.2.3).
+ * Remote Bomb adalah bom yang diledakkan secara manual (F02.2.3).
  * <p>
  * Hanya bisa digunakan setelah player memperoleh Remote Detonator.
  * Tidak meledak berdasarkan fuse time. Dipicu melalui perintah DETONATE (Q).
@@ -14,13 +14,6 @@ import nabla.util.Position;
 public class RemoteBomb extends Bomb {
     public static final int BOSS_VULNERABLE_DMG = 1;
 
-    /**
-     * Konstruktor RemoteBomb.
-     *
-     * @param owner pemilik bom (player)
-     * @param position posisi bom pada grid
-     * @param blastRange jangkauan ledakan
-     */
     public RemoteBomb(Player owner, Position position, int blastRange) {
         super(BombType.REMOTE, owner, position, Double.MAX_VALUE, blastRange);
     }
@@ -33,6 +26,7 @@ public class RemoteBomb extends Bomb {
     @Override
     protected void onDetonate() {
         /* Explosion dibuat oleh GameLoop melalui createExplosion() */
+        /* Terhubung dengan Controller */
     }
 
     @Override

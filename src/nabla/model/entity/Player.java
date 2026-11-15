@@ -3,6 +3,9 @@ package nabla.model.entity;
 import nabla.model.component.BombInventory;
 import nabla.model.component.HealthStats;
 import nabla.model.collision.CollisionChecker;
+import nabla.model.bomb.Explosion;
+import nabla.model.enemy.BossEnemy;
+import nabla.model.enemy.NormalEnemy;
 import nabla.type.BombType;
 import nabla.util.Direction;
 import nabla.util.Position;
@@ -24,7 +27,7 @@ public class Player extends Entity {
     public static final double DEFAULT_SPEED = 1.0;
     public static final double RESPAWN_INVULNERABLE_TIME = 1.5;
 
-    private Direction direction = Direction.UP;
+    private Direction direction = null;
     private int blastRange = DEFAULT_BLAST_RANGE;
     private double speed = DEFAULT_SPEED;
     private boolean invulnerable = false;
@@ -47,8 +50,11 @@ public class Player extends Entity {
      */
     public boolean move(Direction dir, CollisionChecker checker) {
         this.direction = dir;
-        if (checker.canMove(position, dir)) {
+        if (checker.canMove(position, dir, this)) {
             position = dir.deltaPosition().add(position);
+            if (checker != null) {
+                checker.resolveCollisions(this, position);
+            }
             return true;
         }
         return false;
@@ -115,8 +121,21 @@ public class Player extends Entity {
     public void setInvulnerable(boolean v) { this.invulnerable = v; }
 
     @Override
+    public void onCollide(Collidable other) {
+        /* Single Dispatch: TODO pertimbangkan apakah ini lebih baik or no */
+        if (other instanceof NormalEnemy || other instanceof BossEnemy) {
+            if (!invulnerable) {
+                takeDamage();
+            }
+        } else if (other instanceof Explosion explosion) {
+            takeDamage();
+        }
+    }
+
+    @Override
     public void update(double deltaTime) {
         /* Player tidak butuh update otomatis, gerakan dihandle oleh input */
+        /* TODO: kalau ada animasi idle, bisa dipakai di sini */
     }
 
     @Override

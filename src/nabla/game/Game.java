@@ -1,14 +1,17 @@
 package nabla.game;
 
 import nabla.model.bomb.Bomb;
+import nabla.model.bomb.BombFactory;
 import nabla.model.bomb.Explosion;
 import nabla.model.collision.CollisionChecker;
 import nabla.model.entity.IEntity;
 import nabla.model.entity.Player;
+import nabla.type.BombType;
 import nabla.model.enemy.BossEnemy;
 import nabla.model.enemy.NormalEnemy;
 import nabla.model.powerup.PowerUp;
 import nabla.model.world.Map;
+import nabla.singleton.Config;
 import nabla.type.EnemyBehavior;
 import nabla.type.GameState;
 import nabla.util.Position;
@@ -33,17 +36,13 @@ public class Game {
     private List<PowerUp> powerUps = new ArrayList<>();
 
     private int score = 0;
-    private int timer = 300;
+    private int timer;
     private GameState gameState = GameState.MENU;
     private CollisionChecker collisionChecker;
 
     public Game() {
     }
 
-    /**
-     * Inisialisasi game dengan map yang diberikan.
-     * Player dan enemies dibuat dari spawn positions di map.
-     */
     public void initialize(Map map) {
         this.currentMap = map;
         this.player = new Player(map.getPlayerSpawn());
@@ -55,15 +54,21 @@ public class Game {
         this.explosions.clear();
         this.powerUps.clear();
         this.score = 0;
-        this.timer = 300;
+        this.timer = Config.DEFAULT_TIMER_SECONDS;
         this.gameState = GameState.PLAYING;
-        this.collisionChecker = new CollisionChecker(map, this::getAllBlockers);
+        this.collisionChecker = new CollisionChecker(map, this::getAllCollidables);
     }
 
-    private List<IEntity> getAllBlockers() {
-        List<IEntity> all = new ArrayList<>(enemies);
-        if (boss != null && boss.isActive()) {
-            all.add(boss);
+    private List<IEntity> getAllCollidables() {
+        List<IEntity> all = new ArrayList<>();
+        if (player != null) all.add(player);
+        all.addAll(enemies);
+        if (boss != null) all.add(boss);
+        all.addAll(bombs);
+        all.addAll(explosions);
+        all.addAll(powerUps);
+        if (currentMap != null) {
+            all.addAll(currentMap.getBlocks());
         }
         return all;
     }
@@ -95,5 +100,26 @@ public class Game {
 
     public boolean isPlaying() {
         return gameState == GameState.PLAYING;
+    }
+
+    public boolean placeBomb() {
+        if (player == null || currentMap == null) return false;
+        Position pos = player.getPosition();
+        for (Bomb b: bombs) {
+            if (b.isActive() && b.getPosition().isSameTile(pos)) return false;
+        }
+        if (!player.placeBomb()) return false;
+        Bomb bomb = BombFactory.create(player.getSelectedBombType(), player, new Position(pos.getRow(), pos.getCol()), player.getBlastRange());
+        bombs.add(bomb);
+        return true;
+    }
+
+    public void detonateRemoteBombs() {
+        if (player == null) return;
+        for (Bomb b : bombs) {
+            if (b.isActive() && b.getOwner() == player && b.getType() == BombType.REMOTE) {
+                b.trigger();
+            }
+        }
     }
 }

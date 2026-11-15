@@ -29,8 +29,8 @@ public class Map {
     /* Array asli dari tiles */
     private TileType[][] tiles;
 
-    /* Array asli dari blocks yang ada*/
-    private Block[][] blocks;
+    /* Daftar block entity yang ada di map */
+    private final List<Block> blocks = new ArrayList<>();
     private Position playerSpawn;
     private final List<Position> enemySpawns = new ArrayList<>();
     private Position bossSpawn;
@@ -39,13 +39,11 @@ public class Map {
     public Map(int width, int height) {
         this.size = new Size(width, height);
         this.tiles = new TileType[height][width];
-        this.blocks = new Block[height][width];
     }
 
     public Map(Size size) {
         this.size = size;
         this.tiles = new TileType[size.getHeight()][size.getWidth()];
-        this.blocks = new Block[size.getHeight()][size.getWidth()];
     }
 
     /**
@@ -65,7 +63,6 @@ public class Map {
 
         Map map = new Map(width, height);
         map.tiles = new TileType[height][width];
-        map.blocks = new Block[height][width];
 
         for (int row = 0; row < height; row++) {
             String line = lines[row].replaceAll("\\s+", "");
@@ -90,13 +87,13 @@ public class Map {
     private static void separate(char c, Position pos, Map map, TileType tile) {
         switch (tile) {
             case INDESTRUCTIBLE:
-                map.blocks[pos.getRow()][pos.getCol()] = BlockFactory.create(BlockType.INDESTRUCTIBLE, pos);
+                map.blocks.add(BlockFactory.create(BlockType.INDESTRUCTIBLE, pos));
                 break;
             case DESTRUCTIBLE:
-                map.blocks[pos.getRow()][pos.getCol()] = BlockFactory.create(BlockType.DESTRUCTIBLE, pos);
+                map.blocks.add(BlockFactory.create(BlockType.DESTRUCTIBLE, pos));
                 break;
             case REINFORCED:
-                map.blocks[pos.getRow()][pos.getCol()] = BlockFactory.create(BlockType.REINFORCED, pos);
+                map.blocks.add(BlockFactory.create(BlockType.REINFORCED, pos));
                 break;
             case SPAWN_PLAYER:
                 map.playerSpawn = pos;
@@ -132,7 +129,23 @@ public class Map {
     public int getHeight() { return size.getHeight(); }
 
     public TileType[][] getTiles() { return tiles; }
-    public Block[][] getBlocks() { return blocks; }
+    public List<Block> getBlocks() { return blocks; }
+
+    public Block getBlockAt(Position pos) {
+        for (Block block : blocks) {
+            if (block.isActive() && block.getPosition().isSameTile(pos)) {
+                return block;
+            }
+        }
+        return null;
+    }
+
+    public void removeBlock(Block block) {
+        if (block != null) {
+            block.deactivate();
+            blocks.remove(block);
+        }
+    }
 
     public Position getPlayerSpawn() { return playerSpawn; }
     public List<Position> getEnemySpawns() { return enemySpawns; }

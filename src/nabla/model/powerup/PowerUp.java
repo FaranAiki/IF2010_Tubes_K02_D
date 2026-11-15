@@ -1,34 +1,31 @@
 package nabla.model.powerup;
 
+import nabla.model.entity.Collidable;
 import nabla.model.entity.Entity;
-import nabla.type.PowerUpType;
+import nabla.model.entity.Player;
 import nabla.util.Position;
 
 /**
  * Power-Up item yang memberikan peningkatan kemampuan (F06).
  * <p>
  * Muncul setelah Destructible Block dihancurkan (30% peluang) atau ditempatkan pada lokasi tertentu.
+ * Efek diterapkan oleh power-up saat collide dengan Player.
  */
-public class PowerUp extends Entity {
-    private final PowerUpType type;
+public abstract class PowerUp extends Entity {
 
-    /**
-     * Konstruktor PowerUp.
-     *
-     * @param type tipe power-up
-     * @param position posisi power-up pada grid
-     */
-    public PowerUp(PowerUpType type, Position position) {
+    protected PowerUp(Position position) {
         super(position);
-        this.type = type;
     }
 
-    /**
-     * Mendapatkan tipe power-up.
-     *
-     * @return tipe power-up
-     */
-    public PowerUpType getType() { return type; }
+    protected abstract void apply(Player player);
+
+    @Override
+    public void onCollide(Collidable other) {
+        if (other instanceof Player player) {
+            apply(player);
+            deactivate();
+        }
+    }
 
     @Override
     public void update(double deltaTime) {

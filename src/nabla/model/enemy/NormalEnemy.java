@@ -1,9 +1,12 @@
 package nabla.model.enemy;
 
+import nabla.model.collision.CollisionChecker;
 import nabla.model.component.AttackStats;
 import nabla.model.component.HealthStats;
 import nabla.model.entity.Entity;
+import nabla.model.entity.Player;
 import nabla.type.EnemyBehavior;
+import nabla.util.Direction;
 import nabla.util.Position;
 
 /**
@@ -38,23 +41,41 @@ public class NormalEnemy extends Entity {
 
     @Override
     public void update(double deltaTime) {
+        /* Movement dihandle oleh GameLoop.updateEnemy */
         if (!isActive()) return;
         attackStats.update(deltaTime);
-        if (behavior == EnemyBehavior.PATROL && !patrolPath.isEmpty()) {
+    }
+
+    public void updateEnemy(double deltaTime, Player player, CollisionChecker checker) {
+        if (!isActive()) return;
+        update(deltaTime);
+
+        if (behavior == EnemyBehavior.CHASE && player != null && player.isActive()
+                && position.distanceTo(player.getPosition()) <= 3) {
+            moveToward(player.getPosition(), checker);
+            return;
+        }
+
+        if (!patrolPath.isEmpty()) {
             Position target = patrolPath.get(patrolIndex);
             if (position.isSameTile(target)) {
                 patrolIndex = (patrolIndex + 1) % patrolPath.size();
             } else {
-                if (target.getRow() > position.getRow()) {
-                    position.setRow(position.getRow() + 1);
-                } else if (target.getRow() < position.getRow()) {
-                    position.setRow(position.getRow() - 1);
-                } else if (target.getCol() > position.getCol()) {
-                    position.setCol(position.getCol() + 1);
-                } else if (target.getCol() < position.getCol()) {
-                    position.setCol(position.getCol() - 1);
-                }
+                moveToward(target, checker);
             }
+        }
+    }
+
+    private void moveToward(Position target, CollisionChecker checker) {
+        Direction dir = null;
+        if (target.getRow() > position.getRow()) dir = Direction.DOWN;
+        else if (target.getRow() < position.getRow()) dir = Direction.UP;
+        else if (target.getCol() > position.getCol()) dir = Direction.RIGHT;
+        else if (target.getCol() < position.getCol()) dir = Direction.LEFT;
+        if (dir == null) return;
+        if (checker != null && checker.canMove(position, dir, this)) {
+            position = dir.deltaPosition().add(position);
+            checker.resolveCollisions(this, position);
         }
     }
 
