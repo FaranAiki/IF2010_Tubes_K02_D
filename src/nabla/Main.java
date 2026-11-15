@@ -30,11 +30,11 @@ public class Main {
         /* Abstract factory di sini */
         UIFactory factory = UIModeFactory.getFactory(ui);
         if (factory == null) {
-            System.err.println("Mode UI tidak dikenal: " + ui + ". Gunakan: cli, swing, javafx");
             System.exit(1);
         }
 
         IRenderer renderer = factory.createRenderer(game);
+        /* TODO keknya scanner kita pisahin aja */
         Scanner scanner = "cli".equals(ui) ? new Scanner(System.in) : null;
         IController controller = factory.createController(game, gameLoop, renderer, scanner, mapLoader);
         controller.run();

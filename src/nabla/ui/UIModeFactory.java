@@ -23,8 +23,7 @@ public final class UIModeFactory {
         return switch (mode.toLowerCase()) {
             case "cli" -> new nabla.ui.cli.CLIFactory();
             case "swing" -> new nabla.ui.swing.SwingFactory();
-            case "javafx" -> new nabla.ui.javafx.JavaFXFactory();
-            default -> null;
+            default -> new nabla.ui.javafx.JavaFXFactory();
         };
     }
 
