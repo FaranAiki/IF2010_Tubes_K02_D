@@ -3,7 +3,7 @@ package nabla.model;
 import nabla.model.component.BombInventory;
 import nabla.model.component.HealthStats;
 import nabla.model.collision.CollisionChecker;
-import nabla.model.collision.Collidable;
+import nabla.model.collision.ICollidable;
 import nabla.model.bomb.Explosion;
 import nabla.model.enemy.BossEnemy;
 import nabla.model.enemy.NormalEnemy;
@@ -120,7 +120,7 @@ public class Player extends Entity implements ICanUseBomb {
     public void setInvulnerable(boolean v) { this.invulnerable = v; }
 
     @Override
-    public void onCollide(Collidable other) {
+    public void onCollide(Entity other) {
         /* Single Dispatch: TODO pertimbangkan apakah ini lebih baik or no */
         if (other instanceof NormalEnemy || other instanceof BossEnemy) {
             if (!invulnerable) {

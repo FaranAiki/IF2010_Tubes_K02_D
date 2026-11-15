@@ -1,6 +1,6 @@
 package nabla.model.powerup;
 
-import nabla.model.collision.Collidable;
+import nabla.model.collision.ICollidable;
 import nabla.model.Entity;
 import nabla.model.Player;
 import nabla.util.Position;
@@ -20,7 +20,7 @@ public abstract class PowerUp extends Entity {
     protected abstract void apply(Player player);
 
     @Override
-    public void onCollide(Collidable other) {
+    public void onCollide(Entity other) {
         if (other instanceof Player player) {
             apply(player);
             deactivate();

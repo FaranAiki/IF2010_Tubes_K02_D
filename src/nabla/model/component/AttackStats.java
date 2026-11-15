@@ -1,6 +1,6 @@
 package nabla.model.component;
 
-import nabla.util.Updatable;
+import nabla.util.IUpdatable;
 
 /**
  * Komponen stat serangan (damage, range, cooldown).
@@ -9,7 +9,7 @@ import nabla.util.Updatable;
  * Dipakai oleh Enemy (serangan fisik) dan Boss (serangan spesifik).
  * Jadi kita bisa atur damage dan cooldown di satu tempat.
  */
-public class AttackStats implements Updatable {
+public class AttackStats implements IUpdatable {
     private int damage;
     private double cooldown;
     private double currentCooldown;

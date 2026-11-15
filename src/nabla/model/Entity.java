@@ -1,6 +1,6 @@
 package nabla.model;
 
-import nabla.model.collision.Collidable;
+import nabla.model.collision.ICollidable;
 import nabla.util.Position;
 import nabla.util.IUpdatable;
 
@@ -14,7 +14,7 @@ import java.util.List;
  *
  * Pada kode sumber ini, Entity didefinisikan sebagai sesuatu yg menimpa tile.
  */
-public abstract class Entity implements ICollidable, IUpdatable {
+public abstract class Entity implements ICollidable<Entity>, IUpdatable {
     protected Position position;
     protected boolean active;
 
@@ -38,7 +38,7 @@ public abstract class Entity implements ICollidable, IUpdatable {
     public boolean blocksMovement() { return false; }
 
     @Override
-    public void onCollide(Collidable other) {
+    public void onCollide(Entity other) {
         /* default: no response */
     }
 
