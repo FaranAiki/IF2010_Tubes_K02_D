@@ -2,7 +2,7 @@ package nabla;
 
 import nabla.game.GameLoop;
 import nabla.game.MapLoader;
-import nabla.game.controller.IController;
+import nabla.controller.IController;
 import nabla.game.Game;
 import nabla.ui.IRenderer;
 import nabla.ui.UIFactory;

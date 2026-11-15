@@ -1,9 +1,9 @@
 package nabla.ui.swing;
 
 import nabla.game.GameLoop;
-import nabla.game.controller.IController;
+import nabla.controller.IController;
 import nabla.game.MapLoader;
-import nabla.game.controller.SwingController;
+import nabla.controller.SwingController;
 import nabla.game.Game;
 import nabla.ui.IRenderer;
 import nabla.ui.UIFactory;

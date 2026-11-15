@@ -74,7 +74,7 @@ public class GameLoop implements Runnable {
 
         CollisionChecker checker = game.getCollisionChecker();
         Player player = game.getPlayer();
-        for (NormalEnemy enemy : game.getEnemies()) {
+        for (NormalEnemy enemy: game.getEnemies()) {
             enemy.updateEnemy(dt, player, checker);
         }
         if (game.getBoss() != null) {
@@ -82,13 +82,13 @@ public class GameLoop implements Runnable {
         }
 
         List<Bomb> detonated = new ArrayList<>();
-        for (Bomb bomb : game.getBombs()) {
+        for (Bomb bomb: game.getBombs()) {
             bomb.update(dt);
             if (!bomb.isActive()) {
                 detonated.add(bomb);
             }
         }
-        for (Bomb bomb : detonated) {
+        for (Bomb bomb: detonated) {
             spawnExplosion(bomb);
             if (bomb.getOwner() != null) {
                 bomb.getOwner().releaseBombCapacity();

@@ -2,6 +2,7 @@ package nabla.model;
 
 import nabla.model.collision.Collidable;
 import nabla.util.Position;
+import nabla.util.Updatable;
 
 /**
  * Kelas abstrak dasar untuk semua entitas di map.
@@ -9,7 +10,7 @@ import nabla.util.Position;
  * Entity hanya urus posisi dan status aktif, bukan logika gerak/serang.
  * Kelas lain (Bomb, PowerUp) bisa menggunakan Position tanpa memaksa inheritance.
  */
-public abstract class Entity implements Collidable {
+public abstract class Entity implements Collidable, Updatable {
     protected Position position;
     protected boolean active;
 

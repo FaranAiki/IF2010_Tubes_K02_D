@@ -1,7 +1,7 @@
 package nabla.ui;
 
 import nabla.game.GameLoop;
-import nabla.game.controller.IController;
+import nabla.controller.IController;
 import nabla.game.MapLoader;
 import nabla.game.Game;
 

@@ -1,4 +1,4 @@
-package nabla.game.controller;
+package nabla.controller;
 
 import nabla.game.GameLoop;
 import nabla.game.MapLoader;

@@ -23,6 +23,7 @@ public class CollisionChecker {
      * sehingga CollisionChecker nurut aja sama game */
     private final Supplier<List<Entity>> collidablesSupplier;
 
+    /* pake supplier karena collidablesSupplier itu fungsi bkn objek itu sendiri */
     public CollisionChecker(Map map, Supplier<List<Entity>> collidablesSupplier) {
         this.map = map;
         this.collidablesSupplier = collidablesSupplier;
@@ -64,7 +65,7 @@ public class CollisionChecker {
 
     public void resolveCollisions(Entity mover, Position pos) {
         if (mover == null || pos == null) return;
-        for (Entity other : getCollisionsAt(pos, mover)) {
+        for (Entity other: getCollisionsAt(pos, mover)) {
             if (other instanceof PowerUp) {
                 other.onCollide(mover);
             } else {

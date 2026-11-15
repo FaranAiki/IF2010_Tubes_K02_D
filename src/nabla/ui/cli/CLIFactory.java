@@ -1,8 +1,8 @@
 package nabla.ui.cli;
 
 import nabla.game.GameLoop;
-import nabla.game.controller.CLIController;
-import nabla.game.controller.IController;
+import nabla.controller.CLIController;
+import nabla.controller.IController;
 import nabla.game.MapLoader;
 import nabla.game.Game;
 import nabla.ui.IRenderer;

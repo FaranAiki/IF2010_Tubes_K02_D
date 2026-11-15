@@ -1,8 +1,8 @@
 package nabla.ui.javafx;
 
 import nabla.game.GameLoop;
-import nabla.game.controller.IController;
-import nabla.game.controller.JavaFXController;
+import nabla.controller.IController;
+import nabla.controller.JavaFXController;
 import nabla.game.MapLoader;
 import nabla.game.Game;
 import nabla.ui.IRenderer;

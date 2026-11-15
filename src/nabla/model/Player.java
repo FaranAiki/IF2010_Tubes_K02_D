@@ -142,9 +142,12 @@ public class Player extends Entity {
     @Override
     public void applyExplosion(int damage, Position center, int range) {
         if (invulnerable) return;
+        /*
+         TODO ini kalau ngga ada balok, kalau ada balok bisa salah
+         fix this
         if (position.distanceTo(center) <= range) {
             health.takeDamage(damage);
-        }
+        }*/
     }
 
     @Override
