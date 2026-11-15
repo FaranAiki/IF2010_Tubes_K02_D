@@ -2,15 +2,12 @@ package nabla.model.world;
 
 import nabla.exception.InvalidMapException;
 import nabla.model.block.Block;
-import nabla.model.block.DestructibleBlock;
-import nabla.model.block.IndestructibleBlock;
-import nabla.model.block.ReinforcedBlock;
+import nabla.model.block.BlockFactory;
 import nabla.model.entity.Player;
 import nabla.model.enemy.BossEnemy;
 import nabla.model.enemy.NormalEnemy;
-import nabla.type.BombType;
+import nabla.type.BlockType;
 import nabla.type.EnemyBehavior;
-import nabla.type.PowerUpType;
 import nabla.type.TileType;
 import nabla.util.Position;
 import nabla.util.Size;
@@ -87,8 +84,9 @@ public class Map {
             for (int col = 0; col < width; col++) {
                 char c = line.charAt(col);
                 Position pos = new Position(row, col);
-                TileType tile = charToTile(c, pos, map);
+                TileType tile = TileType.charToTile(c);
                 map.tiles[row][col] = tile;
+                separate(c, pos, map, tile);
             }
         }
 
@@ -98,7 +96,7 @@ public class Map {
             map.player = new Player(map.playerSpawn);
         }
 
-        for (Position spawn : map.enemySpawns) {
+        for (Position spawn: map.enemySpawns) {
             /* Default: patrol behavior */
             map.enemies.add(new NormalEnemy(spawn, EnemyBehavior.PATROL, new ArrayList<>(), 1.0));
         }
@@ -106,28 +104,31 @@ public class Map {
         return map;
     }
 
-    /* Meskipun bukan CLI, ini digunakan untuk siapa tau bisa save */
-    private static TileType charToTile(char c, Position pos, Map map) {
-        switch (c) {
-            case '#': map.blocks[pos.getRow()][pos.getCol()] = new IndestructibleBlock(pos);
-                     return TileType.INDESTRUCTIBLE;
-            case 'D': map.blocks[pos.getRow()][pos.getCol()] = new DestructibleBlock(pos);
-                     return TileType.DESTRUCTIBLE;
-            case 'R': map.blocks[pos.getRow()][pos.getCol()] = new ReinforcedBlock(pos);
-                     return TileType.REINFORCED;
-            case '.': return TileType.WALKABLE;
-            case 'P': map.playerSpawn = pos; return TileType.SPAWN_PLAYER;
-            case 'E': map.enemySpawns.add(pos); return TileType.SPAWN_ENEMY;
-            case 'B': map.bossSpawn = pos; return TileType.SPAWN_BOSS;
-            case 'X': map.exit = pos; return TileType.EXIT;
-            case 'W': return TileType.WATER;
-            case 'S': return TileType.SWITCH;
-            case 'G': return TileType.GATE_CLOSED;
-            case 'g': return TileType.GATE_OPEN;
-            case 'H': return TileType.LAVA;
-            case 'I': return TileType.ICE;
-            case 'L': return TileType.LASER;
-            default: return TileType.WALKABLE;
+    private static void separate(char c, Position pos, Map map, TileType tile) {
+        switch (tile) {
+            case INDESTRUCTIBLE:
+                map.blocks[pos.getRow()][pos.getCol()] = BlockFactory.create(BlockType.INDESTRUCTIBLE, pos);
+                break;
+            case DESTRUCTIBLE:
+                map.blocks[pos.getRow()][pos.getCol()] = BlockFactory.create(BlockType.DESTRUCTIBLE, pos);
+                break;
+            case REINFORCED:
+                map.blocks[pos.getRow()][pos.getCol()] = BlockFactory.create(BlockType.REINFORCED, pos);
+                break;
+            case SPAWN_PLAYER:
+                map.playerSpawn = pos;
+                break;
+            case SPAWN_ENEMY:
+                map.enemySpawns.add(pos);
+                break;
+            case SPAWN_BOSS:
+                map.bossSpawn = pos;
+                break;
+            case EXIT:
+                map.exit = pos;
+                break;
+            default:
+                break;
         }
     }
 

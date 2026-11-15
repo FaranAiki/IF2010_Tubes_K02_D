@@ -28,7 +28,7 @@ public class CollisionChecker {
     public boolean canMove(Position current, Direction direction) {
         Position target = direction.deltaPosition().add(current);
 
-        /* Cek batas map agar tidak terjadi undefined behavior */
+        /* Cek batas map */
         if (target.getRow() < 0 || target.getRow() >= map.getHeight()
                 || target.getCol() < 0 || target.getCol() >= map.getWidth()) {
             return false;

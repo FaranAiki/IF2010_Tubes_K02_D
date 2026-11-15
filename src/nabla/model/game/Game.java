@@ -34,8 +34,6 @@ public class Game {
 
     /**
      * Inisialisasi game dengan map yang diberikan.
-     *
-     * @param map map yang akan digunakan
      */
     public void initialize(Map map) {
         this.currentMap = map;
@@ -50,20 +48,12 @@ public class Game {
         this.collisionChecker = new CollisionChecker(map, new ArrayList<>());
     }
 
-    /**
-     * Restart permainan dengan map saat ini.
-     */
     public void restart() {
         if (currentMap != null) {
             initialize(currentMap);
         }
     }
 
-    /**
-     * Mendapatkan collision checker untuk validasi gerakan.
-     *
-     * @return CollisionChecker, atau null jika game belum diinisialisasi
-     */
     public CollisionChecker getCollisionChecker() {
         return collisionChecker;
     }

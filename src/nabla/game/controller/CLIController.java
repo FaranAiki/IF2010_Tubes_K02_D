@@ -96,7 +96,8 @@ public class CLIController extends AbstractController {
             case 'q' -> { /* Detonasi Remote Bomb - handled by GameLoop */ }
             case 'p' -> setGameState(GameState.PAUSED);
             case 'r' -> game.restart();
-            case '\u001b' -> setGameState(GameState.MENU); /* ESC */
+            case '\u001b' -> setGameState(GameState.MENU);
+            default -> { /* input tidak dikenali */ }
         }
     }
 

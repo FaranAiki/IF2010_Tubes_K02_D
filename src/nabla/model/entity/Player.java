@@ -3,8 +3,6 @@ package nabla.model.entity;
 import nabla.model.component.BombInventory;
 import nabla.model.component.HealthStats;
 import nabla.model.collision.CollisionChecker;
-import nabla.model.strategy.IMovementStrategy;
-import nabla.model.strategy.NormalMoveStrategy;
 import nabla.type.BombType;
 import nabla.util.Direction;
 import nabla.util.Position;
@@ -34,30 +32,27 @@ public class Player extends Entity {
 
     private final HealthStats health;
     private final BombInventory bombInventory;
-    private IMovementStrategy movementStrategy;
 
     public Player(Position position) {
         super(position);
         this.health = new HealthStats(DEFAULT_LIVES, MAX_LIVES);
         this.bombInventory = new BombInventory(DEFAULT_BOMB_CAPACITY, BombType.NORMAL);
-        this.movementStrategy = new NormalMoveStrategy();
-    }
-
-    public void setMovementStrategy(IMovementStrategy strategy) {
-        this.movementStrategy = strategy;
     }
 
     /**
      * Gerak player ke arah tertentu.
      * <p>
-     * Collision detection didelegasikan ke CollisionChecker yang diberikan oleh Game.
-     * Player tidak perlu tahu tentang aturan collision karena strategy dan checker yang memutuskan.
+     * Alur: Controller -> Player -> CollisionChecker -> balik ke Player.
+     * Player menanyakan checker apakah bisa bergerak, jika bisa update posisi.
+     *
+     * @param dir arah gerak
+     * @param checker collision checker dari Game
+     * @return true jika player berhasil bergerak, false jika terhalang
      */
     public boolean move(Direction dir, CollisionChecker checker) {
         this.direction = dir;
-        Position newPos = movementStrategy.tryMove(position, dir, checker);
-        if (!newPos.isSameTile(position)) {
-            position = newPos;
+        if (checker.canMove(position, dir)) {
+            position = dir.deltaPosition().add(position);
             return true;
         }
         return false;

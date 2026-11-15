@@ -37,5 +37,26 @@ public enum TileType {
     /** Pintu keluar ('X'). */
     EXIT,
     /** Tempat setelah block hancur. */
-    EMPTY
+    EMPTY;
+
+    public static TileType charToTile(char c) {
+        switch (c) {
+            case '#': return TileType.INDESTRUCTIBLE;
+            case 'D': return TileType.DESTRUCTIBLE;
+            case 'R': return TileType.REINFORCED;
+            case '.': return TileType.WALKABLE;
+            case 'P': return TileType.SPAWN_PLAYER;
+            case 'E': return TileType.SPAWN_ENEMY;
+            case 'B': return TileType.SPAWN_BOSS;
+            case 'X': return TileType.EXIT;
+            case 'W': return TileType.WATER;
+            case 'S': return TileType.SWITCH;
+            case 'G': return TileType.GATE_CLOSED;
+            case 'g': return TileType.GATE_OPEN;
+            case 'H': return TileType.LAVA;
+            case 'I': return TileType.ICE;
+            case 'L': return TileType.LASER;
+            default: return TileType.WALKABLE;
+        }
+    }
 }
