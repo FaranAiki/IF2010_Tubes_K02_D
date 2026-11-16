@@ -6,14 +6,8 @@ import nabla.type.GameState;
 import nabla.singleton.Config;
 
 /**
- * Base class untuk controller implementations.
- * <p>
- * <b>Design Pattern Template Method</b> dengan menyediakan common logic,
- * subclass implementasikan handleInput spesifik platform.
- * <p>
- * Controller HANYA bergantung pada {@link Game} (Model). Tidak tahu-menahu
- * soal {@code GameLoop} maupun renderer. Thread controller dikelola oleh
- * {@link #start()}/{@link #stop()} secara internal.
+ * AbstractController untuk setiap tipe controller
+ * TODO: apa IController hapus aja
  */
 public abstract class AbstractController implements IController {
     protected final Game game;
@@ -53,10 +47,6 @@ public abstract class AbstractController implements IController {
         return running;
     }
 
-    /**
-     * Loop kontrol utama. Dijalankan di thread controller sendiri.
-     * Dipanggil oleh {@link #start()}.
-     */
     public final void run() {
         onStart();
 
@@ -85,31 +75,9 @@ public abstract class AbstractController implements IController {
         game.setGameState(state);
     }
 
-    /** Hook untuk initialization khusus subclass. */
     protected void onStart() {
-        /* Default: no-op */
     }
 
-    /** Handle menu state. */
-    protected abstract void handleMenu();
-
-    /** Handle how to play state. */
-    protected abstract void handleHowToPlay();
-
-    /** Handle playing state. */
-    protected abstract void handlePlaying();
-
-    /** Handle paused state. */
-    protected abstract void handlePaused();
-
-    /** Handle game over state. */
-    protected abstract void handleGameOver(GameState state);
-
-    /** Handle input pemain (spesifik platform). */
-    @Override
-    public abstract void handleInput(String input);
-
-    /** Sleep frame untuk rate limiting. */
     protected void sleepFrame() {
         try {
             Thread.sleep(Config.SLEEPING_THREAD);
@@ -119,8 +87,6 @@ public abstract class AbstractController implements IController {
         }
     }
 
-    /** Cleanup saat shutdown. */
     protected void shutdown() {
-        /* Default: no-op; subclass boleh override jika perlu cleanup spesifik */
     }
 }

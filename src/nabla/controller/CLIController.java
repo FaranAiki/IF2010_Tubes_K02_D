@@ -15,93 +15,28 @@ import java.util.Scanner;
  * Map loading didelegasikan ke MapLoader.
  */
 public class CLIController extends AbstractController {
-    private final Scanner scanner;
-    private final MapLoader mapLoader;
-
     public CLIController(Game game) {
-        super(game);
-        this.scanner = new Scanner(System.in);
-        this.mapLoader = new MapLoader();
+      super(game);
     }
 
-    @Override
-    protected void handleMenu() {
-        String choice = scanner.nextLine().trim();
-
-        switch (choice) {
-            case "1" -> loadDefaultMap();
-            case "2" -> setGameState(GameState.HOW_TO_PLAY);
-            case "3" -> running = false;
-            default -> { /* input tidak dikenali */ }
-        }
+    public void handleMenu() {
     }
 
-    private void loadDefaultMap() {
-        mapLoader.loadDefaultMap(game);
+    public void handleHowToPlay() {
     }
 
-    @Override
-    protected void handleHowToPlay() {
-        scanner.nextLine(); /* tunggu Enter */
-        setGameState(GameState.MENU);
+    public void handlePlaying() {
     }
 
-    @Override
-    protected void handlePlaying() {
-        String input = scanner.nextLine().trim().toLowerCase();
-        handleInput(input);
+    public void handlePaused() {
     }
 
-    @Override
-    protected void handlePaused() {
-        String input = scanner.nextLine().trim().toLowerCase();
-
-        switch (input) {
-            case "p" -> setGameState(GameState.PLAYING);
-            case "r" -> game.restart();
-            case "esc" -> setGameState(GameState.MENU);
-        }
+    public void handleGameOver(GameState state) {
     }
 
-    @Override
-    protected void handleGameOver(GameState state) {
-        String input = scanner.nextLine().trim().toLowerCase();
-
-        switch (input) {
-            case "r" -> game.restart();
-            case "esc" -> setGameState(GameState.MENU);
-        }
-    }
-
-    @Override
-    public void handleInput(String input) {
-        if (input.isEmpty()) return;
-
-        char c = input.charAt(0);
-        CollisionChecker checker = game.getCollisionChecker();
-        if (checker == null || game.getPlayer() == null) return;
-
-        switch (c) {
-            case 'w' -> game.getPlayer().move(Direction.UP, checker);
-            case 's' -> game.getPlayer().move(Direction.DOWN, checker);
-            case 'a' -> game.getPlayer().move(Direction.LEFT, checker);
-            case 'd' -> game.getPlayer().move(Direction.RIGHT, checker);
-            case 'b' -> game.placeBomb();
-            case 'e' -> cycleBombType();
-            case 'q' -> game.detonateRemoteBombs();
-            case 'p' -> setGameState(GameState.PAUSED);
-            case 'r' -> game.restart();
-            case '\u001b' -> setGameState(GameState.MENU);
-            default -> { /* input tidak dikenali */ }
-        }
+    public void handleInput() {
     }
 
     private void cycleBombType() {
-        var current = game.getPlayer().getSelectedBombType();
-        var values = nabla.type.BombType.values();
-        int idx = (current.ordinal() + 1) % values.length;
-        if (game.getPlayer().isRemoteUnlocked() || values[idx] != nabla.type.BombType.REMOTE) {
-            game.getPlayer().setSelectedBombType(values[idx]);
-        }
     }
 }

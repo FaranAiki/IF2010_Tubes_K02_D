@@ -14,28 +14,22 @@ public class JavaFXController extends AbstractController {
         super(game);
     }
 
-    @Override
-    protected void handleMenu() {
+    public void handleMenu() {
     }
 
-    @Override
-    protected void handleHowToPlay() {
+    public void handleHowToPlay() {
         setGameState(GameState.MENU);
     }
 
-    @Override
-    protected void handlePlaying() {
+    public void handlePlaying() {
     }
 
-    @Override
-    protected void handlePaused() {
+    public void handlePaused() {
     }
 
-    @Override
-    protected void handleGameOver(GameState state) {
+    public void handleGameOver(GameState state) {
     }
 
-    @Override
-    public void handleInput(String input) {
+    public void handleInput() {
     }
 }

@@ -11,20 +11,30 @@ import nabla.type.GameState;
  * <p>
  * Setiap IController adalah thread-nya sendiri melalui {@link #start()} dan {@link #stop()},
  * mirip dengan GameLoop dan IRenderer.
+ * TODO: keknya IController & IRenderer bisa dilebur jadi ISceneHandler
  */
 public interface IController {
-    /** Memulai thread controller dan menjalankan loop kontrol. */
     void start();
 
-    /** Menghentikan thread controller. */
     void stop();
 
-    /** Mengecek apakah controller sedang berjalan. */
     boolean isRunning();
-
-    void handleInput(String input);
 
     GameState getGameState();
 
     void setGameState(GameState state);
+
+    /* TODO: kalau mau nambah scene harus mengatur Controller di sini */
+
+    void handleMenu();
+
+    void handleHowToPlay();
+
+    void handlePlaying();
+
+    void handlePaused();
+
+    void handleGameOver(GameState state);
+
+    void handleInput();
 }
