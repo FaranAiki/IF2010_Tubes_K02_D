@@ -10,7 +10,7 @@
 
 ## Anggota Kelompok
 18225122 Muhammad Faran Aiki
-[lanjutkan]
+18225066 Karen Evangeline Wahyudi
 
 ## Packaging
 
