@@ -19,7 +19,6 @@ public abstract class AbstractRenderer implements IRenderer {
         this.game = game;
     }
 
-    @Override
     public final void start() {
         if (running) {
             return;
@@ -29,7 +28,6 @@ public abstract class AbstractRenderer implements IRenderer {
         thread.start();
     }
 
-    @Override
     public final void stop() {
         running = false;
         if (thread != null) {
@@ -43,16 +41,15 @@ public abstract class AbstractRenderer implements IRenderer {
         renderExitMessage();
     }
 
-    @Override
     public final boolean isRunning() {
         return running;
     }
 
-    @Override
     public final Game getGame() {
         return game;
     }
 
+    /* TODO: keknya ini ngga bagus kalau buat nambah scene */
     private void renderLoop() {
         while (running) {
             GameState state = game.getGameState();

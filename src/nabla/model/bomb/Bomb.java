@@ -5,9 +5,10 @@ import nabla.model.bomb.ICanUseBomb;
 import nabla.model.Player;
 import nabla.type.BombType;
 import nabla.util.Position;
+import nabla.util.IUpdatable;
 
 /**
- * Bomb (abstract) — senjata utama player (F02).
+ * Bomb sebagai senjata utama player (F02).
  * <p>
  * <ul>
  *   <li><b>Design Pattern Template Method</b> {@link #update(double)} adalah template yang diatur
@@ -18,7 +19,7 @@ import nabla.util.Position;
  *       bom baru tanpa ubah code caller.</li>
  * </ul>
  */
-public abstract class Bomb extends Entity {
+public abstract class Bomb extends Entity implements IUpdatable {
     protected final BombType type;
     /* Entity bukan Player karena siapa tau mau diekstend ada enemy yg bisa punya bomb */
     protected final ICanUseBomb owner;
@@ -35,7 +36,6 @@ public abstract class Bomb extends Entity {
         this.blastRange = blastRange;
     }
 
-    @Override
     public void update(double deltaTime) {
         if (!isActive()) return;
         if (triggered) {

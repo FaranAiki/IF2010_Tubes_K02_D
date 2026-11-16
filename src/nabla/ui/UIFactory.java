@@ -12,9 +12,6 @@ import nabla.game.Game;
  * <b>Design Pattern Abstract Factory Pattern</b> Memisahkan pembuatan
  * family objek terkait tanpa menspesifikasikan kelas konkret.
  * <p>
- * Controller hanya menerima {@link Game} (Model). Ia tidak tahu-menahu soal
- * {@code GameLoop} maupun renderer; renderer dijalankan sendiri oleh pemanggil
- * via {@link IRenderer#start()}, sementara {@code GameLoop} dikelola terpisah.
  */
 public interface UIFactory {
     IRenderer createRenderer(Game game);

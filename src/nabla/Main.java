@@ -22,16 +22,16 @@ public class Main {
     public static void main(String[] args) {
         String ui = args.length > 0 ? args[0].trim().toLowerCase() : "javafx";
 
+        /* Model */
         Game game = new Game();
         GameLoop gameLoop = new GameLoop(game);
 
         /* Abstract factory di sini */
         UIFactory factory = UIModeFactory.getFactory(ui);
-        if (factory == null) {
-            System.exit(1);
-        }
 
+        /* View */
         IRenderer renderer = factory.createRenderer(game);
+        /* Controller */
         IController controller = factory.createController(game);
 
         /* GameLoop, Renderer, Controller masing-masing punya thread sendiri. */
