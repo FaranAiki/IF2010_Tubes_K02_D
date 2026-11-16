@@ -29,6 +29,9 @@ public final class Config {
     /** Durasi kebal setelah menerima damage, mencegah damage tiap tick (F03). */
     public static final double HIT_INVULNERABLE_TIME = 1.0;
 
+    public static final int SLEEPING_THREAD = 67;
+    public static final int FAST_SLEEPING_THREAD = 1;
+
     private Config() {}
 
     static {

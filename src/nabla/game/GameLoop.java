@@ -60,7 +60,7 @@ public class GameLoop implements Runnable {
             }
 
             try {
-                Thread.sleep(1);
+                Thread.sleep(Config.FAST_SLEEPING_THREAD);
             } catch (InterruptedException e) {
                 Thread.currentThread().interrupt();
                 break;

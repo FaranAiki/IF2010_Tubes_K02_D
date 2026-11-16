@@ -3,6 +3,8 @@ package nabla.controller;
 import nabla.game.Game;
 import nabla.type.GameState;
 
+import nabla.singleton.Config;
+
 /**
  * Base class untuk controller implementations.
  * <p>
@@ -110,7 +112,7 @@ public abstract class AbstractController implements IController {
     /** Sleep frame untuk rate limiting. */
     protected void sleepFrame() {
         try {
-            Thread.sleep(50);
+            Thread.sleep(Config.SLEEPING_THREAD);
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
             running = false;

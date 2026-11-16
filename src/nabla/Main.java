@@ -7,6 +7,8 @@ import nabla.ui.IRenderer;
 import nabla.ui.UIFactory;
 import nabla.ui.UIModeFactory;
 
+import nabla.singleton.Config;
+
 /**
  * Main entry point Nangor Blast (F09.1).
  * <p>
@@ -40,7 +42,7 @@ public class Main {
         /* Tunggu controller selesai (blocking main thread). */
         while (controller.isRunning()) {
             try {
-                Thread.sleep(100);
+                Thread.sleep(Config.SLEEPING_THREAD);
             } catch (InterruptedException e) {
                 Thread.currentThread().interrupt();
                 break;

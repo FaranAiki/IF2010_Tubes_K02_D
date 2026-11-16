@@ -2,6 +2,7 @@ package nabla.ui;
 
 import nabla.game.Game;
 import nabla.type.GameState;
+import nabla.singleton.Config;
 
 /**
  * Base class untuk renderer implementations.
@@ -71,7 +72,7 @@ public abstract class AbstractRenderer implements IRenderer {
 
     private void sleepFrame() {
         try {
-            Thread.sleep(50);
+            Thread.sleep(Config.SLEEPING_THREAD);
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
             running = false;
