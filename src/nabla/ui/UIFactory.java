@@ -1,8 +1,6 @@
 package nabla.ui;
 
-import nabla.game.GameLoop;
 import nabla.controller.IController;
-import nabla.game.MapLoader;
 import nabla.game.Game;
 
 /**
@@ -13,11 +11,15 @@ import nabla.game.Game;
  * <p>
  * <b>Design Pattern Abstract Factory Pattern</b> Memisahkan pembuatan
  * family objek terkait tanpa menspesifikasikan kelas konkret.
+ * <p>
+ * Controller hanya menerima {@link Game} (Model). Ia tidak tahu-menahu soal
+ * {@code GameLoop} maupun renderer; renderer dijalankan sendiri oleh pemanggil
+ * via {@link IRenderer#start()}, sementara {@code GameLoop} dikelola terpisah.
  */
 public interface UIFactory {
     IRenderer createRenderer(Game game);
 
-    IController createController(Game game, GameLoop gameLoop, IRenderer renderer, MapLoader mapLoader);
+    IController createController(Game game);
 
     String getModeName();
 }

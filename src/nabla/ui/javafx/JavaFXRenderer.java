@@ -1,8 +1,8 @@
 package nabla.ui.javafx;
 
+import nabla.ui.AbstractRenderer;
 import nabla.game.Game;
 import nabla.type.GameState;
-import nabla.ui.IRenderer;
 
 /**
  * JavaFX Renderer -- tampilan GUI JavaFX (placeholder).
@@ -10,11 +10,10 @@ import nabla.ui.IRenderer;
  * Implementasi IRenderer untuk JavaFX. Semua method masih stub dan
  * akan diisi sesuai kebutuhan UI JavaFX nantinya.
  */
-public class JavaFXRenderer implements IRenderer {
-    private final Game game;
+public class JavaFXRenderer extends AbstractRenderer {
 
     public JavaFXRenderer(Game game) {
-        this.game = game;
+        super(game);
     }
 
     @Override

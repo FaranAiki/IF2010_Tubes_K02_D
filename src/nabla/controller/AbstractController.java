@@ -1,31 +1,61 @@
 package nabla.controller;
 
-import nabla.game.GameLoop;
 import nabla.game.Game;
 import nabla.type.GameState;
-import nabla.ui.IRenderer;
 
 /**
  * Base class untuk controller implementations.
  * <p>
  * <b>Design Pattern Template Method</b> dengan menyediakan common logic,
  * subclass implementasikan handleInput spesifik platform.
+ * <p>
+ * Controller HANYA bergantung pada {@link Game} (Model). Tidak tahu-menahu
+ * soal {@code GameLoop} maupun renderer. Thread controller dikelola oleh
+ * {@link #start()}/{@link #stop()} secara internal.
  */
 public abstract class AbstractController implements IController {
     protected final Game game;
-    protected final GameLoop gameLoop;
-    protected final IRenderer renderer;
-    protected boolean running = true;
+    protected volatile boolean running = false;
+    private Thread thread;
 
-    protected AbstractController(Game game, GameLoop gameLoop, IRenderer renderer) {
+    protected AbstractController(Game game) {
         this.game = game;
-        this.gameLoop = gameLoop;
-        this.renderer = renderer;
     }
 
     @Override
+    public final void start() {
+        if (running) {
+            return;
+        }
+        running = true;
+        thread = new Thread(this::run, "Controller-" + getClass().getSimpleName());
+        thread.start();
+    }
+
+    @Override
+    public final void stop() {
+        running = false;
+        if (thread != null) {
+            thread.interrupt();
+            try {
+                thread.join(1000);
+            } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
+            }
+        }
+        shutdown();
+    }
+
+    @Override
+    public final boolean isRunning() {
+        return running;
+    }
+
+    /**
+     * Loop kontrol utama. Dijalankan di thread controller sendiri.
+     * Dipanggil oleh {@link #start()}.
+     */
     public final void run() {
-        gameLoop.start();
         onStart();
 
         while (running) {
@@ -33,6 +63,7 @@ public abstract class AbstractController implements IController {
 
             switch (state) {
                 case MENU -> handleMenu();
+                case HOW_TO_PLAY -> handleHowToPlay();
                 case PLAYING -> handlePlaying();
                 case PAUSED -> handlePaused();
                 case WIN, LOSE -> handleGameOver(state);
@@ -40,13 +71,6 @@ public abstract class AbstractController implements IController {
 
             sleepFrame();
         }
-
-        shutdown();
-    }
-
-    @Override
-    public final void stop() {
-        running = false;
     }
 
     @Override
@@ -66,6 +90,9 @@ public abstract class AbstractController implements IController {
 
     /** Handle menu state. */
     protected abstract void handleMenu();
+
+    /** Handle how to play state. */
+    protected abstract void handleHowToPlay();
 
     /** Handle playing state. */
     protected abstract void handlePlaying();
@@ -92,7 +119,6 @@ public abstract class AbstractController implements IController {
 
     /** Cleanup saat shutdown. */
     protected void shutdown() {
-        gameLoop.stop();
-        renderer.renderExitMessage();
+        /* Default: no-op; subclass boleh override jika perlu cleanup spesifik */
     }
 }

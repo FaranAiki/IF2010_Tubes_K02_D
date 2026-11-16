@@ -1,10 +1,7 @@
 package nabla.controller;
 
-import nabla.game.GameLoop;
-import nabla.game.MapLoader;
 import nabla.game.Game;
 import nabla.type.GameState;
-import nabla.ui.IRenderer;
 
 /**
  * Swing Controller placeholder untuk Swing implementation.
@@ -13,12 +10,17 @@ import nabla.ui.IRenderer;
  * Controller ini akan di-inject dengan Swing-specific components.
  */
 public class SwingController extends AbstractController {
-    public SwingController(Game game, GameLoop gameLoop, IRenderer renderer, MapLoader mapLoader) {
-        super(game, gameLoop, renderer);
+    public SwingController(Game game) {
+        super(game);
     }
 
     @Override
     protected void handleMenu() {
+    }
+
+    @Override
+    protected void handleHowToPlay() {
+        setGameState(GameState.MENU);
     }
 
     @Override

@@ -1,9 +1,7 @@
 package nabla.ui.swing;
 
-import nabla.game.GameLoop;
-import nabla.controller.IController;
-import nabla.game.MapLoader;
 import nabla.controller.SwingController;
+import nabla.controller.IController;
 import nabla.game.Game;
 import nabla.ui.IRenderer;
 import nabla.ui.UIFactory;
@@ -21,8 +19,8 @@ public class SwingFactory implements UIFactory {
     }
 
     @Override
-    public IController createController(Game game, GameLoop gameLoop, IRenderer renderer, MapLoader mapLoader) {
-        return new SwingController(game, gameLoop, renderer, mapLoader);
+    public IController createController(Game game) {
+        return new SwingController(game);
     }
 
     @Override

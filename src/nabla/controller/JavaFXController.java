@@ -1,10 +1,7 @@
 package nabla.controller;
 
-import nabla.game.GameLoop;
-import nabla.game.MapLoader;
 import nabla.game.Game;
 import nabla.type.GameState;
-import nabla.ui.IRenderer;
 
 /**
  * JavaFX Controller placeholder untuk JavaFX implementation.
@@ -13,12 +10,17 @@ import nabla.ui.IRenderer;
  * Controller ini akan di-inject dengan JavaFX-specific components.
  */
 public class JavaFXController extends AbstractController {
-    public JavaFXController(Game game, GameLoop gameLoop, IRenderer renderer, MapLoader mapLoader) {
-        super(game, gameLoop, renderer);
+    public JavaFXController(Game game) {
+        super(game);
     }
 
     @Override
     protected void handleMenu() {
+    }
+
+    @Override
+    protected void handleHowToPlay() {
+        setGameState(GameState.MENU);
     }
 
     @Override

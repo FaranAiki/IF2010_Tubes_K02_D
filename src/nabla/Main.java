@@ -1,9 +1,8 @@
 package nabla;
 
 import nabla.game.GameLoop;
-import nabla.game.MapLoader;
-import nabla.controller.IController;
 import nabla.game.Game;
+import nabla.controller.IController;
 import nabla.ui.IRenderer;
 import nabla.ui.UIFactory;
 import nabla.ui.UIModeFactory;
@@ -23,7 +22,6 @@ public class Main {
 
         Game game = new Game();
         GameLoop gameLoop = new GameLoop(game);
-        MapLoader mapLoader = new MapLoader();
 
         /* Abstract factory di sini */
         UIFactory factory = UIModeFactory.getFactory(ui);
@@ -32,7 +30,25 @@ public class Main {
         }
 
         IRenderer renderer = factory.createRenderer(game);
-        IController controller = factory.createController(game, gameLoop, renderer, mapLoader);
-        controller.run();
+        IController controller = factory.createController(game);
+
+        /* GameLoop, Renderer, Controller masing-masing punya thread sendiri. */
+        gameLoop.start();
+        renderer.start();
+        controller.start();
+
+        /* Tunggu controller selesai (blocking main thread). */
+        while (controller.isRunning()) {
+            try {
+                Thread.sleep(100);
+            } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
+                break;
+            }
+        }
+
+        /* Shutdown semuanya. */
+        renderer.stop();
+        gameLoop.stop();
     }
 }

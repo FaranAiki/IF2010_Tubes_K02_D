@@ -1,11 +1,9 @@
 package nabla.controller;
 
-import nabla.game.GameLoop;
 import nabla.game.MapLoader;
 import nabla.model.collision.CollisionChecker;
 import nabla.game.Game;
 import nabla.type.GameState;
-import nabla.ui.IRenderer;
 import nabla.util.Direction;
 
 import java.util.Scanner;
@@ -20,25 +18,21 @@ public class CLIController extends AbstractController {
     private final Scanner scanner;
     private final MapLoader mapLoader;
 
-    public CLIController(Game game, GameLoop gameLoop, IRenderer renderer, MapLoader mapLoader) {
-        super(game, gameLoop, renderer);
+    public CLIController(Game game) {
+        super(game);
         this.scanner = new Scanner(System.in);
-        this.mapLoader = mapLoader;
+        this.mapLoader = new MapLoader();
     }
 
     @Override
     protected void handleMenu() {
-        renderer.renderMenu();
         String choice = scanner.nextLine().trim();
 
         switch (choice) {
             case "1" -> loadDefaultMap();
-            case "2" -> {
-                renderer.renderHowToPlay();
-                scanner.nextLine(); /* tunggu Enter */
-            }
+            case "2" -> setGameState(GameState.HOW_TO_PLAY);
             case "3" -> running = false;
-            default -> renderer.renderInvalidChoice();
+            default -> { /* input tidak dikenali */ }
         }
     }
 
@@ -47,15 +41,19 @@ public class CLIController extends AbstractController {
     }
 
     @Override
+    protected void handleHowToPlay() {
+        scanner.nextLine(); /* tunggu Enter */
+        setGameState(GameState.MENU);
+    }
+
+    @Override
     protected void handlePlaying() {
-        renderer.renderGame(game);
         String input = scanner.nextLine().trim().toLowerCase();
         handleInput(input);
     }
 
     @Override
     protected void handlePaused() {
-        renderer.renderPaused();
         String input = scanner.nextLine().trim().toLowerCase();
 
         switch (input) {
@@ -67,8 +65,6 @@ public class CLIController extends AbstractController {
 
     @Override
     protected void handleGameOver(GameState state) {
-        renderer.renderGameOver(state);
-        renderer.renderGameOverOptions();
         String input = scanner.nextLine().trim().toLowerCase();
 
         switch (input) {

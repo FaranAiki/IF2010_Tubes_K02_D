@@ -1,8 +1,8 @@
 package nabla.ui.swing;
 
+import nabla.ui.AbstractRenderer;
 import nabla.game.Game;
 import nabla.type.GameState;
-import nabla.ui.IRenderer;
 
 /**
  * Swing Renderer -- tampilan GUI Swing (placeholder).
@@ -10,11 +10,10 @@ import nabla.ui.IRenderer;
  * Implementasi IRenderer untuk Swing. Semua method masih stub dan
  * akan diisi sesuai kebutuhan UI Swing nantinya.
  */
-public class SwingRenderer implements IRenderer {
-    private final Game game;
+public class SwingRenderer extends AbstractRenderer {
 
     public SwingRenderer(Game game) {
-        this.game = game;
+        super(game);
     }
 
     @Override
@@ -38,6 +37,11 @@ public class SwingRenderer implements IRenderer {
     }
 
     @Override
+    public void renderGameOverOptions() {
+        // TODO: Swing opsi setelah game over
+    }
+
+    @Override
     public void renderInvalidChoice() {
         // TODO: Swing pesan pilihan tidak valid
     }
@@ -45,11 +49,6 @@ public class SwingRenderer implements IRenderer {
     @Override
     public void renderPaused() {
         // TODO: Swing layar pause
-    }
-
-    @Override
-    public void renderGameOverOptions() {
-        // TODO: Swing opsi setelah game over
     }
 
     @Override

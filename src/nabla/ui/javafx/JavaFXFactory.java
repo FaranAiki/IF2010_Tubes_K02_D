@@ -1,9 +1,7 @@
 package nabla.ui.javafx;
 
-import nabla.game.GameLoop;
 import nabla.controller.IController;
 import nabla.controller.JavaFXController;
-import nabla.game.MapLoader;
 import nabla.game.Game;
 import nabla.ui.IRenderer;
 import nabla.ui.UIFactory;
@@ -21,8 +19,8 @@ public class JavaFXFactory implements UIFactory {
     }
 
     @Override
-    public IController createController(Game game, GameLoop gameLoop, IRenderer renderer, MapLoader mapLoader) {
-        return new JavaFXController(game, gameLoop, renderer, mapLoader);
+    public IController createController(Game game) {
+        return new JavaFXController(game);
     }
 
     @Override

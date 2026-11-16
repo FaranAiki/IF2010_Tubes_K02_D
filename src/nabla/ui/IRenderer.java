@@ -9,8 +9,21 @@ import nabla.type.GameState;
  * Mengikuti prinsip Interface Segregation, yaitu hanya method yang dibutuhkan
  * untuk rendering (menu, game, game over) sehingga bisa dipanggil
  * oleh Main dan lain-lain tanpa harus mementingkan atribut.
+ * <p>
+ * Renderer bertanggung jawab penuh atas siklus hidup rendering-nya sendiri
+ * ({@link #start()}/{@link #stop()}) dan membaca state permainan dari
+ * {@link Game}. Controller tidak perlu tahu-menahu soal rendering.
  */
 public interface IRenderer {
+    /** Mulai thread rendering. */
+    void start();
+
+    void stop();
+
+    boolean isRunning();
+
+    Game getGame();
+
     void renderMenu();
 
     void renderHowToPlay();
@@ -19,11 +32,11 @@ public interface IRenderer {
 
     void renderGameOver(GameState state);
 
-    void renderInvalidChoice();
+    void renderGameOverOptions();
 
     void renderPaused();
 
-    void renderGameOverOptions();
+    void renderInvalidChoice();
 
     void renderExitMessage();
 }

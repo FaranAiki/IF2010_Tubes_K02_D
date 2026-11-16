@@ -1,13 +1,10 @@
 package nabla.ui.cli;
 
-import nabla.ui.IRenderer;
+import nabla.ui.AbstractRenderer;
 import nabla.game.Game;
-import nabla.model.Entity;
-import nabla.model.Player;
 import nabla.model.world.Map;
 import nabla.type.GameState;
 import nabla.type.TileType;
-import nabla.util.Position;
 
 /**
  * Console Renderer -- tampilan terminal (CLI).
@@ -21,11 +18,10 @@ import nabla.util.Position;
  *   </li>
  * </ul>
  */
-public class ConsoleRenderer implements IRenderer {
-    private final Game game;
+public class ConsoleRenderer extends AbstractRenderer {
 
     public ConsoleRenderer(Game game) {
-        this.game = game;
+        super(game);
     }
 
     @Override
@@ -61,7 +57,6 @@ public class ConsoleRenderer implements IRenderer {
     public void renderPaused() {
 
     }
-
 
     @Override
     public void renderGameOverOptions() {

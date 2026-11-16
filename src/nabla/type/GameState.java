@@ -12,6 +12,8 @@ public enum GameState {
     PLAYING,
     /** Permainan jeda. */
     PAUSED,
+    /** How to play. */
+    HOW_TO_PLAY,
     /** Pemenang. */
     WIN,
     /** Kalah. */
