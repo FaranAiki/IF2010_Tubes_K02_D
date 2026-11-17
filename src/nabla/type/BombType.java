@@ -4,6 +4,7 @@ package nabla.type;
  * Jenis bom yang dapat dipilih pemain.
  * <p>
  * Mengikuti F02.2 - Jenis Bomb.
+ * TODO apakah ini benar-benar dipakai?
  */
 public enum BombType {
     /** Ledak 3 detik, jangkauan mengikuti blastRange player (F02.2.1). */

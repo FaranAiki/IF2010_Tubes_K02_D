@@ -15,7 +15,6 @@ import nabla.type.GameState;
  * {@link Game}. Controller tidak perlu tahu-menahu soal rendering.
  */
 public interface IRenderer {
-    /** Mulai thread rendering. */
     void start();
 
     void stop();

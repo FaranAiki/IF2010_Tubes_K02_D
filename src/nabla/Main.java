@@ -26,7 +26,7 @@ public class Main {
         Game game = new Game();
         GameLoop gameLoop = new GameLoop(game);
 
-        /* Abstract factory di sini */
+        /* Abstract factory di sini yang diperoleh menggunakan Simple Factory */
         UIFactory factory = UIModeFactory.getFactory(ui);
 
         /* View */
