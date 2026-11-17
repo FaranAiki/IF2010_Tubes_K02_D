@@ -81,4 +81,4 @@ Karena kode sumber ini sangat modular, kita bisa mengganti menjadi CLI (konsol),
 
 ## Lainnya
 Pada docs/, ada file UMLDiagramNabla.xml. Pembuatan file ini menggunakan draw.io/app.diagrams.net
-pada tautan https://app.diagrams.net/#HFaranAiki%2FIF2010_Tubes_K02_D%2Fmain%2Fdocs%2FUMLDiagramNabla.xml#%7B%22pageId%22%3A%222PS958qAnQS8cTZ2HRzd%22%7D
+pada tautan https://app.diagrams.net/#G1OGAyFIHJO_IdKPHEpDYEuTy92mYUV97n#%7B%22pageId%22%3A%222PS958qAnQS8cTZ2HRzd%22%7D
