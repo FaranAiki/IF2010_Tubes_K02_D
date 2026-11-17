@@ -18,8 +18,9 @@ import java.util.List;
 /**
  * Player (Deeper) entitas yang dikendalikan pemain.
  * <p>
- * Menggunakan Composition: memiliki HealthStats, BombInventory, dan IMovementStrategy.
- * Pergerakan diatur oleh Strategy Pattern (Normal/IceSlide/WaterSlow) tanpa ubah move().
+ * Menggunakan Composition: memiliki HealthStats dan BombInventory.
+ * Pergerakan didelegasikan ke CollisionChecker (stepping + ice slide),
+ * sehingga aturan tile tidak terikat pada Player.
  */
 public class Player extends Entity implements ICanUseBomb {
     private Direction direction = null;
@@ -42,18 +43,18 @@ public class Player extends Entity implements ICanUseBomb {
      * Gerak player ke arah tertentu.
      * <p>
      * Alur: Controller -> Player -> CollisionChecker -> balik ke Player.
-     * Player nanya checker apakah bisa bergerak, jika bisa update posisi.
+     * Logika pergerakan (stepping + ice slide) berada di CollisionChecker
+     * supaya aturan tile tidak terikat pada Player.
      */
     public boolean move(Direction dir, CollisionChecker checker) {
         this.direction = dir;
-        if (checker.canMove(position, dir, this)) {
-            position = dir.deltaPosition().add(position);
-            if (checker != null) {
-                checker.resolveCollisions(this, position);
-            }
-            return true;
+        if (checker == null) return false;
+        Position newPos = checker.moveWithSlide(this, dir);
+        if (newPos == null || !newPos.equals(position)) {
+            return false;
         }
-        return false;
+        position = newPos;
+        return true;
     }
 
     public boolean placeBomb() {

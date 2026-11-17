@@ -11,13 +11,13 @@ all: build
 # Hanya untuk check build saja
 build:
 	@mkdir -p $(BIN_DIR)
-	javac -d $(BIN_DIR) $(SOURCES)
+	javac -cp lib/lanterna-3.1.3.jar -d $(BIN_DIR) $(SOURCES)
 
 # Default: jalankan dengan UI JavaFX
 run: run-javafx
 
 run-cli: build
-	java -cp $(BIN_DIR) nabla.Main cli
+	java -cp $(BIN_DIR):lib/lanterna-3.1.3.jar nabla.Main cli
 
 run-swing: build
 	java -cp $(BIN_DIR) nabla.Main swing
@@ -37,7 +37,7 @@ test: build
 			continue; \
 		fi; \
 		tmp=$$(mktemp); \
-		if java -cp $(BIN_DIR) nabla.Main cli < "$$in" > "$$tmp"; then \
+		if java -cp $(BIN_DIR):lib/lanterna-3.1.3.jar nabla.Main cli < "$$in" > "$$tmp"; then \
 			if diff -u "$$out" "$$tmp" > /dev/null; then \
 				echo "BERHASIL $$base"; pass=$$((pass+1)); \
 			else \

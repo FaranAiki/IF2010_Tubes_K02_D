@@ -52,6 +52,30 @@ public class CollisionChecker {
         return true;
     }
 
+    /**
+     * Gerakkan entitas satu langkah ke arah tertentu, lalu terus meluncur
+     * selama tile yang baru diinjak adalah Ice Tile dan masih dapat bergerak.
+     * <p>
+     * Logika pergerakan (stepping + ice slide) dipusatkan di sini, bukan di
+     * Player, supaya aturan tile tidak terikat pada satu jenis entitas dan
+     * collision handling tetap berada di satu tempat.
+     *
+     * @return posisi akhir entitas setelah gerak; sama dengan posisi awal bila
+     *         entitas tidak dapat bergerak sama sekali.
+     */
+    public Position moveWithSlide(Entity entity, Direction direction) {
+        if (entity == null || direction == null) return entity != null ? entity.getPosition() : null;
+        Position position = entity.getPosition();
+        if (position == null || !canMove(position, direction, entity)) {
+            return position;
+        }
+        do {
+            position = direction.deltaPosition().add(position);
+            resolveCollisions(entity, position);
+        } while (getTileAt(position) == TileType.ICE && canMove(position, direction, entity));
+        return position;
+    }
+
     public List<Entity> getCollisionsAt(Position pos, Entity mover) {
         List<Entity> collisions = new ArrayList<>();
         for (Entity entity : collidablesSupplier.get()) {

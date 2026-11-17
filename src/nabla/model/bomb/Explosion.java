@@ -29,7 +29,7 @@ public class Explosion extends Entity {
         this.bombType = bombType;
         this.duration = duration;
         this.applied = false;
-        this.damage = 0;
+        this.damage = 1;
     }
 
     public Explosion(Position position, int blastRange, ICanUseBomb owner, double duration) {

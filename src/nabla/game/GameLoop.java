@@ -151,8 +151,11 @@ public class GameLoop implements Runnable {
             }
         }
 
-        Map map = game.getCurrentMap();
-        for (Position p: affected) {
+         Map map = game.getCurrentMap();
+         if (game.getPlayer() != null && game.getPlayer().isActive()) {
+             game.getPlayer().applyExplosion(damage, affected);
+         }
+         for (Position p: affected) {
             Block block = map.getBlockAt(p);
             if (block != null && block.isDestructibleByExplosion()) {
                 block.destroy();
